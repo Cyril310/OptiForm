@@ -275,8 +275,18 @@
             .review-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1.5rem; }
             .review-card { min-width: 85%; scroll-snap-align: center; }
         }
-        
         .pricing-card.featured .submit-btn { background: #d35400; box-shadow: 0 10px 20px rgba(211, 84, 0, 0.4); font-weight: 800; }
+
+        .spinner {
+            width: 20px; height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            display: none; /* Caché par défaut */
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
     </style>
 </head>
 <body>
@@ -516,7 +526,10 @@
                     </label>
                 </div>
             
-                <button type="submit" class="submit-btn" id="btn-bilan">Recevoir mon Aperçu Gratuit</button>
+                <button type="submit" class="submit-btn" id="btn-bilan" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                    <span class="spinner"></span>
+                    <span id="btn-text">Recevoir mon Aperçu Gratuit</span>
+                </button>
             </form>
         </div>
     </section>
@@ -542,16 +555,27 @@
     <div id="resultModal" class="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeResultModal()">×</button>
-            <h3 style="color: var(--primary-blue); margin-bottom: 1rem; text-align: center;">Profil : <span id="result-name"></span></h3>
-            <div id="result-details" style="background: var(--light-blue); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
-                </div>
-            <h4 style="color: var(--primary-orange); margin-bottom: 1rem;">Prochaine Étape</h4>
-            <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">
-                Votre pré-programme a été généré. Pour obtenir le plan complet validé par un coach, réservez votre entretien :
+            
+            <div style="font-size: 4rem; margin-bottom: 1rem;">📩</div>
+            <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">Analyse Envoyée !</h3>
+            
+            <p style="color: var(--text-dark); margin-bottom: 1.5rem; font-size: 1.1rem;">
+                Bravo <span id="result-name" style="font-weight:bold;"></span>, votre profil a été analysé.
             </p>
-            <a href="#offres" class="btn btn-primary" onclick="closeResultModal()" style="width: 100%; text-align: center;">Voir les Offres</a>
+    
+            <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 10px; border: 1px solid #c8e6c9; text-align: left; margin-bottom: 2rem;">
+                <p style="color: #2e7d32; font-weight: 600; margin-bottom: 0.5rem;">⚠️ Sécurité des données :</p>
+                <p style="font-size: 0.95rem; line-height: 1.5;">
+                    Pour garantir la confidentialité, votre rapport complet et le <strong>lien de réservation</strong> ont été envoyés uniquement sur votre adresse email.
+                </p>
+            </div>
+            
+            <button onclick="closeResultModal()" class="submit-btn" style="background:var(--primary-blue);">
+                J'ai compris, je vais voir mes mails
+            </button>
         </div>
     </div>
+
 
     <div id="bookingModal" class="modal">
         <div class="modal-content">
@@ -635,56 +659,59 @@
             resultModal.style.display = 'flex';
         }
 
-        async function handleSubmit(e, type) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
+       async function handleSubmit(e, type) {
+        e.preventDefault();
+        const btn = document.getElementById('btn-bilan');
+        const btnText = document.getElementById('btn-text');
+        const spinner = btn.querySelector('.spinner'); // On cible la roue
     
-    // Si c'est le formulaire de Bilan
-    if (type === 'bilan') {
-        const originalText = btn.innerText;
-        btn.innerText = "🧠 Analyse IA en cours... (Patientez)";
-        btn.style.background = "#e67e22";
-        btn.disabled = true;
-
-        // Collecte des données
-        const formData = {
-            nom: document.getElementById('bilan-nom').value,
-            email: document.getElementById('bilan-email').value,
-            objectif: document.getElementById('bilan-objectif').value,
-            // On récupère la valeur du select ou de la 3D
-            douleur: document.getElementById('bilan-description').value, 
-            description: document.getElementById('bilan-description').value, // Adapte selon tes IDs
-            sommeil: document.getElementById('bilan-sommeil').value
-        };
-
-        try {
-            // APPEL AU BACKEND NETLIFY
-            // Note : '/.netlify/functions/analyze' est l'adresse standard créée automatiquement
-            const response = await fetch('/.netlify/functions/analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                // SUCCÈS
-                btn.innerText = "Analyse envoyée !";
-                btn.style.background = "#27ae60";
-                
-                // Affichage de la modale de succès (Vente)
-                showSuccessModal(formData.nom);
-            } else {
-                throw new Error("Erreur serveur");
+        if (type === 'bilan') {
+            // 1. ON LANCE L'ANIMATION
+            btnText.innerText = "IA en cours de réflexion...";
+            spinner.style.display = "inline-block"; // La roue apparaît
+            btn.style.background = "#e67e22";
+            btn.disabled = true; // On bloque le clic
+    
+            const formData = {
+                nom: document.getElementById('bilan-nom').value,
+                email: document.getElementById('bilan-email').value,
+                objectif: document.getElementById('bilan-objectif').value,
+                douleur: document.getElementById('bilan-description').value, 
+                description: document.getElementById('bilan-description').value,
+                sommeil: document.getElementById('bilan-sommeil').value
+            };
+    
+            try {
+                const response = await fetch('/.netlify/functions/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+    
+                if (response.ok) {
+                    // SUCCÈS : ON ARRÊTE L'ANIMATION
+                    btnText.innerText = "Analyse Envoyée !";
+                    spinner.style.display = "none";
+                    btn.style.background = "#27ae60";
+                    
+                    // On ouvre la modale "Check tes mails"
+                    document.getElementById('result-name').innerText = formData.nom;
+                    document.getElementById('resultModal').style.display = 'flex';
+                } else {
+                    throw new Error("Erreur serveur");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Erreur de connexion.");
+                // En cas d'erreur, on remet le bouton normal
+                btnText.innerText = "Réessayer";
+                spinner.style.display = "none";
+                btn.style.background = "";
+                btn.disabled = false;
             }
-        } catch (error) {
-            console.error(error);
-            alert("Une erreur est survenue. Vérifiez votre connexion.");
-            btn.innerText = originalText;
-            btn.style.background = "";
-            btn.disabled = false;
         }
     }
-}
+
 
         // Fonction Modale de Vente (A ajouter si elle n'existe pas déjà)
         function showSuccessModal(nom) {
