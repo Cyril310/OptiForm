@@ -549,35 +549,50 @@
         <p class="section-subtitle">Répondez à quelques questions pour recevoir un aperçu de votre programme personnalisé par IA.</p>
         <div class="form-box">
             <form onsubmit="handleSubmit(event, 'bilan')">
-                <div class="form-group">
-                    <label>Nom complet</label>
-                    <input type="text" class="form-input" required placeholder="Votre nom">
+            <div class="form-group">
+                <label>Nom complet</label>
+                <input type="text" class="form-input" id="bilan-nom" required placeholder="Votre nom">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-input" id="bilan-email" required placeholder="votre@email.com">
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Votre âge</label>
+                    <input type="number" class="form-input" id="bilan-age" min="18" max="99" required placeholder="Ex: 35">
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-input" required placeholder="votre@email.com">
+                <div class="form-group" style="flex: 1;">
+                    <label>Votre taille (cm)</label>
+                    <input type="number" class="form-input" id="bilan-taille" min="100" max="250" required placeholder="Ex: 175">
                 </div>
-                <div class="form-group">
-                    <label>Quel est votre objectif principal ?</label>
-                    <select class="form-input" required>
-                        <option value="">-- Choisissez un objectif --</option>
-                        <option value="perte">Perte de Poids / Minceur</option>
-                        <option value="muscle">Gain Musculaire / Performance</option>
-                        <option value="douleur">Réduction de Douleur / Posture</option>
-                        <option value="energie">Retrouver de l'Énergie / Bien-être</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Décrivez brièvement votre situation (douleurs, historique...)</label>
-                    <textarea class="form-input" required placeholder="J'ai mal au genou droit après 10km, je suis sédentaire, je souhaite faire X..."></textarea>
-                </div>
-                <div class="form-group" style="text-align: left; margin-top: 2rem;">
-                    <input type="checkbox" id="newsletter" name="newsletter" checked style="width: auto; margin-right: 0.5rem; transform: scale(1.2);">
-                    <label for="newsletter" style="display: inline; font-weight: 500; font-size: 0.95rem; color: var(--text-dark);">Oui, je souhaite recevoir votre newsletter hebdomadaire et des conseils exclusifs.</label>
-                </div>
-    
-                <button type="submit" class="submit-btn">Recevoir mon Aperçu Gratuit</button>
-            </form>
+            </div>
+            
+            <div class="form-group">
+                <label>Quel est votre objectif principal ?</label>
+                <select class="form-input" id="bilan-objectif" required>
+                    <option value="">-- Choisissez un objectif --</option>
+                    <option value="perte">Perte de Poids / Minceur</option>
+                    <option value="muscle">Gain Musculaire / Performance</option>
+                    <option value="douleur">Réduction de Douleur / Posture</option>
+                    <option value="energie">Retrouver de l'Énergie / Bien-être</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Décrivez votre historique de blessures/douleurs</label>
+                <textarea class="form-input" id="bilan-description" required placeholder="J'ai mal au genou droit depuis un an, ancienne entorse cheville, sédentaire..."></textarea>
+            </div>
+            
+            <div class="form-group" style="text-align: left; margin-top: 2rem;">
+                <input type="checkbox" id="newsletter" name="newsletter" checked style="width: auto; margin-right: 0.5rem; transform: scale(1.2);">
+                <label for="newsletter" style="display: inline; font-weight: 500; font-size: 0.95rem; color: var(--text-dark);">
+                    Oui, je m'abonne à la newsletter (conseils exclusifs offerts).
+                </label>
+            </div>
+        
+            <button type="submit" class="submit-btn">Recevoir mon Aperçu Gratuit</button>
+        </form>
             </div>
     </section>
 
@@ -597,8 +612,27 @@
             <a href="#" style="color: white; text-decoration: underline;">Politique de Confidentialité</a>
         </p>
 </div>
-
     </footer>
+
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeResultModal()">×</button>
+            <h3 style="color: var(--primary-blue); margin-bottom: 1rem; text-align: center;">Votre Profil Coach IA <span id="result-name"></span></h3>
+            <p class="section-subtitle" style="margin-bottom: 2rem;">
+                Voici l'analyse rapide de votre profil biomécanique par notre IA.
+            </p>
+    
+            <div id="result-details" style="background: var(--light-blue); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+                </div>
+    
+            <h4 style="color: var(--primary-orange); margin-bottom: 1rem;">Prochaine Étape : Débloquez votre Plan Complet</h4>
+            <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">
+                Un aperçu détaillé de votre programme a été envoyé par mail. Pour obtenir votre programme complet et planifié, y compris la validation ostéopathique, réservez votre entretien de lancement :
+            </p>
+            <a href="#offres" class="btn btn-primary" onclick="closeResultModal()" style="width: 100%; text-align: center;">Découvrir les Offres et Réserver</a>
+        </div>
+    </div>
+
 
     <div id="bookingModal" class="modal">
         <div class="modal-content">
@@ -631,60 +665,123 @@
     </div>
 
     <script>
-        function toggleMenu() {
-            const nav = document.getElementById('navLinks');
-            nav.classList.toggle('active');
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+    }
+
+    const bookingModal = document.getElementById('bookingModal');
+    const resultModal = document.getElementById('resultModal'); // Nouvelle modale
+
+    // Fonctions d'ouverture/fermeture des modales
+    function openBooking(offerName) {
+        document.getElementById('modal-offer-name').innerText = offerName;
+        bookingModal.style.display = 'flex';
+    }
+
+    function closeBooking() {
+        bookingModal.style.display = 'none';
+    }
+
+    function closeResultModal() {
+        resultModal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == bookingModal) {
+            closeBooking();
+        }
+        if (event.target == resultModal) {
+            closeResultModal();
+        }
+    }
+
+    // Fonction de génération et affichage du résultat du Bilan
+    function showBilanResult(data) {
+        const name = data.nom.split(' ')[0];
+        const goal = data.objectif;
+        const target = document.getElementById('result-details');
+        document.getElementById('result-name').innerText = name;
+
+        let analyse = "";
+        let recommendation = "";
+
+        if (goal === 'perte') {
+            analyse = "Votre profil indique un besoin de déficit calorique léger et d'exercices métaboliques. Notre IA recommandera un focus sur l'endurance musculaire.";
+            recommendation = "Objectif principal : Perte de graisse ciblée.";
+        } else if (goal === 'muscle') {
+            analyse = "Votre profil est idéal pour un cycle d'hypertrophie. L'IA ciblera des exercices à haute intensité (charge lourde/volume moyen).";
+            recommendation = "Objectif principal : Gain de masse musculaire et force.";
+        } else if (goal === 'douleur') {
+            analyse = "Étant donné vos douleurs (signalées dans l'historique), l'IA va prioriser les exercices de mobilité et de renforcement postural (core).";
+            recommendation = "Objectif principal : Stabilisation et réduction des douleurs.";
+        } else { // energie
+            analyse = "Votre bilan suggère un travail sur l'énergie globale et la récupération. L'IA équilibrera le travail de force et les techniques de respiration.";
+            recommendation = "Objectif principal : Amélioration du bien-être et de l'énergie.";
         }
 
-        const modal = document.getElementById('bookingModal');
-        
-        function openBooking(offerName) {
-            document.getElementById('modal-offer-name').innerText = offerName;
-            modal.style.display = 'flex';
-        }
+        // Ajout des détails dans la modale de résultat
+        target.innerHTML = `
+            <p style="font-weight: 600; color: var(--primary-blue); margin-bottom: 0.5rem;">${recommendation}</p>
+            <p style="font-size: 0.95rem;">${analyse}</p>
+            <ul style="list-style: none; padding: 0; margin-top: 1rem; font-size: 0.9rem;">
+                <li>✅ Votre programme tiendra compte de votre taille (${data.taille}cm) et de votre âge (${data.age} ans).</li>
+                <li>✅ Newsletter: ${data.newsletter ? 'Inscrit(e) !' : 'Non-inscrit.'}</li>
+            </ul>
+        `;
 
-        function closeBooking() {
-            modal.style.display = 'none';
-        }
+        resultModal.style.display = 'flex';
+    }
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeBooking();
+    function handleSubmit(e, type) {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        const originalText = btn.innerText;
+
+        btn.innerText = "Analyse en cours...";
+        btn.style.background = "#27ae60";
+
+        setTimeout(() => {
+            if (type === 'booking') {
+                alert("Demande reçue ! Je reviens vers vous sous 24h pour l'entretien.");
+            } else if (type === 'bilan') {
+                // Collecte des données du bilan
+                const data = {
+                    nom: document.getElementById('bilan-nom').value,
+                    email: document.getElementById('bilan-email').value,
+                    age: document.getElementById('bilan-age').value,
+                    taille: document.getElementById('bilan-taille').value,
+                    objectif: document.getElementById('bilan-objectif').value,
+                    description: document.getElementById('bilan-description').value,
+                    newsletter: document.getElementById('newsletter').checked
+                };
+                
+                // 1. Affichage du rendu
+                showBilanResult(data);
+                
+                // 2. Simulation de l'automatisation mail/newsletter
+                // (Ici, un code back-end réel enverrait l'email et enregistrerait l'abonné)
+                // Le client reçoit son mail de confirmation grâce à la soumission du formulaire
             }
-        }
-
-        // Remplacez votre fonction handleSubmit existante
-        function handleSubmit(e, type) {
+            
+            form.reset();
+            btn.innerText = originalText;
+            btn.style.background = "";
+            if(type === 'booking') closeBooking();
+            
+        }, 1500);
+    }
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
-        
-            btn.innerText = "Envoi en cours...";
-            btn.style.background = "#27ae60";
-        
-            setTimeout(() => {
-                alert(type === 'booking'
-                    ? "Demande reçue ! Je reviens vers vous sous 24h pour l'entretien."
-                    : type === 'bilan' // Nouveau message pour le bilan
-                    ? "Félicitations ! Votre aperçu de programme et votre premier conseil par mail sont en route. Vérifiez vos spams si rien n'apparaît sous 5 minutes."
-                    : "Message envoyé avec succès !");
-        
-                e.target.reset();
-                btn.innerText = originalText;
-                btn.style.background = "";
-                if(type === 'booking') closeBooking();
-            }, 1500);
-        }
-
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
