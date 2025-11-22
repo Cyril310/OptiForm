@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching Personnalisé IA - Transformation Corps & Esprit</title>
+    <style>
+        :root {
+            --primary-blue: #2b5f7f;
+            --primary-orange: #e67e22;
+            --dark-blue: #1a3d52;
+            --light-blue: #e8f4f8;
+            --cream: #f9f6f2;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --success: #27ae60;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient-hero: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            --gradient-cta: linear-gradient(135deg, var(--primary-orange) 0%, #d35400 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--cream);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .cta-nav {
+            background: var(--gradient-cta);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-hero);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0 Q300,40 600,20 T1200,0 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--gradient-cta);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-blue);
+        }
+
+        /* Trust Badges */
+        .trust-section {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .trust-badges {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .trust-icon {
+            color: var(--success);
+            font-size: 1.5rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Innovation Section */
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .innovation-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .innovation-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .innovation-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-cta);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--light-blue);
+            padding: 4rem 2rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--primary-orange);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--gradient-cta);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-title {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-subtitle {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .pricing-price {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+        }
+
+        .price-period {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li:before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-cta);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pricing-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        /* Objection Crusher */
+        .objection-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .objection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .objection-card {
+            padding: 2rem;
+            background: var(--light-blue);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .objection-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: var(--gradient-hero);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            padding: 1rem 2rem;
+            background: var(--gradient-cta);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 2rem;
+            background: var(--cream);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient-cta);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-orange);
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/2fc53047-1c89-42cd-807e-63c37986e7da" alt="Logo" class="logo">
+                <span class="brand-name">Coaching IA Personnalisé</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#comment">Comment ça marche</a></li>
+                <li><a href="#offres">Nos Offres</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#offres" class="cta-nav">Découvrir les Offres</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h1>Transformez Votre Corps & Votre Esprit avec l'IA et l'Expertise Humaine</h1>
+            <p class="hero-subtitle">Le premier programme de coaching qui s'adapte VRAIMENT à vous. Ostéopathie + Coaching Sportif + Intelligence Artificielle = Résultats garantis et durables</p>
+            <div class="hero-cta">
+                <a href="#offres" class="btn-primary">Découvrir Mon Programme</a>
+                <a href="#comment" class="btn-secondary">Comment ça marche ?</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-section">
+        <div class="trust-badges">
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Ostéopathe Diplômé</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Coach Sportif Certifié</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Programmes Scientifiques</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Suivi 100% Personnalisé</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section -->
+    <section class="container">
+        <h2 class="section-title">Une Révolution dans le Coaching</h2>
+        <p class="section-subtitle">Fini les programmes génériques. Place à l'ultra-personnalisation scientifique.</p>
+        
+        <div class="innovation-grid">
+            <div class="innovation-card fade-in">
+                <div class="innovation-icon">🧠</div>
+                <h3>Intelligence Artificielle Avancée</h3>
+                <p>Votre programme est généré par une IA entraînée avec des milliers de données scientifiques et adapté en temps réel selon vos progrès.</p>
+            </div>
+            
+            <div class="innovation-card fade-in">
+                <div class="innovation-icon">👨‍⚕️</div>
+                <h3>Expertise Médicale</h3>
+                <p>Chaque programme est supervisé par un ostéopathe diplômé qui connaît votre corps mieux que personne.</p>
+            </div>
+            
+            <div class="innovation-card fade-in">
+                <div class="innovation-icon">🎯</div>
+                <h3>Adaptation Continue</h3>
+                <p>Vos formulaires hebdomadaires permettent d'ajuster votre programme automatiquement. Fini les plateaux de progression !</p>
+            </div>
+            
+            <div class="innovation-card fade-in">
+                <div class="innovation-icon">📊</div>
+                <h3>Basé sur la Science</h3>
+                <p>Chaque exercice, chaque routine est validé par des études scientifiques récentes. Zéro approximation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="container" id="comment">
+        <h2 class="section-title">Comment Ça Marche ?</h2>
+        <p class="section-subtitle">Un processus simple et efficace en 4 étapes</p>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Entretien Initial</h3>
+                <p>Je remplis un questionnaire ultra-détaillé sur vos objectifs, antécédents, douleurs et mode de vie</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Génération IA</h3>
+                <p>L'IA analyse vos réponses et crée votre programme 100% personnalisé en quelques secondes</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Validation Experte</h3>
+                <p>Je valide et ajuste votre programme avec mon expertise d'ostéopathe et coach</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Suivi & Adaptation</h3>
+                <p>Vos formulaires hebdomadaires permettent d'adapter automatiquement votre programme</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="offres">
+        <h2 class="section-title">Choisissez Votre Transformation</h2>
+        <p class="section-subtitle">Tous les programmes incluent : Accès aux vidéos explicatives • Formulaires adaptatifs • Support scientifique</p>
+        
+        <div class="pricing-grid">
+            <!-- Offre 1 -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Starter</h3>
+                    <p class="pricing-subtitle">Parfait pour découvrir la méthode</p>
+                </div>
+                <div class="pricing-price">
+                    <div class="price-amount">200€</div>
+                    <div class="price-period">Paiement unique</div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Entretien initial personnalisé</li>
+                    <li>Programme de 4 semaines</li>
+                    <li>Adaptation automatique IA</li>
+                    <li>Accès aux vidéos d'explication</li>
+                    <li>Formulaires hebdomadaires</li>
+                    <li>Programme musculation OU rééducation</li>
+                </ul>
+                <button class="pricing-cta" onclick="openBookingModal('Starter')">Réserver mon entretien</button>
+            </div>
+            
+            <!-- Offre 2 - Featured -->
+            <div class="pricing-card featured">
+                <span class="popular-badge">⭐ PLUS POPULAIRE</span>
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Performance</h3>
+                    <p class="pricing-subtitle">Pour des résultats durables</p>
+                </div>
+                <div class="pricing-price">
+                    <div class="price-amount">350€</div>
+                    <div class="price-period">Paiement unique</div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Tout du pack Starter +</li>
+                    <li>Programme de 8 semaines</li>
+                    <li>3 entretiens individuels</li>
+                    <li>Accès au groupe privé</li>
+                    <li>Contact direct avec moi</li>
+                    <li>Suivi sur 2 mois</li>
+                    <li>Ajustements personnalisés</li>
+                </ul>
+                <button class="pricing-cta" onclick="openBookingModal('Performance')">Réserver mon entretien</button>
+            </div>
+            
+            <!-- Offre 3 -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Transformation Complète</h3>
+                    <p class="pricing-subtitle">Corps & Nutrition optimisés</p>
+                </div>
+                <div class="pricing-price">
+                    <div class="price-amount">450€</div>
+                    <div class="price-period">Paiement unique</div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Tout du pack Performance +</li>
+                    <li>Programme de 12 semaines</li>
+                    <li>6 entretiens individuels</li>
+                    <li>Programme nutritionnel IA</li>
+                    <li>Suivi nutrition personnalisé</li>
+                    <li>Accès prioritaire</li>
+                    <li>Support illimité</li>
+                </ul>
+                <button class="pricing-cta" onclick="openBookingModal('Transformation Complète')">Réserver mon entretien</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objection Crusher -->
+    <section class="objection-section">
+        <div class="container">
+            <h2 class="section-title">Coaching à Distance : Vos Doutes Légitimes</h2>
+            <p class="section-subtitle">Je comprends vos interrogations. Voici pourquoi ça fonctionne MIEUX qu'en présentiel</p>
+            
+            <div class="objection-grid">
+                <div class="objection-card">
+                    <h3>❌ "Mais vous ne me voyez pas bouger..."</h3>
+                    <p>✅ <strong>Faux !</strong> Grâce aux vidéos que vous m'envoyez et aux formulaires détaillés, j'ai une vision plus précise de votre progression qu'en salle. L'IA analyse vos retours pour adapter chaque séance.</p>
+                </div>
+                
+                <div class="objection-card">
+                    <h3>❌ "Je vais perdre la motivation..."</h3>
+                    <p>✅ <strong>Au contraire !</strong> Vous avez accès au groupe privé 24/7, vous pouvez me contacter directement, et les entretiens réguliers maintiennent votre engagement. Plus flexible = plus de résultats.</p>
+                </div>
+                
+                <div class="objection-card">
+                    <h3>❌ "Et si j'ai une douleur soudaine ?"</h3>
+                    <p>✅ <strong>Réponse immédiate !</strong> En tant qu'ostéopathe, je peux vous guider en vidéo-consultation sous 24h. Les programmes incluent des routines correctives préventives.</p>
+                </div>
+                
+                <div class="objection-card">
+                    <h3>❌ "C'est trop cher..."</h3>
+                    <p>✅ <strong>Comparons :</strong> Un coach en salle = 60-80€/séance × 8 séances = 480-640€. Ici, programme complet + suivi + nutrition + expertise ostéo = 350-450€. Vous économisez en fait !</p>
+                </div>
+                
+                <div class="objection-card">
+                    <h3>❌ "Je n'ai pas le matériel..."</h3>
+                    <p>✅ <strong>Aucun problème !</strong> Les programmes s'adaptent à votre équipement (même poids du corps uniquement). L'IA ajuste les exercices selon ce que vous avez chez vous.</p>
+                </div>
+                
+                <div class="objection-card">
+                    <h3>❌ "Ça ne marchera pas pour moi..."</h3>
+                    <p>✅ <strong>Justement SI !</strong> Que vous soyez débutant, blessé, sportif confirmé ou senior, le programme est 100% adapté. Témoignage bientôt disponible pour vous le prouver.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>📚 Recevez du Contenu Scientifique Vulgarisé</h2>
+            <p style="font-size: 1.1rem; margin-top: 1rem;">Inscrivez-vous pour recevoir des articles sur la biomécanique, la nutrition et l'entraînement basés sur la science</p>
+            <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                <button type="submit" class="newsletter-btn">S'inscrire Gratuitement</button>
+            </form>
+            <div id="newsletter-success" class="success-message" style="color: white; background: rgba(255,255,255,0.2); margin-top: 1rem;">✓ Inscription réussie ! Merci de votre confiance.</div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Une Question ? Contactez-moi</h2>
+            <div class="contact-content">
+                <form onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Nom complet *</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Sujet de votre demande *</label>
+                        <select id="subject" required>
+                            <option value="">Choisissez un sujet</option>
+                            <option value="info">Demande d'information</option>
+                            <option value="douleur">J'ai une douleur spécifique</option>
+                            <option value="sport">Renforcement sportif</option>
+                            <option value="remise">Remise en forme générale</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Votre message *</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    
+                    <div id="contact-success" class="success-message">✓ Message envoyé ! Je vous réponds sous 24h.</div>
+                    
+                    <button type="submit" class="submit-btn">Envoyer mon message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#accueil">Accueil</a>
+            <a href="#comment">Comment ça marche</a>
+            <a href="#offres">Nos Offres</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p style="opacity: 0.7; margin-top: 2rem;">&copy; 2025 Coaching IA Personnalisé. Tous droits réservés.</p>
+        <p style="opacity: 0.6; font-size: 0.9rem;">Ostéopathie • Coaching Sportif • Intelligence Artificielle</p>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeBookingModal()">&times;</button>
+            <h2 style="color: var(--primary-blue); margin-bottom: 1rem;">Réserver un Entretien</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Offre sélectionnée : <strong id="selected-offer"></strong></p>
+            
+            <form onsubmit="handleBookingSubmit(event)">
+                <div class="form-group">
+                    <label for="booking-name">Nom complet *</label>
+                    <input type="text" id="booking-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="booking-email">Email *</label>
+                    <input type="email" id="booking-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="booking-phone">Téléphone *</label>
+                    <input type="tel" id="booking-phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="booking-date">Date souhaitée pour l'entretien *</label>
+                    <input type="date" id="booking-date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="booking-time">Heure souhaitée *</label>
+                    <select id="booking-time" required>
+                        <option value="">Choisissez un créneau</option>
+                        <option value="09:00">09h00</option>
+                        <option value="10:00">10h00</option>
+                        <option value="11:00">11h00</option>
+                        <option value="14:00">14h00</option>
+                        <option value="15:00">15h00</option>
+                        <option value="16:00">16h00</option>
+                        <option value="17:00">17h00</option>
+                        <option value="18:00">18h00</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="booking-goal">Quel est votre objectif principal ? *</label>
+                    <textarea id="booking-goal" rows="3" required></textarea>
+                </div>
+                
+                <div id="booking-success" class="success-message">✓ Réservation enregistrée ! Je vous confirme le rendez-vous par email sous 24h.</div>
+                
+                <button type="submit" class="submit-btn">Confirmer ma réservation</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Booking Modal
+        function openBookingModal(offerName) {
+            document.getElementById('selected-offer').textContent = offerName;
+            document.getElementById('bookingModal').style.display = 'flex';
+            document.getElementById('booking-success').style.display = 'none';
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target === modal) {
+                closeBookingModal();
+            }
+        }
+
+        // Handle Booking Form
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            
+            // Simulation d'envoi (à remplacer par votre système de réservation réel)
+            const formData = {
+                offer: document.getElementById('selected-offer').textContent,
+                name: document.getElementById('booking-name').value,
+                email: document.getElementById('booking-email').value,
+                phone: document.getElementById('booking-phone').value,
+                date: document.getElementById('booking-date').value,
+                time: document.getElementById('booking-time').value,
+                goal: document.getElementById('booking-goal').value
+            };
+            
+            console.log('Réservation:', formData);
+            
+            // Afficher le message de succès
+            document.getElementById('booking-success').style.display = 'block';
+            
+            // Réinitialiser le formulaire après 2 secondes
+            setTimeout(() => {
+                event.target.reset();
+                setTimeout(() => {
+                    closeBookingModal();
+                }, 1000);
+            }, 2000);
+        }
+
+        // Handle Contact Form
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            console.log('Contact:', formData);
+            
+            document.getElementById('contact-success').style.display = 'block';
+            
+            setTimeout(() => {
+                event.target.reset();
+                document.getElementById('contact-success').style.display = 'none';
+            }, 3000);
+        }
+
+        // Handle Newsletter Form
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            
+            const email = event.target.querySelector('input[type="email"]').value;
+            console.log('Newsletter:', email);
+            
+            document.getElementById('newsletter-success').style.display = 'block';
+            
+            setTimeout(() => {
+                event.target.reset();
+                document.getElementById('newsletter-success').style.display = 'none';
+            }, 3000);
+        }
+
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .innovation-card, .step, .pricing-card, .objection-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Set minimum date for booking
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('booking-date');
+        if (dateInput) {
+            dateInput.setAttribute('min', today);
+        }
+    </script>
+</body>
+</html>
+
