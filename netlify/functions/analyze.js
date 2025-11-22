@@ -1,28 +1,25 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { Resend } = require("resend");
 
-// Initialisation de Google Gemini et Resend
-// (Les clés seront sur Netlify)
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.handler = async (event) => {
-  // Sécurité : On accepte seulement les envois de formulaire (POST)
+  // Sécurité : POST uniquement
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Méthode non autorisée" };
   }
 
   try {
-    // 1. Récupération des données
     const data = JSON.parse(event.body);
     const { nom, email, objectif, douleur, description, sommeil } = data;
 
     console.log(`Traitement Gemini pour ${nom}`);
 
-    // 2. Le Prompt "Copywriting & Design" pour Gemini
+    // 1. PROMPT MODIFIÉ (Stratégie vs Programme)
     const promptSysteme = `
-      Agis comme un expert mondial en biomécanique et coaching sportif de haut niveau.
-      Ton but est de convaincre ce prospect qu'il a besoin d'un accompagnement payant immédiat.
+      Agis comme un expert mondial en biomécanique et coaching sportif (Ostéopathe & Coach).
+      Ton but : Présenter une stratégie de haut niveau pour convaincre le prospect de réserver son bilan biomécanique (étape préalable obligatoire à la création de son programme sur-mesure).
       
       Données du prospect :
       - Nom : ${nom}
@@ -31,47 +28,47 @@ exports.handler = async (event) => {
       - Sommeil : ${sommeil}
 
       Rédige un email au format HTML riche (utilise des balises <h3>, <ul>, <li>, <strong>, <br>).
-      Ne mets PAS de balises <html> ou <body>, juste le contenu du corps du mail.
+      Ne mets PAS de balises <html> ou <body>.
 
-      STRUCTURE OBLIGATOIRE :
+      STRUCTURE OBLIGATOIRE DE L'EMAIL :
       
-      1. ACCROCHE (H3) : "⚠️ Analyse du profil de ${nom} : Résultat Critique"
+      1. ACCROCHE (H3) : "⚠️ Analyse de ${nom} : Potentiel détecté & Points de vigilance"
       
-      2. DIAGNOSTIC (Paragraphe) : Analyse le lien direct et dangereux entre sa douleur (${douleur}) et son sommeil (${sommeil}). Sois alarmiste mais professionnel. Explique le mécanisme biologique (cortisol/inflammation).
+      2. DIAGNOSTIC EXPERT (Paragraphe) : Analyse le lien entre sa douleur (${douleur}) et son sommeil (${sommeil}). Explique pourquoi un programme générique aggraverait son cas (risque inflammatoire/blessure).
       
-      3. LE PLAN GÉNÉRÉ (Liste structurée) : 
-         Dis : "J'ai modélisé votre protocole de guérison sur 12 semaines :"
+      3. LA FEUILLE DE ROUTE (Liste structurée) : 
+         Dis : "Voici les 3 piliers stratégiques que nous devrons mettre en place :"
          <ul>
-           <li><strong>Phase 1 (Jours 1-21) :</strong> Décompression articulaire & Sommeil profond.</li>
-           <li><strong>Phase 2 (Semaines 4-8) :</strong> Renforcement structurel ciblé sur la zone ${douleur}.</li>
-           <li><strong>Phase 3 (Semaines 9-12) :</strong> Métabolisme & Performance pure.</li>
+           <li><strong>Phase 1 (Fondations) :</strong> Protocole de décompression articulaire spécifique pour soulager ${douleur}.</li>
+           <li><strong>Phase 2 (Construction) :</strong> Renforcement structurel adapté à votre biomécanique pour sécuriser le mouvement.</li>
+           <li><strong>Phase 3 (Performance) :</strong> Intensification métabolique pour atteindre l'objectif : ${objectif}.</li>
          </ul>
 
-      4. LE BLOCAGE DE SÉCURITÉ (Box jaune simulée) :
-         Explique fermement : "Je ne PEUX PAS vous envoyer ce fichier PDF maintenant. Votre profil biomécanique présente un risque. Si vous faites le mauvais mouvement, vous aggravez la douleur."
+      4. LE "GAP" (Pourquoi réserver ?) :
+         Explique clairement : "Ceci est une ébauche stratégique. En tant qu'ostéopathe, je ne peux pas construire votre programme détaillé (exercices, charges, volumes) sans vous voir bouger. Une prescription à l'aveugle serait irresponsable."
 
       5. APPEL À L'ACTION :
-         "Je dois valider votre posture en visio (15 min) avant de débloquer le programme."
-         (Ne mets pas le lien ici, il sera ajouté par le code après).
+         "Réservez votre Bilan Biomécanique (Visio) pour que j'analyse vos chaînes musculaires et que nous lancions la création de votre programme sur-mesure."
 
-      Ton ton doit être : Autoritaire, Bienveillant, Scientifique.
+      Ton ton doit être : Professionnel, Rassurant, Expert.
       Signe : "L'IA OptiForm (Supervisée par Cyril Mangeolle)".
     `;
 
-
-    // 3. Appel à Google Gemini (Modèle Flash, très rapide)
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    // 2. Appel IA
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
     const result = await model.generateContent(promptSysteme);
     const emailContent = result.response.text();
 
-    // 4. Ajout du bouton Calendly
-    const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques"; // CHANGE CE LIEN !
+    // 3. Définition des LIENS (Correction des erreurs)
+    const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques";
+    const instagramLink = "https://www.instagram.com/cyril_fitlife";
     
+    // 4. Design de l'email
     const htmlFinal = `
       <div style="font-family: 'Helvetica', sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
         
         <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #e67e22; padding-bottom: 10px;">
-          <h2 style="color: #2b5f7f; margin: 0;">Rapport d'Analyse IA 🤖</h2>
+          <h2 style="color: #2b5f7f; margin: 0;">Rapport Stratégique IA 🤖</h2>
           <p style="color: #666; font-size: 12px;">Dossier Réf: #OPT-${Date.now().toString().slice(-4)}</p>
         </div>
 
@@ -79,48 +76,36 @@ exports.handler = async (event) => {
             ${emailContent}
         </div>
 
-        <div style="text-align: center; margin-top: 30px;">
-          <p style="font-weight: bold; color: #e67e22;">👇 Débloquez votre programme maintenant :</p>
-          <a href="${bookingLink}" style="background-color: #e67e22; color: white; padding: 18px 30px; text-decoration: none; font-weight: bold; border-radius: 5px; font-size: 18px; display: inline-block; box-shadow: 0 4px 6px rgba(230, 126, 34, 0.3);">
-            RÉSERVER MON BILAN DE VALIDATION
+        <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+          <p style="font-weight: bold; color: #e67e22; margin-bottom: 10px;">👇 Étape suivante : Création de votre Plan</p>
+          <a href="${bookingLink}" style="background-color: #e67e22; color: white; padding: 16px 25px; text-decoration: none; font-weight: bold; border-radius: 5px; font-size: 18px; display: inline-block; box-shadow: 0 4px 6px rgba(230, 126, 34, 0.3);">
+            RÉSERVER MON BILAN EXPERT
           </a>
-          <p style="font-size: 12px; color: #999; margin-top: 15px;">*Créneau de 15 min offert - Engagement de présence requis.</p>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">*Audit visio nécessaire pour valider la faisabilité du programme.</p>
         </div>
-        </a>
        
-        <div style="border-top: 1px solid #ddd; padding-top: 20px; text-align:
-        center; "> 
-        <p style="margin-bottom: 10px; font-size: 14px;">En attendant notre appel, retrouvez mes conseils santé & performance :</p>
-        <a href="${instagramlink}" style="text-decoration: none; 
-        color: #C13584; font-weight: bold; font-size: 16px: display: flex: align-items: center:
-        justify-content: center: gap: 8px;"> <span>📸</span> suivre mon
-        Instagram Pro (@cyril_fitlife)
-          </a>
+        <div style="border-top: 1px solid #ddd; padding-top: 20px; text-align: center;"> 
+            <p style="margin-bottom: 10px; font-size: 14px;">En attendant notre appel, retrouvez mes conseils santé & performance :</p>
+            <a href="${instagramLink}" style="text-decoration: none; color: #C13584; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;"> 
+                <span>📸</span> Suivre mon Instagram Pro (@cyril_fitlife)
+            </a>
         </div>
 
       </div>
     `;
 
-
-    // 5. Envoi de l'email via Resend
+    // 5. Envoi
     await resend.emails.send({
       from: "Coach IA <onboarding@resend.dev>",
       to: email,
-      subject: `⚠️ Analyse Gemini terminée : Plan d'action pour ${nom}`,
+      subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
       html: htmlFinal,
     });
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "Succès ! Email envoyé." }),
-    };
+    return { statusCode: 200, body: JSON.stringify({ message: "Succès" }) };
 
   } catch (error) {
-    console.error("Erreur Gemini/Resend:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Erreur interne serveur." }),
-    };
+    console.error("Erreur:", error);
+    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
   }
 };
-
