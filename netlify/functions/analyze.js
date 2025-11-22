@@ -1,8 +1,9 @@
-const { OpenAI } = require("openai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { Resend } = require("resend");
 
-// Initialisation des outils avec les clés secrètes (qu'on configurera sur Netlify)
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Initialisation de Google Gemini et Resend
+// (Les clés seront sur Netlify)
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.handler = async (event) => {
@@ -12,50 +13,43 @@ exports.handler = async (event) => {
   }
 
   try {
-    // 1. Récupération des données du formulaire
+    // 1. Récupération des données
     const data = JSON.parse(event.body);
-    const { nom, email, objectif, douleur, sommeil, description } = data;
+    const { nom, email, objectif, douleur, description, sommeil } = data;
 
-    console.log(`Traitement pour ${nom} - ${email}`);
+    console.log(`Traitement Gemini pour ${nom}`);
 
-    // 2. Le Prompt "Vendeur Implacable" pour l'IA
-    // C'est ici que tu modifies la psychologie de vente
+    // 2. Le Prompt pour Gemini
     const promptSysteme = `
-      Tu es le Dr. IA, un expert mondial en biomécanique et coaching de haute performance.
-      Tu analyses le profil d'un prospect pour lui vendre un accompagnement premium.
+      Agis comme un expert mondial en biomécanique et coaching sportif.
+      Analyse ce profil pour vendre un coaching premium.
       
       Données du prospect :
       - Nom : ${nom}
       - Objectif : ${objectif}
-      - Douleur principale : ${douleur}
-      - Détails douleur : ${description}
+      - Douleur : ${douleur} (${description})
       - Sommeil : ${sommeil}
 
-      Rédige un email au format HTML (sans balises <html> ou <body>, juste le contenu).
+      Rédige un email au format HTML pur (pas de balises <html>, juste le contenu <p>, <strong>, etc.).
       
-      STRUCTURE OBLIGATOIRE DE L'EMAIL :
+      STRUCTURE OBLIGATOIRE :
       1. SALUTATION : "Bonjour ${nom},"
-      2. LE DIAGNOSTIC CHOC : Analyse sa douleur et son sommeil. Utilise des termes médicaux simples. Explique pourquoi il ne progressera pas s'il ne règle pas ça. Sois alarmiste mais bienveillant.
-      3. LE CADEAU : Donne UN conseil très précis et actionnable immédiatement (ex: un exercice de respiration ou posture).
-      4. LE GAP (VENTE) : Dis : "J'ai généré votre programme complet sur 12 semaines pour éradiquer cette douleur au ${douleur}. Il est prêt."
-      5. LE BLOCAGE : "Cependant, par sécurité médicale, je ne peux pas vous envoyer le fichier PDF sans avoir validé votre posture de vive voix."
-      6. L'APPEL À L'ACTION : Incite fortement à réserver le bilan visio offert via le lien ci-dessous.
+      2. ANALYSE : Analyse le lien entre sa douleur et son sommeil. Sois expert et direct.
+      3. CONSEIL : Donne UN conseil technique immédiat.
+      4. LE GAP : Dis que tu as créé son programme complet sur 12 semaines pour régler sa douleur.
+      5. BLOQUAGE : "Je ne peux pas envoyer ce PDF sans validation de sécurité posturale."
+      6. ACTION : Incite à réserver le bilan visio.
       
-      Ton ton doit être autoritaire, expert et empathique.
-      Signe : "L'Intelligence Artificielle du Programme [Nom du Site]".
+      Signe : "L'IA OptiForm (Powered by Gemini)".
     `;
 
-    // 3. Appel à l'IA (GPT-4 Turbo pour la qualité)
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4-turbo",
-      messages: [{ role: "system", content: promptSysteme }],
-    });
+    // 3. Appel à Google Gemini (Modèle Flash, très rapide)
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(promptSysteme);
+    const emailContent = result.response.text();
 
-    const emailContent = completion.choices[0].message.content;
-
-    // 4. Ajout du bouton Calendly dans le HTML
-    // Remplace le lien ci-dessous par ton VRAI lien Calendly
-    const calendlyLink = "https://calendly.com/TON-LIEN-ICI";
+    // 4. Ajout du bouton Calendly
+    const calendlyLink = "https://calendly.com/ton-lien-ici"; // CHANGE CE LIEN !
     
     const htmlFinal = `
       <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
@@ -72,9 +66,9 @@ exports.handler = async (event) => {
 
     // 5. Envoi de l'email via Resend
     await resend.emails.send({
-      from: "Coach IA <onboarding@resend.dev>", // Tu pourras configurer ton propre domaine plus tard
+      from: "Coach IA <onboarding@resend.dev>",
       to: email,
-      subject: `⚠️ Analyse terminée : Votre plan d'action contre la douleur (${douleur})`,
+      subject: `⚠️ Analyse Gemini terminée : Plan d'action pour ${nom}`,
       html: htmlFinal,
     });
 
@@ -84,10 +78,11 @@ exports.handler = async (event) => {
     };
 
   } catch (error) {
-    console.error("Erreur:", error);
+    console.error("Erreur Gemini/Resend:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Erreur interne serveur." }),
     };
   }
 };
+
