@@ -102,31 +102,61 @@ exports.handler = async (event) => {
       </div>
     `;
 
-    // EMAIL 2 : Le Suivi Humain (J+1)
+        // EMAIL 2 : Le Suivi Humain + Preuve Sociale (J+1)
     const htmlEmail2 = `
-      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
         <p>Bonjour ${nom},</p>
         <p>C'est Cyril.</p>
-        <p>J'ai relu l'analyse générée hier concernant votre <strong>${douleur}</strong>. Je voulais m'assurer que vous aviez bien reçu le plan stratégique.</p>
-        <p>Beaucoup attendent que la douleur passe toute seule, mais sans correction biomécanique, elle revient souvent plus fort.</p>
-        <p><strong>Si vous n'avez pas encore réservé votre créneau, voici le lien direct :</strong></p>
-        <p><a href="${bookingLink}">👉 Accéder à mon agenda privé</a></p>
-        <p><em>(Si vous avez déjà pris rendez-vous, ignorez ce message, j'ai hâte de vous voir !)</em></p>
-        <p>Cyril Mangeolle</p>
+        <p>Je repensais à votre dossier ce matin. L'analyse IA a confirmé une chose importante sur votre <strong>${douleur}</strong> : ce n'est pas une fatalité, c'est un signal mécanique.</p>
+        <p>Beaucoup de mes clients attendent que "ça passe". Le problème, c'est que sans correction, le corps compense... et crée d'autres douleurs ailleurs.</p>
+        
+        <div style="background-color: #f0f4f8; border-left: 4px solid #2b5f7f; padding: 15px; margin: 20px 0;">
+            <p style="margin:0; font-style:italic;">"Le meilleur moment pour agir, c'était avant la douleur. Le deuxième meilleur moment, c'est maintenant."</p>
+        </div>
+
+        <p><strong>Je vous ai gardé un créneau prioritaire cette semaine :</strong></p>
+        <p>
+            <a href="${bookingLink}" style="color: #e67e22; font-weight: bold; text-decoration: underline;">👉 Accéder à mon agenda privé (Bilan Offert)</a>
+        </p>
+        
+        <p>À très vite,</p>
+        <p><strong>Cyril Mangeolle</strong><br>Ostéopathe & Coach</p>
+
+        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; font-size: 13px; color: #666;">
+            <p>P.S. En attendant, je publie quotidiennement des conseils sur la biomécanique ici :<br>
+            <a href="${instagramLink}" style="color: #C13584; text-decoration: none; font-weight: bold;">📸 Voir mon Instagram (@cyril_fitlife)</a></p>
+        </div>
       </div>
     `;
 
-    // EMAIL 3 : La Dernière Chance (J+2)
+    // EMAIL 3 : La Dernière Chance / Urgence (J+2)
     const htmlEmail3 = `
-      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
         <p>${nom},</p>
-        <p>Je boucle mon planning de la semaine.</p>
-        <p>Je garde votre dossier ouvert encore 24h. Passé ce délai, je devrai libérer votre créneau de bilan offert.</p>
-        <p><a href="${bookingLink}" style="font-weight:bold; color:#e67e22;">👉 Dernier rappel : Valider mon Bilan maintenant</a></p>
+        <p>Je boucle mon planning pour la semaine à venir.</p>
+        <p>Je garde votre analyse biomécanique ouverte encore <strong>24 heures</strong>. Passé ce délai, je devrai archiver le dossier et libérer votre créneau de bilan offert pour une personne sur liste d'attente.</p>
+        
+        <p>Vous avez deux options :</p>
+        <ol>
+            <li>Ignorer ce message et continuer avec votre douleur/gêne actuelle.</li>
+            <li>Prendre 15 minutes pour valider une stratégie qui peut changer votre quotidien.</li>
+        </ol>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${bookingLink}" style="background-color: #e67e22; color: white; padding: 14px 25px; text-decoration: none; font-weight: bold; border-radius: 5px; font-size: 16px; display: inline-block;">
+            DERNIER RAPPEL : VALIDER MON PLAN
+          </a>
+        </div>
+
         <p>C'est le moment de passer à l'action.</p>
         <p>Cyril.</p>
+
+        <div style="margin-top: 40px; font-size: 12px; text-align: center; color: #999;">
+            <p>Pas prêt maintenant ? Suivez-moi sur <a href="${instagramLink}" style="color: #666; text-decoration: underline;">Instagram</a> pour des conseils gratuits.</p>
+        </div>
       </div>
     `;
+
 
     // --- 4. ENVOI GROUPÉ (Resend) ---
     await Promise.all([
