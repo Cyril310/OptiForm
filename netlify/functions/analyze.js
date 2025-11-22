@@ -44,19 +44,19 @@ exports.handler = async (event) => {
     `;
 
     // 3. Appel à Google Gemini (Modèle Flash, très rapide)
-    const model = genAI.getGenerativeModel({ model: "gemini-pro-lastest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(promptSysteme);
     const emailContent = result.response.text();
 
     // 4. Ajout du bouton Calendly
-    const calendlyLink = "https://calendly.com/ton-lien-ici"; // CHANGE CE LIEN !
+    const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques"; // CHANGE CE LIEN !
     
     const htmlFinal = `
       <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
         ${emailContent}
         <br><br>
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${calendlyLink}" style="background-color: #e67e22; color: white; padding: 15px 25px; text-decoration: none; font-weight: bold; border-radius: 50px; font-size: 16px;">
+          <a href="${bookingLink}" style="background-color: #e67e22; color: white; padding: 15px 25px; text-decoration: none; font-weight: bold; border-radius: 50px; font-size: 16px;">
             👉 Réserver mon Bilan de Validation (Offert)
           </a>
           <p style="font-size: 12px; color: #777; margin-top: 10px;">Attention : Créneaux limités cette semaine.</p>
