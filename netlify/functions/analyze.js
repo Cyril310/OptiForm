@@ -130,14 +130,16 @@ exports.handler = async (event) => {
 
     // --- 4. ENVOI GROUPÉ (Resend) ---
     await Promise.all([
-      // Envoi immédiat
+      
+      // Email 1 : Immédiat
       resend.emails.send({
         from: "Coach IA <onboarding@resend.dev>",
         to: email,
         subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
         html: htmlEmail1,
       }),
-      // Envoi programmé demain
+
+      // Email 2 : Demain
       resend.emails.send({
         from: "Cyril Mangeolle <onboarding@resend.dev>",
         to: email,
@@ -145,31 +147,31 @@ exports.handler = async (event) => {
         html: htmlEmail2,
         scheduled_at: demain.toISOString(),
       }),
-      // Envoi programmé après-demain
+
+      // Email 3 : Après-demain
       resend.emails.send({
         from: "Cyril Mangeolle <onboarding@resend.dev>",
         to: email,
         subject: `Fermeture de votre dossier ${nom}`,
         html: htmlEmail3,
         scheduled_at: apresDemain.toISOString(),
+      }),
+
+      // SAUVEGARDE DU CONTACT (NEWSLETTER)
+      // Note : Il n'y a pas de fermeture "]);" avant cette partie, juste une virgule implicite
+      resend.contacts.create({
+        email: email,
+        first_name: nom,
+        unsubscribed: false,
+        audienceId: process.env.RESEND_AUDIENCE_ID
       })
-    ]);
+    ]); // <--- C'est ICI qu'on ferme tout le bloc, une seule fois.
 
-    return { statusCode: 200, body: JSON.stringify({ message: "Séquence lancée" }) };
-      
-
-    // 5. Envoi
-    await resend.emails.send({
-      from: "Coach IA <onboarding@resend.dev>",
-      to: email,
-      subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
-      html: htmlFinal,
-    });
-
-    return { statusCode: 200, body: JSON.stringify({ message: "Succès" }) };
+    return { statusCode: 200, body: JSON.stringify({ message: "Tout est envoyé !" }) };
 
   } catch (error) {
     console.error("Erreur:", error);
     return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
   }
 };
+
