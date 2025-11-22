@@ -579,6 +579,28 @@
                     <option value="energie">Retrouver de l'Énergie / Bien-être</option>
                 </select>
             </div>
+
+                <div class="form-group">
+                <label>Quelle est votre fréquence d'entraînement actuelle ?</label>
+                <select class="form-input" id="bilan-frequence" required>
+                    <option value="">-- Choisissez une fréquence --</option>
+                    <option value="sedentaire">Sédentaire (0-1 fois/semaine)</option>
+                    <option value="moderee">Modérée (2-3 fois/semaine)</option>
+                    <option value="reguliere">Régulière (4-5 fois/semaine)</option>
+                    <option value="intense">Intense (6+ fois/semaine)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Comment évaluez-vous la qualité de votre sommeil ?</label>
+                <select class="form-input" id="bilan-sommeil" required>
+                    <option value="">-- Évaluation --</option>
+                    <option value="mauvais">Mauvaise (moins de 6h/nuit, réveils fréquents)</option>
+                    <option value="moyen">Moyenne (6-7h, sommeil irrégulier)</option>
+                    <option value="bon">Bonne (7h et +, sommeil réparateur)</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label>Décrivez votre historique de blessures/douleurs</label>
                 <textarea class="form-input" id="bilan-description" required placeholder="J'ai mal au genou droit depuis un an, ancienne entorse cheville, sédentaire..."></textarea>
@@ -700,38 +722,80 @@
     function showBilanResult(data) {
         const name = data.nom.split(' ')[0];
         const goal = data.objectif;
+        const freq = data.frequence;
+        const sleep = data.sommeil;
         const target = document.getElementById('result-details');
         document.getElementById('result-name').innerText = name;
-
-        let analyse = "";
+    
+        let trainingFocus = "";
+        let osteoFocus = "";
+        let lifestyleFocus = "";
         let recommendation = "";
-
+    
+        // 1. LOGIQUE DE L'IA (Simulation avancée)
+        
+        // Basé sur l'Objectif (Goal)
         if (goal === 'perte') {
-            analyse = "Votre profil indique un besoin de déficit calorique léger et d'exercices métaboliques. Notre IA recommandera un focus sur l'endurance musculaire.";
-            recommendation = "Objectif principal : Perte de graisse ciblée.";
+            recommendation = "Perte de graisse et amélioration métabolique.";
+            trainingFocus = "Cardio-training par intervalles (HIIT léger) et renforcement musculaire ciblé pour accélérer le métabolisme de base.";
         } else if (goal === 'muscle') {
-            analyse = "Votre profil est idéal pour un cycle d'hypertrophie. L'IA ciblera des exercices à haute intensité (charge lourde/volume moyen).";
-            recommendation = "Objectif principal : Gain de masse musculaire et force.";
+            recommendation = "Gain de masse musculaire pure et performance.";
+            trainingFocus = "Cycle d'Hypertrophie (charge lourde) avec une forte emphase sur la progression de la charge.";
         } else if (goal === 'douleur') {
-            analyse = "Étant donné vos douleurs (signalées dans l'historique), l'IA va prioriser les exercices de mobilité et de renforcement postural (core).";
-            recommendation = "Objectif principal : Stabilisation et réduction des douleurs.";
+            recommendation = "Stabilisation biomécanique et renforcement profond (Core).";
+            trainingFocus = "Priorité aux mouvements correctifs à faible impact et au renforcement du Core (sangle abdominale/dos).";
         } else { // energie
-            analyse = "Votre bilan suggère un travail sur l'énergie globale et la récupération. L'IA équilibrera le travail de force et les techniques de respiration.";
-            recommendation = "Objectif principal : Amélioration du bien-être et de l'énergie.";
+            recommendation = "Récupération, gestion du stress et vitalité.";
+            trainingFocus = "Entraînements hybrides (force et endurance douce) avec des techniques de respiration et de relaxation actives.";
         }
-
-        // Ajout des détails dans la modale de résultat
+    
+        // Basé sur la Fréquence (Freq) et le Sommeil (Sleep)
+        if (freq === 'sedentaire') {
+            trainingFocus = "Phase d'introduction douce de 4 semaines (réapprentissage des mouvements de base). " + trainingFocus;
+        } else if (freq === 'intense') {
+            trainingFocus = "L'IA intégrera des journées de 'Décharge' pour éviter le surentraînement. " + trainingFocus;
+        }
+    
+        if (sleep === 'mauvais') {
+            lifestyleFocus = "Urgence sur le rythme circadien ! L'IA va intégrer des protocoles de 'Hygiène de sommeil' et réduire le volume total d'entraînement.";
+        } else if (sleep === 'moyen') {
+            lifestyleFocus = "Optimisation de la récupération. L'IA ciblera un temps de repos plus long entre les séances.";
+        } else {
+            lifestyleFocus = "Récupération au top ! L'IA peut optimiser l'intensité sans risque de fatigue chronique.";
+        }
+    
+        // Basé sur les Blessures (Description)
+        if (data.description.toLowerCase().includes('genou') || data.description.toLowerCase().includes('dos') || goal === 'douleur') {
+            osteoFocus = "Correction posturale et mobilité articulaire ciblée pour vos zones de faiblesse (genou/dos/cheville).";
+        } else {
+            osteoFocus = "Programme de mobilité préventive général (souplesse fonctionnelle).";
+        }
+    
+        // 2. RENDU DANS LA MODALE (Structure du pré-programme)
         target.innerHTML = `
-            <p style="font-weight: 600; color: var(--primary-blue); margin-bottom: 0.5rem;">${recommendation}</p>
-            <p style="font-size: 0.95rem;">${analyse}</p>
-            <ul style="list-style: none; padding: 0; margin-top: 1rem; font-size: 0.9rem;">
-                <li>✅ Votre programme tiendra compte de votre taille (${data.taille}cm) et de votre âge (${data.age} ans).</li>
-                <li>✅ Newsletter: ${data.newsletter ? 'Inscrit(e) !' : 'Non-inscrit.'}</li>
+            <h5 style="color: var(--primary-orange); margin-bottom: 1rem; font-weight: 700;">Résultat de l'Analyse IA (Aperçu)</h5>
+            <p style="font-weight: 600; color: var(--primary-blue); margin-bottom: 1.5rem;">🎯 ${recommendation}</p>
+            
+            <ul style="list-style-type: none; padding: 0; margin-top: 1rem; font-size: 0.95rem;">
+                <li style="margin-bottom: 1rem;">
+                    <span style="font-weight: 700; color: var(--dark-blue);">1. Focus Entraînement :</span> ${trainingFocus}
+                </li>
+                <li style="margin-bottom: 1rem;">
+                    <span style="font-weight: 700; color: var(--dark-blue);">2. Focus Ostéo/Mobilité :</span> ${osteoFocus}
+                </li>
+                <li style="margin-bottom: 1rem;">
+                    <span style="font-weight: 700; color: var(--dark-blue);">3. Focus Rythme/Récupération :</span> ${lifestyleFocus}
+                </li>
             </ul>
+    
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: var(--success);">
+                ✅ Votre e-mail de confirmation est en route. Vous y trouverez des conseils exclusifs basés sur ce pré-programme !
+            </div>
         `;
-
+    
         resultModal.style.display = 'flex';
     }
+
 
     function handleSubmit(e, type) {
         e.preventDefault();
@@ -747,15 +811,18 @@
                 alert("Demande reçue ! Je reviens vers vous sous 24h pour l'entretien.");
             } else if (type === 'bilan') {
                 // Collecte des données du bilan
-                const data = {
-                    nom: document.getElementById('bilan-nom').value,
-                    email: document.getElementById('bilan-email').value,
-                    age: document.getElementById('bilan-age').value,
-                    taille: document.getElementById('bilan-taille').value,
-                    objectif: document.getElementById('bilan-objectif').value,
-                    description: document.getElementById('bilan-description').value,
-                    newsletter: document.getElementById('newsletter').checked
-                };
+        const data = {
+            nom: document.getElementById('bilan-nom').value,
+            email: document.getElementById('bilan-email').value,
+            age: document.getElementById('bilan-age').value,
+            taille: document.getElementById('bilan-taille').value,
+            objectif: document.getElementById('bilan-objectif').value,
+            description: document.getElementById('bilan-description').value,
+            newsletter: document.getElementById('newsletter').checked,
+            frequence: document.getElementById('bilan-frequence').value,
+            sommeil: document.getElementById('bilan-sommeil').value 
+        };
+
                 
                 // 1. Affichage du rendu
                 showBilanResult(data);
