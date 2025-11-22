@@ -621,44 +621,6 @@
             if (event.target == resultModal) closeResultModal();
         }
 
-        // Logique IA & Bilan
-        function showBilanResult(data) {
-            const name = data.nom.split(' ')[0];
-            const goal = data.objectif;
-            const target = document.getElementById('result-details');
-            document.getElementById('result-name').innerText = name;
-        
-            let trainingFocus = "";
-            let recommendation = "";
-        
-            if (goal === 'perte') {
-                recommendation = "Perte de graisse & Métabolisme";
-                trainingFocus = "HIIT léger + Renforcement Full Body.";
-            } else if (goal === 'muscle') {
-                recommendation = "Hypertrophie & Force";
-                trainingFocus = "Volume élevé + Surcharge progressive.";
-            } else if (goal === 'douleur') {
-                recommendation = "Correction Posturale";
-                trainingFocus = "Mobilité hanches/dos + Gainage profond.";
-            } else {
-                recommendation = "Vitalité & Tonus";
-                trainingFocus = "Cardio modéré + Yoga dynamique.";
-            }
-        
-            target.innerHTML = `
-                <h5 style="color: var(--primary-orange); margin-bottom: 0.5rem; font-weight: 700;">Analyse IA Terminée 🤖</h5>
-                <p style="font-weight: 600; color: var(--dark-blue); margin-bottom: 1rem;">Objectif : ${recommendation}</p>
-                <ul style="list-style-type: none; padding: 0; font-size: 0.9rem;">
-                    <li style="margin-bottom: 0.5rem;">⚡ <strong>Stratégie :</strong> ${trainingFocus}</li>
-                    <li style="margin-bottom: 0.5rem;">🩺 <strong>Avis Ostéo :</strong> Validation biomécanique requise.</li>
-                </ul>
-                <div style="margin-top: 1rem; padding-top: 0.5rem; border-top: 1px solid #ddd; font-size: 0.8rem; color: var(--success);">
-                    ✅ Confirmation envoyée à ${data.email}
-                </div>
-            `;
-            resultModal.style.display = 'flex';
-        }
-
        async function handleSubmit(e, type) {
         e.preventDefault();
         const btn = document.getElementById('btn-bilan');
@@ -712,34 +674,6 @@
         }
     }
 
-
-        // Fonction Modale de Vente (A ajouter si elle n'existe pas déjà)
-        function showSuccessModal(nom) {
-            const modal = document.getElementById('resultModal');
-            const content = document.getElementById('result-details');
-            // N'oublie pas de mettre ton vrai lien Calendly ici aussi
-            const calendlyLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques";
-        
-            document.getElementById('result-name').innerText = nom;
-            content.innerHTML = `
-                <div style="text-align:center;">
-                    <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
-                    <h4 style="color:var(--primary-blue);">Dossier analysé et Pré-programme généré.</h4>
-                    <p style="margin-bottom:1.5rem; color:var(--text-dark);">
-                        J'ai détecté des points de vigilance sur votre profil. Un rapport complet vient d'être envoyé sur votre email.
-                    </p>
-                    <div style="background:#fff3cd; padding:1rem; border-radius:10px; border-left:4px solid #ffc107; text-align:left; margin-bottom:1.5rem; font-size:0.9rem;">
-                        <strong>⚠️ Action Requise :</strong> Pour débloquer votre programme complet (PDF), une validation de sécurité est nécessaire.
-                    </div>
-                    <a href="${calendlyLink}" target="_blank" class="btn btn-primary" style="width:100%; display:block; text-align:center;">
-                        Réserver ma validation (Gratuit)
-                    </a>
-                </div>
-            `;
-            modal.style.display = 'flex';
-        }
-
-        
         // Smooth Scroll pour les ancres
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
