@@ -474,22 +474,27 @@
                 </div>
                 
                 <div style="display: flex; gap: 1rem; flex-wrap:wrap;">
-                    <div class="form-group" style="flex: 1; min-width: 100px;">
+                    <div class="form-group" style="flex: 1; min-width: 80px;">
                         <label>Sexe</label>
                         <select class="form-input" id="bilan-sexe" required>
                             <option value="homme">Homme</option>
                             <option value="femme">Femme</option>
                         </select>
                     </div>
-                    <div class="form-group" style="flex: 1; min-width: 100px;">
+                    <div class="form-group" style="flex: 1; min-width: 80px;">
                         <label>Age</label>
                         <input type="number" class="form-input" id="bilan-age" min="18" max="99" required placeholder="35">
                     </div>
-                    <div class="form-group" style="flex: 1; min-width: 100px;">
+                    <div class="form-group" style="flex: 1; min-width: 80px;">
                         <label>Taille (cm)</label>
                         <input type="number" class="form-input" id="bilan-taille" min="140" max="220" required placeholder="175">
                     </div>
+                    <div class="form-group" style="flex: 1; min-width: 80px;">
+                        <label>Poids (kg)</label>
+                        <input type="number" class="form-input" id="bilan-poids" min="40" max="200" required placeholder="75">
+                    </div>
                 </div>
+
 
                 
                 <div class="form-group">
@@ -645,12 +650,16 @@
          const formData = {
             nom: document.getElementById('bilan-nom').value,
             email: document.getElementById('bilan-email').value,
-            sexe: document.getElementById('bilan-sexe').value, // <--- LIGNE AJOUTÉE
+            sexe: document.getElementById('bilan-sexe').value,
+            age: document.getElementById('bilan-age').value,       // Ajouté
+            taille: document.getElementById('bilan-taille').value, // Ajouté
+            poids: document.getElementById('bilan-poids').value,   // Ajouté
             objectif: document.getElementById('bilan-objectif').value,
             douleur: document.getElementById('bilan-description').value, 
             description: document.getElementById('bilan-description').value,
             sommeil: document.getElementById('bilan-sommeil').value
             };
+
 
     
             try {
