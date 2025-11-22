@@ -57,14 +57,22 @@ exports.handler = async (event) => {
     // 2. Appel IA
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
     const result = await model.generateContent(promptSysteme);
-    const emailContent = result.response.text();
 
-    // 3. Définition des LIENS (Correction des erreurs)
+        // --- 1. CALCUL DES DATES (Séquence J+1 et J+2) ---
+    const demain = new Date();
+    demain.setDate(demain.getDate() + 1);
+    
+    const apresDemain = new Date();
+    apresDemain.setDate(apresDemain.getDate() + 2);
+
+    // --- 2. LIENS ---
     const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques";
     const instagramLink = "https://www.instagram.com/cyril_fitlife";
-    
-    // 4. Design de l'email
-    const htmlFinal = `
+
+    // --- 3. CONTENU DES 3 EMAILS ---
+
+    // EMAIL 1 : L'Analyse IA (Immédiat)
+    const htmlEmail1 = `
       <div style="font-family: 'Helvetica', sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
         
         <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #e67e22; padding-bottom: 10px;">
@@ -93,6 +101,62 @@ exports.handler = async (event) => {
 
       </div>
     `;
+
+    // EMAIL 2 : Le Suivi Humain (J+1)
+    const htmlEmail2 = `
+      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+        <p>Bonjour ${nom},</p>
+        <p>C'est Cyril.</p>
+        <p>J'ai relu l'analyse générée hier concernant votre <strong>${douleur}</strong>. Je voulais m'assurer que vous aviez bien reçu le plan stratégique.</p>
+        <p>Beaucoup attendent que la douleur passe toute seule, mais sans correction biomécanique, elle revient souvent plus fort.</p>
+        <p><strong>Si vous n'avez pas encore réservé votre créneau, voici le lien direct :</strong></p>
+        <p><a href="${bookingLink}">👉 Accéder à mon agenda privé</a></p>
+        <p><em>(Si vous avez déjà pris rendez-vous, ignorez ce message, j'ai hâte de vous voir !)</em></p>
+        <p>Cyril Mangeolle</p>
+      </div>
+    `;
+
+    // EMAIL 3 : La Dernière Chance (J+2)
+    const htmlEmail3 = `
+      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+        <p>${nom},</p>
+        <p>Je boucle mon planning de la semaine.</p>
+        <p>Je garde votre dossier ouvert encore 24h. Passé ce délai, je devrai libérer votre créneau de bilan offert.</p>
+        <p><a href="${bookingLink}" style="font-weight:bold; color:#e67e22;">👉 Dernier rappel : Valider mon Bilan maintenant</a></p>
+        <p>C'est le moment de passer à l'action.</p>
+        <p>Cyril.</p>
+      </div>
+    `;
+
+    // --- 4. ENVOI GROUPÉ (Resend) ---
+    await Promise.all([
+      // Envoi immédiat
+      resend.emails.send({
+        from: "Coach IA <onboarding@resend.dev>",
+        to: email,
+        subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
+        html: htmlEmail1,
+      }),
+      // Envoi programmé demain
+      resend.emails.send({
+        from: "Cyril Mangeolle <onboarding@resend.dev>",
+        to: email,
+        subject: `Une pensée concernant votre ${douleur}...`,
+        html: htmlEmail2,
+        scheduled_at: demain.toISOString(),
+      }),
+      // Envoi programmé après-demain
+      resend.emails.send({
+        from: "Cyril Mangeolle <onboarding@resend.dev>",
+        to: email,
+        subject: `Fermeture de votre dossier ${nom}`,
+        html: htmlEmail3,
+        scheduled_at: apresDemain.toISOString(),
+      })
+    ]);
+
+    return { statusCode: 200, body: JSON.stringify({ message: "Séquence lancée" }) };
+      
 
     // 5. Envoi
     await resend.emails.send({
