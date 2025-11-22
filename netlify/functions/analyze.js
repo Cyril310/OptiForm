@@ -13,9 +13,9 @@ exports.handler = async (event) => {
   try {
     const data = JSON.parse(event.body);
     // On ajoute 'sexe' ici pour le récupérer
-    const { nom, email, sexe, objectif, douleur, description, sommeil } = data;
+    const { nom, email, sexe, age, taille,poids, objectif, douleur, description, sommeil } = data;
 
-    console.log(`Traitement Gemini pour ${nom} (${sexe})`);
+    console.log(`Traitement Gemini pour ${nom} (${sexe}),${poids}`);
 
     // 1. PROMPT MODIFIÉ (Intégration du sexe)
     const promptSysteme = `
@@ -23,13 +23,13 @@ exports.handler = async (event) => {
       Ton but : Présenter une stratégie de haut niveau pour convaincre le prospect de réserver son bilan biomécanique.
       
       Données du prospect :
-      - Nom : ${nom}
-      - Sexe : ${sexe}
+      - Nom : ${nom} (${sexe}, ${age} ans)
+      - Morphologie : ${taille}cm pour ${poids}kg 
       - Objectif : ${objectif}
       - Douleur : ${douleur} (${description})
       - Sommeil : ${sommeil}
 
-      Consigne Spéciale : Adapte tes explications physiologiques et biomécaniques au sexe du prospect (${sexe}). Par exemple, adapte les références hormonales ou morphologiques si nécessaire.
+      Consigne Spéciale : Prends en compte le ratio poids/taille et l'âge pour adapter ton analyse biomecanique. Adapte tes explications physiologiques et biomécaniques au sexe du prospect (${sexe}). Par exemple, adapte les références hormonales ou morphologiques si nécessaire.
 
       Rédige un email au format HTML riche (utilise des balises <h3>, <ul>, <li>, <strong>, <br>).
       Ne mets PAS de balises <html> ou <body>.
