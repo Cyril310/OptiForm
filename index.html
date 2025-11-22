@@ -33,7 +33,61 @@
           font-size: 0.95em;
         }
 
-        
+        .carousel-container {
+          max-width: 600px;
+          margin: 30px auto 0;
+          position: relative;
+        }
+        .carousel {
+          position: relative;
+          height: 220px;
+          overflow: hidden;
+        }
+        .temoignage {
+          position: absolute;
+          opacity: 0;
+          transition: opacity 0.4s;
+          width: 100%;
+          left: 0;
+          top: 0;
+          background: white;
+          border-left: 6px solid #e67e22;
+          padding: 28px 24px 18px 24px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+          border-radius: 10px;
+        }
+        .temoignage.active {
+          opacity: 1;
+          position: relative;
+          transition: opacity 0.4s;
+        }
+        .carousel-controls {
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 15px;
+        }
+        .carousel-btn {
+          background: var(--gradient-cta);
+          color: white;
+          border: none;
+          border-radius: 50px;
+          font-size: 1.5rem;
+          width: 44px;
+          height: 44px;
+          cursor: pointer;
+          box-shadow: 0 2px 6px #e67e22a0;
+          transition: background 0.3s;
+        }
+        .carousel-btn:hover {
+          background: #e67e22;
+        }
+        @media (max-width: 700px) {
+          .carousel-container {max-width: 98%;}
+          .carousel {height: auto;}
+          .temoignage {font-size: 1rem; padding:20px;}
+        }
+
         :root {
             --primary-blue: #2b5f7f;
             --primary-orange: #e67e22;
@@ -580,37 +634,46 @@
 
         <section id="temoignages">
           <h2>Résultats & Témoignages</h2>
-          <div class="temoignage">
-            <h3>Sophie L.</h3>
-            <p>“J’ai enfin retrouvé la motivation ! Les exercices adaptés à ma douleur au dos ont changé ma routine, et je n’ai plus aucune gêne après deux semaines.”</p>
-            <span>Douleurs dorsales disparues • Plus d’énergie au quotidien</span>
-          </div>
-          <div class="temoignage">
-            <h3>Julien M.</h3>
-            <p>“Le programme nutritionnel m’a aidé à perdre 8kg sans frustration. J’ai noté des progrès rapides en musculation et un vrai suivi humain, malgré la distance.”</p>
-            <span>Perte de poids durable • +20% de performances musculaires</span>
-          </div>
-          <div class="temoignage">
-            <h3>Anissa B.</h3>
-            <p>“Ce coaching à distance surpasse tous les cabinets habituels. Je me sens accompagnée, motivée et mes tendinites ont disparu en un mois.”</p>
-            <span>Tendinites résolues • Motivation retrouvée</span>
-          </div>
-          <div class="temoignage">
-            <h3>Kevin R.</h3>
-            <p>“J’ai intégré le groupe d’abonnés : conseils, encouragement et réponses à chaque question. J’ai pris 4kg de muscle, tout en soulageant mes douleurs d’épaule.”</p>
-            <span>Prise de masse rapide • Douleur d’épaule éliminée</span>
-          </div>
-          <div class="temoignage">
-            <h3>Lucie T.</h3>
-            <p>“Le programme est ultra-personnalisé. J’ai réalisé mon premier semi-marathon et je me sens en pleine forme. C’est plus efficace qu’en salle !”</p>
-            <span>Objectifs sportifs atteints • Forme & confiance améliorées</span>
-          </div>
-          <div class="temoignage">
-            <h3>Antoine G.</h3>
-            <p>“Le suivi individuel est top, les retours sont immédiats et précis. Après des années de galère, j’ai enfin trouvé une routine qui me correspond parfaitement.”</p>
-            <span>Routine adaptée • Réponses rapides & efficaces</span>
+          <div class="carousel-container">
+            <div class="carousel">
+              <div class="temoignage active">
+                <h3>Sophie L.</h3>
+                <p>“J’ai enfin retrouvé la motivation ! Les exercices adaptés à ma douleur au dos ont changé ma routine, et je n’ai plus aucune gêne après deux semaines.”</p>
+                <span>Douleurs dorsales disparues • Plus d’énergie au quotidien</span>
+              </div>
+              <div class="temoignage">
+                <h3>Julien M.</h3>
+                <p>“Le programme nutritionnel m’a aidé à perdre 8kg sans frustration. J’ai noté des progrès rapides en musculation et un vrai suivi humain, malgré la distance.”</p>
+                <span>Perte de poids durable • +20% de performances musculaires</span>
+              </div>
+              <div class="temoignage">
+                <h3>Anissa B.</h3>
+                <p>“Ce coaching à distance surpasse tous les cabinets habituels. Je me sens accompagnée, motivée et mes tendinites ont disparu en un mois.”</p>
+                <span>Tendinites résolues • Motivation retrouvée</span>
+              </div>
+              <div class="temoignage">
+                <h3>Kevin R.</h3>
+                <p>“J’ai intégré le groupe d’abonnés : conseils, encouragement et réponses à chaque question. J’ai pris 4kg de muscle, tout en soulageant mes douleurs d’épaule.”</p>
+                <span>Prise de masse rapide • Douleur d’épaule éliminée</span>
+              </div>
+              <div class="temoignage">
+                <h3>Lucie T.</h3>
+                <p>“Le programme est ultra-personnalisé. J’ai réalisé mon premier semi-marathon et je me sens en pleine forme. C’est plus efficace qu’en salle !”</p>
+                <span>Objectifs sportifs atteints • Forme & confiance améliorées</span>
+              </div>
+              <div class="temoignage">
+                <h3>Antoine G.</h3>
+                <p>“Le suivi individuel est top, les retours sont immédiats et précis. Après des années de galère, j’ai enfin trouvé une routine qui me correspond parfaitement.”</p>
+                <span>Routine adaptée • Réponses rapides & efficaces</span>
+              </div>
+            </div>
+            <div class="carousel-controls">
+              <button class="carousel-btn" id="prevBtn">&#9664;</button>
+              <button class="carousel-btn" id="nextBtn">&#9654;</button>
+            </div>
           </div>
         </section>
+
 
 
 
@@ -1214,6 +1277,31 @@
             dateInput.setAttribute('min', today);
         }
     </script>
+
+    <script>
+      // Carousel testimonials
+      const testimonials = document.querySelectorAll('.temoignage');
+      let idx = 0;
+      function showTestimonial(n) {
+        testimonials.forEach((el, i) => {
+          el.classList.toggle('active', i===n);
+        });
+      }
+      function nextTestimonial() {
+        idx = (idx+1)%testimonials.length;
+        showTestimonial(idx);
+      }
+      function prevTestimonial() {
+        idx = (idx-1+testimonials.length)%testimonials.length;
+        showTestimonial(idx);
+      }
+      document.getElementById('nextBtn').onclick = nextTestimonial;
+      document.getElementById('prevBtn').onclick = prevTestimonial;
+      // Auto-play
+      setInterval(nextTestimonial, 4500);
+      showTestimonial(idx);
+    </script>
+
 </body>
 </html>
 
