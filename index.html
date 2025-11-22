@@ -474,15 +474,23 @@
                 </div>
                 
                 <div style="display: flex; gap: 1rem; flex-wrap:wrap;">
-                    <div class="form-group" style="flex: 1; min-width: 120px;">
-                        <label>Votre âge</label>
-                        <input type="number" class="form-input" id="bilan-age" min="18" max="99" required placeholder="Ex: 35">
+                    <div class="form-group" style="flex: 1; min-width: 100px;">
+                        <label>Sexe</label>
+                        <select class="form-input" id="bilan-sexe" required>
+                            <option value="homme">Homme</option>
+                            <option value="femme">Femme</option>
+                        </select>
                     </div>
-                    <div class="form-group" style="flex: 1; min-width: 120px;">
-                        <label>Votre taille (cm)</label>
-                        <input type="number" class="form-input" id="bilan-taille" min="100" max="250" required placeholder="Ex: 175">
+                    <div class="form-group" style="flex: 1; min-width: 100px;">
+                        <label>Age</label>
+                        <input type="number" class="form-input" id="bilan-age" min="18" max="99" required placeholder="35">
+                    </div>
+                    <div class="form-group" style="flex: 1; min-width: 100px;">
+                        <label>Taille (cm)</label>
+                        <input type="number" class="form-input" id="bilan-taille" min="140" max="220" required placeholder="175">
                     </div>
                 </div>
+
                 
                 <div class="form-group">
                     <label>Quel est votre objectif principal ?</label>
@@ -634,14 +642,16 @@
             btn.style.background = "#e67e22";
             btn.disabled = true; // On bloque le clic
     
-            const formData = {
-                nom: document.getElementById('bilan-nom').value,
-                email: document.getElementById('bilan-email').value,
-                objectif: document.getElementById('bilan-objectif').value,
-                douleur: document.getElementById('bilan-description').value, 
-                description: document.getElementById('bilan-description').value,
-                sommeil: document.getElementById('bilan-sommeil').value
+         const formData = {
+            nom: document.getElementById('bilan-nom').value,
+            email: document.getElementById('bilan-email').value,
+            sexe: document.getElementById('bilan-sexe').value, // <--- LIGNE AJOUTÉE
+            objectif: document.getElementById('bilan-objectif').value,
+            douleur: document.getElementById('bilan-description').value, 
+            description: document.getElementById('bilan-description').value,
+            sommeil: document.getElementById('bilan-sommeil').value
             };
+
     
             try {
                 const response = await fetch('/.netlify/functions/analyze', {
