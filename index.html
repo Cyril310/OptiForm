@@ -78,14 +78,20 @@
         .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: var(--dark-blue); }
 
         /* --- HERO --- */
+
         .hero {
-            background: var(--gradient-hero);
-            color: white;
-            padding: 6rem 1.5rem 8rem;
-            text-align: center;
-            position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        /* On ajoute une image de fond inspirante (sport/santé) avec un filtre bleu par-dessus */
+        background: linear-gradient(rgba(43, 95, 127, 0.9), rgba(26, 61, 82, 0.85)), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Petit effet de profondeur quand on scrolle */
+        color: white;
+        padding: 6rem 1.5rem 8rem;
+        text-align: center;
+        position: relative;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
+
         .hero-content { max-width: 900px; margin: 0 auto; }
         .hero h1 { font-size: 3rem; margin-bottom: 1.5rem; }
         .hero-subtitle { font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 300; }
@@ -318,6 +324,14 @@
             .concept-timeline { flex-direction: column; gap: 2rem; }
             .concept-timeline::before { display: none; } /* Cache la ligne sur mobile */
         }
+        
+        /* Rend le bouton de l'offre "Featured" (Performance) plus visible */
+        .pricing-card.featured .submit-btn {
+        background: #d35400; /* Orange plus vif */
+        box-shadow: 0 10px 20px rgba(211, 84, 0, 0.4);
+        font-weight: 800;
+        transform: scale(1.02);
+    }
     </style>
 </head>
 <body>
@@ -552,7 +566,15 @@
             <a href="#offres">Tarifs</a>
             <a href="https://instagram.com" target="_blank">Instagram</a>
         </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 2rem; font-size: 0.9rem; opacity: 0.8;">
         <p>&copy; 2025 Coaching IA Personnalisé. Tous droits réservés.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#" style="color: white; text-decoration: underline;">Mentions Légales</a> | 
+            <a href="#" style="color: white; text-decoration: underline;">CGV</a> | 
+            <a href="#" style="color: white; text-decoration: underline;">Politique de Confidentialité</a>
+        </p>
+</div>
+
     </footer>
 
     <div id="bookingModal" class="modal">
