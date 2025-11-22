@@ -44,7 +44,7 @@ exports.handler = async (event) => {
     `;
 
     // 3. Appel à Google Gemini (Modèle Flash, très rapide)
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const result = await model.generateContent(promptSysteme);
     const emailContent = result.response.text();
 
