@@ -61,6 +61,7 @@ exports.handler = async (event) => {
     // 2. Appel IA
     const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     const result = await model.generateContent(promptSysteme);
+    const emailContent = result.response.text();
 
         // --- 1. CALCUL DES DATES (Séquence J+1 et J+2) ---
     const demain = new Date();
