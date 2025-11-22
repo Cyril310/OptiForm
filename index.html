@@ -296,8 +296,43 @@
         .form-box { background: white; padding: 3rem; border-radius: 20px; box-shadow: var(--shadow-soft); max-width: 800px; margin: 0 auto; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark-blue); }
-        .form-input { width: 100%; padding: 1rem; border: 2px solid #eee; border-radius: 10px; font-family: inherit; transition: 0.3s; }
-        .form-input:focus { border-color: var(--primary-orange); outline: none; }
+        
+        .form-group {
+            position: relative; /* Pour positionner le label au-dessus */
+            margin-bottom: 1.8rem; /* Augmente l'espace pour le label */
+        }
+        .form-group label {
+            position: absolute; /* Place le label au-dessus du champ */
+            top: -0.8rem; /* Remonte le label */
+            left: 0.8rem;
+            background: white; /* Fond blanc pour cacher le fond du champ */
+            padding: 0 0.4rem;
+            font-size: 0.85rem; /* Taille plus petite pour le label */
+            font-weight: 600;
+            color: var(--dark-blue);
+            z-index: 10;
+            transition: all 0.2s ease-out; /* Animation douce */
+        }
+        
+        /* Style des inputs dans la modale */
+        .modal-content .form-input,
+        .modal-content .form-select {
+            width: 100%;
+            padding: 1rem; /* Plus de padding pour un look moderne */
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem; /* Texte plus grand à l'intérieur */
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .modal-content .form-input:focus,
+        .modal-content .form-select:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2); /* Ombre légère au focus */
+            outline: none;
+        }
         .submit-btn { width: 100%; padding: 1.2rem; background: var(--gradient-cta); color: white; border: none; border-radius: 10px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
         .submit-btn:hover { box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); transform: scale(1.02); }
 
