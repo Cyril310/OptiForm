@@ -19,10 +19,11 @@
             --text-dark: #2c3e50;
             --text-light: #607d8b;
             --success: #27ae60;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-soft: 0 10px 40px rgba(43, 95, 127, 0.08);
+            --shadow-hover: 0 20px 50px rgba(43, 95, 127, 0.15);
             --gradient-hero: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
             --gradient-cta: linear-gradient(135deg, var(--primary-orange) 0%, #d35400 100%);
-            --radius: 12px;
+            --radius: 16px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,7 +40,7 @@
         a { text-decoration: none; transition: 0.3s; }
         ul { list-style: none; }
 
-        /* --- HEADER & NAV --- */
+        /* --- HEADER --- */
         header {
             background: white;
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
@@ -58,39 +59,13 @@
             align-items: center;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .brand-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
+        .logo-container { display: flex; align-items: center; gap: 1rem; }
+        .logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .brand-name { font-size: 1.2rem; font-weight: 700; color: var(--primary-blue); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text-dark); font-weight: 500; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--primary-orange); }
-
+        
         .cta-nav {
             background: var(--gradient-cta);
             color: white !important;
@@ -99,18 +74,10 @@
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
         }
-
         .cta-nav:hover { transform: translateY(-2px); }
+        .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: var(--dark-blue); }
 
-        /* Menu Mobile Icon */
-        .hamburger {
-            display: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--dark-blue);
-        }
-
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             background: var(--gradient-hero);
             color: white;
@@ -119,349 +86,237 @@
             position: relative;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
-
         .hero-content { max-width: 900px; margin: 0 auto; }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--gradient-cta);
-            color: white;
-            box-shadow: 0 10px 20px rgba(211, 84, 0, 0.3);
-        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1.5rem; }
+        .hero-subtitle { font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 300; }
+        .btn { padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; font-size: 1.1rem; cursor: pointer; border: none; display: inline-block; }
+        .btn-primary { background: var(--gradient-cta); color: white; box-shadow: 0 10px 20px rgba(211, 84, 0, 0.3); margin: 0.5rem; }
         .btn-primary:hover { transform: translateY(-3px); }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 2px solid rgba(255,255,255,0.3); margin: 0.5rem; }
         .btn-secondary:hover { background: white; color: var(--primary-blue); }
 
         /* --- TRUST BADGES --- */
-        .trust-section {
-            margin-top: -4rem;
-            padding: 0 1.5rem;
-            position: relative;
-            z-index: 10;
-        }
-
+        .trust-section { margin-top: -4rem; padding: 0 1.5rem; position: relative; z-index: 10; }
         .trust-badges {
             max-width: 1000px;
             margin: 0 auto;
             background: white;
             padding: 2rem;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-soft);
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 1.5rem;
         }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            color: var(--primary-blue);
-        }
-
+        .trust-item { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--primary-blue); }
         .trust-icon { color: var(--success); font-size: 1.4rem; }
 
-        /* --- SECTIONS GENERAL --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 1.5rem;
-        }
+        /* --- SECTION TITLES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem; }
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--dark-blue); margin-bottom: 1rem; }
+        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 4rem; max-width: 700px; margin: 0 auto 4rem; }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--dark-blue);
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* --- CARDS GRID --- */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
-        }
-
-        .card:hover { transform: translateY(-5px); }
-
-        .icon-lg { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
-
-        .card h3 { color: var(--primary-blue); margin-bottom: 1rem; }
-
-        /* --- STEPS (How it works) --- */
-        .step-card {
-            text-align: center;
+        /* --- NEW CONCEPT SECTION --- */
+        .concept-timeline {
+            display: flex;
+            justify-content: space-between;
             position: relative;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
 
-        .step-num {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-cta);
-            color: white;
+        /* Ligne connectrice (desktop seulement) */
+        @media (min-width: 900px) {
+            .concept-timeline::before {
+                content: '';
+                position: absolute;
+                top: 40px; /* Hauteur de la ligne */
+                left: 50px;
+                right: 50px;
+                height: 2px;
+                background: #e0e0e0;
+                background-image: linear-gradient(to right, var(--primary-blue) 50%, rgba(255,255,255,0) 0%);
+                background-position: bottom;
+                background-size: 20px 1px;
+                background-repeat: repeat-x;
+                z-index: 0;
+            }
+        }
+
+        .concept-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 2.5rem 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 1;
+            border-bottom: 4px solid transparent;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-bottom: 4px solid var(--primary-orange);
+        }
+
+        .concept-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--light-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
             margin: 0 auto 1.5rem;
-            font-size: 1.2rem;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        /* --- TÉMOIGNAGES (Carousel Fix) --- */
-        #temoignages {
-            background: var(--light-blue);
-            padding: 5rem 1.5rem;
-            overflow: hidden;
-        }
-
-        .carousel-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .carousel-wrapper {
-            position: relative;
-            height: 300px; /* Hauteur fixe pour éviter les sauts */
-            width: 100%;
-        }
-
-        .temoignage {
+        .step-badge {
+            background: var(--gradient-cta);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+        }
+
+        .concept-card h3 { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--dark-blue); }
+        .concept-card p { font-size: 0.95rem; color: var(--text-light); }
+
+        /* --- NEW REVIEWS SECTION (GRID) --- */
+        #temoignages { background: var(--light-blue); padding: 5rem 1.5rem; }
+        
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .review-card {
             background: white;
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: var(--radius);
-            border-left: 5px solid var(--primary-orange);
-            box-shadow: var(--shadow);
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.5s ease-in-out;
-            pointer-events: none;
-        }
-
-        .temoignage.active {
-            opacity: 1;
-            transform: translateX(0);
-            pointer-events: all;
-            z-index: 5;
-        }
-
-        .temoignage p { font-size: 1.1rem; font-style: italic; color: var(--text-dark); margin-bottom: 1.5rem; }
-        .temoignage h3 { color: var(--primary-blue); margin-bottom: 0.2rem; }
-        .temoignage span { color: var(--success); font-size: 0.9rem; font-weight: 600; }
-
-        .carousel-controls {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .carousel-btn {
-            background: white;
-            border: 2px solid var(--primary-orange);
-            color: var(--primary-orange);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
+            flex-direction: column;
+            justify-content: space-between;
             transition: 0.3s;
         }
 
-        .carousel-btn:hover { background: var(--primary-orange); color: white; }
+        .review-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+        .stars { color: #f1c40f; margin-bottom: 1rem; font-size: 1.1rem; }
+        .review-text { font-style: italic; color: var(--text-dark); margin-bottom: 1.5rem; font-size: 0.95rem; }
+        
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: auto;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 1rem;
+        }
+        
+        .avatar {
+            width: 45px; 
+            height: 45px; 
+            background: var(--primary-blue); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .author-info h4 { font-size: 1rem; color: var(--dark-blue); margin-bottom: 0; }
+        .author-info span { font-size: 0.85rem; color: var(--success); font-weight: 600; }
+
+        /* Mobile Horizontal Scroll for Reviews */
+        @media (max-width: 768px) {
+            .review-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1rem;
+                padding-bottom: 2rem; /* Espace pour la scrollbar */
+            }
+            .review-card {
+                min-width: 85%;
+                scroll-snap-align: center;
+            }
+        }
 
         /* --- PRICING --- */
+        .grid-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .pricing-card {
             background: white;
             border-radius: 20px;
             padding: 3rem 2rem;
             text-align: center;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-soft);
             position: relative;
             border: 1px solid #eee;
+            transition: 0.3s;
         }
-
-        .pricing-card.featured {
-            border: 2px solid var(--primary-orange);
-            transform: scale(1.05);
-            z-index: 2;
-        }
-
+        .pricing-card:hover { transform: translateY(-5px); }
+        .pricing-card.featured { border: 2px solid var(--primary-orange); transform: scale(1.05); z-index: 2; }
         .badge-pop {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-cta);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--gradient-cta); color: white; padding: 0.5rem 1.5rem;
+            border-radius: 20px; font-size: 0.8rem; font-weight: 700;
         }
-
         .price { font-size: 3rem; font-weight: 700; color: var(--primary-blue); margin: 1.5rem 0; }
-        .features-list { text-align: left; margin: 2rem 0; space-y: 1rem; }
+        .features-list { text-align: left; margin: 2rem 0; }
         .features-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
         .features-list li::before { content: "✓"; color: var(--success); font-weight: bold; }
 
-        /* --- CONTACT FORM --- */
-        .form-box {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
+        /* --- FORMS --- */
+        .form-box { background: white; padding: 3rem; border-radius: 20px; box-shadow: var(--shadow-soft); max-width: 800px; margin: 0 auto; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark-blue); }
-        
-        .form-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-family: inherit;
-            transition: 0.3s;
-        }
-
+        .form-input { width: 100%; padding: 1rem; border: 2px solid #eee; border-radius: 10px; font-family: inherit; transition: 0.3s; }
         .form-input:focus { border-color: var(--primary-orange); outline: none; }
-        textarea.form-input { resize: vertical; min-height: 120px; }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.2rem;
-            background: var(--gradient-cta);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .submit-btn:hover { box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); }
+        .submit-btn { width: 100%; padding: 1.2rem; background: var(--gradient-cta); color: white; border: none; border-radius: 10px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .submit-btn:hover { box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); transform: scale(1.02); }
 
         /* --- FOOTER --- */
-        footer {
-            background: var(--dark-blue);
-            color: white;
-            padding: 3rem 1.5rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
+        footer { background: var(--dark-blue); color: white; padding: 3rem 1.5rem; text-align: center; margin-top: 4rem; }
         .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
         .footer-links a { color: rgba(255,255,255,0.7); }
-        .footer-links a:hover { color: white; }
 
         /* --- MODAL --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-        }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; padding: 1rem; }
+        .modal-content { background: white; padding: 2rem; border-radius: 15px; width: 100%; max-width: 500px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; background: none; border: none; }
 
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 500px;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-links {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                padding: 2rem;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-                display: none; /* Hidden by default on mobile */
+                position: absolute; top: 70px; left: 0; width: 100%; background: white;
+                flex-direction: column; padding: 2rem; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                display: none;
             }
             .nav-links.active { display: flex; }
-            
             .hero h1 { font-size: 2rem; }
             .pricing-card.featured { transform: scale(1); }
-            .carousel-wrapper { height: 380px; } /* Plus haut sur mobile pour le texte */
+            .concept-timeline { flex-direction: column; gap: 2rem; }
+            .concept-timeline::before { display: none; } /* Cache la ligne sur mobile */
         }
     </style>
 </head>
@@ -470,7 +325,7 @@
     <header>
         <nav>
             <div class="logo-container">
-                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/2fc53047-1c89-42cd-807e-63c37986e7da" alt="Logo Coaching" class="logo">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/2fc53047-1c89-42cd-807e-63c37986e7da" alt="Logo" class="logo">
                 <span class="brand-name">IA & Coaching</span>
             </div>
             <div class="hamburger" onclick="toggleMenu()">☰</div>
@@ -479,8 +334,7 @@
                 <li><a href="#concept" onclick="toggleMenu()">Concept</a></li>
                 <li><a href="#temoignages" onclick="toggleMenu()">Avis</a></li>
                 <li><a href="#offres" onclick="toggleMenu()">Offres</a></li>
-                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-                <li><a href="#offres" class="cta-nav" onclick="toggleMenu()">Commencer</a></li>
+                <li><a href="#contact" class="cta-nav" onclick="toggleMenu()">Commencer</a></li>
             </ul>
         </nav>
     </header>
@@ -488,10 +342,10 @@
     <section class="hero" id="accueil">
         <div class="hero-content">
             <h1>Votre Transformation Corps & Esprit par l'IA</h1>
-            <p class="hero-subtitle">L'alliance unique de l'ostéopathie, du coaching sportif et de l'intelligence artificielle pour des résultats garantis.</p>
+            <p class="hero-subtitle">La première méthode qui combine la précision de l'Intelligence Artificielle à l'expertise d'un ostéopathe pour des résultats rapides et sans douleur.</p>
             <div class="btn-group">
                 <a href="#offres" class="btn btn-primary">Mon Bilan Gratuit</a>
-                <a href="#concept" class="btn btn-secondary">Comment ça marche ?</a>
+                <a href="#concept" class="btn btn-secondary">Découvrir la méthode</a>
             </div>
         </div>
     </section>
@@ -500,77 +354,130 @@
         <div class="trust-badges">
             <div class="trust-item"><span class="trust-icon">✓</span> Ostéopathe D.O</div>
             <div class="trust-item"><span class="trust-icon">✓</span> Coach Certifié</div>
-            <div class="trust-item"><span class="trust-icon">✓</span> Validé par la Science</div>
+            <div class="trust-item"><span class="trust-icon">✓</span> Basé sur la Science</div>
             <div class="trust-item"><span class="trust-icon">✓</span> IA Adaptative</div>
         </div>
     </section>
 
     <section class="container" id="concept">
-        <h2 class="section-title">Une Révolution dans le Coaching</h2>
-        <p class="section-subtitle">Oubliez les programmes génériques PDF. Voici l'ère de l'ultra-personnalisation dynamique.</p>
+        <h2 class="section-title">Une Méthode Révolutionnaire</h2>
+        <p class="section-subtitle">Fini les PDF génériques. Votre programme est vivant : il apprend, il s'adapte et il évolue avec vous.</p>
         
-        <div class="grid-cards">
-            <div class="card step-card">
-                <div class="step-num">1</div>
-                <h3>Analyse Complète</h3>
-                <p>Vous remplissez un questionnaire détaillé (santé, objectifs, matériel).</p>
+        <div class="concept-timeline">
+            <div class="concept-card">
+                <div class="step-badge">ÉTAPE 1</div>
+                <div class="concept-icon-wrapper">📋</div>
+                <h3>Bilan Initial & IA</h3>
+                <p>Vous remplissez un questionnaire expert. L'IA analyse votre profil biomécanique, vos douleurs et vos objectifs instantanément.</p>
             </div>
-            <div class="card step-card">
-                <div class="step-num">2</div>
-                <h3>Génération IA</h3>
-                <p>Notre IA croise vos données avec des milliers d'études scientifiques.</p>
+
+            <div class="concept-card">
+                <div class="step-badge">ÉTAPE 2</div>
+                <div class="concept-icon-wrapper">🧬</div>
+                <h3>Génération Hybride</h3>
+                <p>L'algorithme crée la structure du plan, que je valide personnellement en tant qu'ostéopathe pour garantir votre sécurité.</p>
             </div>
-            <div class="card step-card">
-                <div class="step-num">3</div>
-                <h3>Validation Humaine</h3>
-                <p>Je vérifie et ajuste personnellement le programme en tant qu'expert.</p>
+
+            <div class="concept-card">
+                <div class="step-badge">ÉTAPE 3</div>
+                <div class="concept-icon-wrapper">📈</div>
+                <h3>Évolution Hebdomadaire</h3>
+                <p>Chaque semaine, vos feedbacks modifient le programme. Trop facile ? Une douleur ? Le plan s'ajuste automatiquement.</p>
             </div>
-            <div class="card step-card">
-                <div class="step-num">4</div>
-                <h3>Adaptation Continue</h3>
-                <p>Le programme évolue chaque semaine selon vos feedbacks et progrès.</p>
+
+            <div class="concept-card">
+                <div class="step-badge">ÉTAPE 4</div>
+                <div class="concept-icon-wrapper">🎯</div>
+                <h3>Résultats Durables</h3>
+                <p>Pas de régime drastique ni de sport excessif. Juste la dose parfaite pour votre corps, pour une transformation à vie.</p>
             </div>
         </div>
     </section>
 
     <section id="temoignages">
-        <h2 class="section-title">Ils ont transformé leur vie</h2>
-        <p class="section-subtitle">Des résultats concrets, sans blessure ni frustration.</p>
-        
-        <div class="carousel-container">
-            <div class="carousel-wrapper">
-                <div class="temoignage active">
-                    <h3>Sophie L.</h3>
-                    <p>“J’ai enfin retrouvé la motivation ! Les exercices adaptés à ma douleur au dos ont changé ma routine, et je n’ai plus aucune gêne après deux semaines.”</p>
-                    <span>✓ Douleurs disparues • Plus d’énergie</span>
-                </div>
-                <div class="temoignage">
-                    <h3>Julien M.</h3>
-                    <p>“Le programme nutritionnel m’a aidé à perdre 8kg sans frustration. J’ai noté des progrès rapides en musculation et un vrai suivi humain.”</p>
-                    <span>✓ -8kg perdus • Performances en hausse</span>
-                </div>
-                <div class="temoignage">
-                    <h3>Anissa B.</h3>
-                    <p>“Ce coaching à distance surpasse tous les cabinets habituels. Je me sens accompagnée, et mes tendinites ont disparu en un mois.”</p>
-                    <span>✓ Tendinites résolues • Motivation top</span>
-                </div>
-                <div class="temoignage">
-                    <h3>Kevin R.</h3>
-                    <p>“J’ai pris 4kg de muscle tout en soulageant mes douleurs d’épaule. Le groupe privé est une mine d'or pour la motivation.”</p>
-                    <span>✓ Prise de masse • Épaules saines</span>
-                </div>
-            </div>
+        <div class="container" style="padding-top:0; padding-bottom:0;">
+            <h2 class="section-title">Ils ont changé leur vie</h2>
+            <p class="section-subtitle">Plus de 500 personnes accompagnées. 98% de réussite.</p>
             
-            <div class="carousel-controls">
-                <button class="carousel-btn" id="prevBtn">&#10094;</button>
-                <button class="carousel-btn" id="nextBtn">&#10095;</button>
+            <div class="review-grid">
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"J'avais mal au dos depuis 3 ans. En 3 semaines de programme adapté, la douleur a disparu et j'ai perdu 4kg. L'approche ostéo change tout."</p>
+                    <div class="review-author">
+                        <div class="avatar">S</div>
+                        <div class="author-info">
+                            <h4>Sophie Laurent</h4>
+                            <span>Programme Performance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Ce n'est pas juste du sport, c'est une éducation. Je comprends enfin comment manger et bouger. L'IA rend le suivi hyper réactif."</p>
+                    <div class="review-author">
+                        <div class="avatar">M</div>
+                        <div class="author-info">
+                            <h4>Marc Dubois</h4>
+                            <span>Programme Transformation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Incroyable. J'étais sceptique sur le coaching à distance, mais le suivi est meilleur qu'en salle. On se sent vraiment écouté."</p>
+                    <div class="review-author">
+                        <div class="avatar">A</div>
+                        <div class="author-info">
+                            <h4>Anissa K.</h4>
+                            <span>Programme Starter</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"J'ai préparé mon marathon avec ce coaching. Résultat : record personnel battu de 15 minutes et aucune tendinite !"</p>
+                    <div class="review-author">
+                        <div class="avatar">T</div>
+                        <div class="author-info">
+                            <h4>Thomas V.</h4>
+                            <span>Programme Performance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"L'aspect nutritionnel est top. Pas de frustration, juste des ajustements intelligents. J'ai retrouvé mon énergie de 20 ans."</p>
+                    <div class="review-author">
+                        <div class="avatar">C</div>
+                        <div class="author-info">
+                            <h4>Céline Petit</h4>
+                            <span>Programme Transformation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Le groupe d'entraide est génial. On se motive tous les jours. Le coach répond super vite aux questions techniques."</p>
+                    <div class="review-author">
+                        <div class="avatar">L</div>
+                        <div class="author-info">
+                            <h4>Lucas Martin</h4>
+                            <span>Programme Performance</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="container" id="offres">
         <h2 class="section-title">Choisissez votre Transformation</h2>
-        <div class="grid-cards">
+        <div class="grid-pricing">
             
             <div class="pricing-card">
                 <h3>Starter</h3>
@@ -671,13 +578,11 @@
     </div>
 
     <script>
-        // 1. Mobile Menu Toggle
         function toggleMenu() {
             const nav = document.getElementById('navLinks');
             nav.classList.toggle('active');
         }
 
-        // 2. Modal Logic
         const modal = document.getElementById('bookingModal');
         
         function openBooking(offerName) {
@@ -689,46 +594,19 @@
             modal.style.display = 'none';
         }
 
-        // Fermer le modal si on clique en dehors
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeBooking();
             }
         }
 
-        // 3. Carousel Logic (Robuste)
-        let slideIndex = 0;
-        const slides = document.querySelectorAll('.temoignage');
-        
-        function showSlide(n) {
-            // Reset all
-            slides.forEach(slide => slide.classList.remove('active'));
-            
-            // Calculate index
-            if (n >= slides.length) slideIndex = 0;
-            else if (n < 0) slideIndex = slides.length - 1;
-            else slideIndex = n;
-            
-            // Show new
-            slides[slideIndex].classList.add('active');
-        }
-
-        document.getElementById('nextBtn').addEventListener('click', () => showSlide(slideIndex + 1));
-        document.getElementById('prevBtn').addEventListener('click', () => showSlide(slideIndex - 1));
-
-        // Auto-play (pause on hover optionnel)
-        setInterval(() => {
-            showSlide(slideIndex + 1);
-        }, 5000);
-
-        // 4. Form Submission Simulation
         function handleSubmit(e, type) {
             e.preventDefault();
             const btn = e.target.querySelector('button');
             const originalText = btn.innerText;
             
             btn.innerText = "Envoi en cours...";
-            btn.style.background = "#27ae60"; // Green
+            btn.style.background = "#27ae60";
             
             setTimeout(() => {
                 alert(type === 'booking' 
@@ -736,12 +614,11 @@
                     : "Message envoyé avec succès !");
                 e.target.reset();
                 btn.innerText = originalText;
-                btn.style.background = ""; // Reset color
+                btn.style.background = "";
                 if(type === 'booking') closeBooking();
             }, 1500);
         }
         
-        // 5. Smooth Scroll pour les liens d'ancrage
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -751,8 +628,5 @@
             });
         });
     </script>
-
 </body>
 </html>
-
-
