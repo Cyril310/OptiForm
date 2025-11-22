@@ -12,20 +12,24 @@ exports.handler = async (event) => {
 
   try {
     const data = JSON.parse(event.body);
-    const { nom, email, objectif, douleur, description, sommeil } = data;
+    // On ajoute 'sexe' ici pour le récupérer
+    const { nom, email, sexe, objectif, douleur, description, sommeil } = data;
 
-    console.log(`Traitement Gemini pour ${nom}`);
+    console.log(`Traitement Gemini pour ${nom} (${sexe})`);
 
-    // 1. PROMPT MODIFIÉ (Stratégie vs Programme)
+    // 1. PROMPT MODIFIÉ (Intégration du sexe)
     const promptSysteme = `
       Agis comme un expert mondial en biomécanique et coaching sportif (Ostéopathe & Coach).
-      Ton but : Présenter une stratégie de haut niveau pour convaincre le prospect de réserver son bilan biomécanique (étape préalable obligatoire à la création de son programme sur-mesure).
+      Ton but : Présenter une stratégie de haut niveau pour convaincre le prospect de réserver son bilan biomécanique.
       
       Données du prospect :
       - Nom : ${nom}
+      - Sexe : ${sexe}
       - Objectif : ${objectif}
       - Douleur : ${douleur} (${description})
       - Sommeil : ${sommeil}
+
+      Consigne Spéciale : Adapte tes explications physiologiques et biomécaniques au sexe du prospect (${sexe}). Par exemple, adapte les références hormonales ou morphologiques si nécessaire.
 
       Rédige un email au format HTML riche (utilise des balises <h3>, <ul>, <li>, <strong>, <br>).
       Ne mets PAS de balises <html> ou <body>.
@@ -34,7 +38,7 @@ exports.handler = async (event) => {
       
       1. ACCROCHE (H3) : "⚠️ Analyse de ${nom} : Potentiel détecté & Points de vigilance"
       
-      2. DIAGNOSTIC EXPERT (Paragraphe) : Analyse le lien entre sa douleur (${douleur}) et son sommeil (${sommeil}). Explique pourquoi un programme générique aggraverait son cas (risque inflammatoire/blessure).
+      2. DIAGNOSTIC EXPERT (Paragraphe) : Analyse le lien entre sa douleur (${douleur}) et son sommeil (${sommeil}).
       
       3. LA FEUILLE DE ROUTE (Liste structurée) : 
          Dis : "Voici les 3 piliers stratégiques que nous devrons mettre en place :"
@@ -44,11 +48,11 @@ exports.handler = async (event) => {
            <li><strong>Phase 3 (Performance) :</strong> Intensification métabolique pour atteindre l'objectif : ${objectif}.</li>
          </ul>
 
-      4. LE "GAP" (Pourquoi réserver ?) :
-         Explique clairement : "Ceci est une ébauche stratégique. En tant qu'ostéopathe, je ne peux pas construire votre programme détaillé (exercices, charges, volumes) sans vous voir bouger. Une prescription à l'aveugle serait irresponsable."
+      4. LE "GAP" :
+         Explique clairement : "Ceci est une ébauche stratégique. En tant qu'ostéopathe, je ne peux pas construire votre programme détaillé sans vous voir bouger."
 
       5. APPEL À L'ACTION :
-         "Réservez votre Bilan Biomécanique (Visio) pour que j'analyse vos chaînes musculaires et que nous lancions la création de votre programme sur-mesure."
+         "Réservez votre Bilan Biomécanique (Visio) pour que j'analyse vos chaînes musculaires."
 
       Ton ton doit être : Professionnel, Rassurant, Expert.
       Signe : "L'IA OptiForm (Supervisée par Cyril Mangeolle)".
