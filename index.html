@@ -635,45 +635,83 @@
             resultModal.style.display = 'flex';
         }
 
-        function handleSubmit(e, type) {
-            e.preventDefault();
-            const form = e.target;
-            const btn = form.querySelector('button');
-            const originalText = btn.innerText;
+        async function handleSubmit(e, type) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    
+    // Si c'est le formulaire de Bilan
+    if (type === 'bilan') {
+        const originalText = btn.innerText;
+        btn.innerText = "🧠 Analyse IA en cours... (Patientez)";
+        btn.style.background = "#e67e22";
+        btn.disabled = true;
 
-            // Simulation "Reflexion IA"
-            if (type === 'bilan') {
-                btn.disabled = true;
-                btn.innerHTML = `<span style="display:inline-block; animation: spin 1s linear infinite; margin-right:10px">⚙️</span> Analyse IA en cours...`;
+        // Collecte des données
+        const formData = {
+            nom: document.getElementById('bilan-nom').value,
+            email: document.getElementById('bilan-email').value,
+            objectif: document.getElementById('bilan-objectif').value,
+            // On récupère la valeur du select ou de la 3D
+            douleur: document.getElementById('bilan-description').value, 
+            description: document.getElementById('bilan-description').value, // Adapte selon tes IDs
+            sommeil: document.getElementById('bilan-sommeil').value
+        };
+
+        try {
+            // APPEL AU BACKEND NETLIFY
+            // Note : '/.netlify/functions/analyze' est l'adresse standard créée automatiquement
+            const response = await fetch('/.netlify/functions/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                // SUCCÈS
+                btn.innerText = "Analyse envoyée !";
+                btn.style.background = "#27ae60";
                 
-                setTimeout(() => {
-                    const data = {
-                        nom: document.getElementById('bilan-nom').value,
-                        email: document.getElementById('bilan-email').value,
-                        objectif: document.getElementById('bilan-objectif').value
-                    };
-                    showBilanResult(data);
-                    
-                    btn.innerText = "Analyse terminée !";
-                    btn.style.background = "#27ae60";
-                    setTimeout(() => {
-                        btn.innerText = originalText;
-                        btn.style.background = "";
-                        btn.disabled = false;
-                        form.reset();
-                    }, 3000);
-                }, 2500); // Délai de 2.5 secondes pour l'effet Wow
-            } 
-            else if (type === 'booking') {
-                btn.innerText = "Validation...";
-                setTimeout(() => {
-                    alert("Demande reçue ! Je reviens vers vous sous 24h.");
-                    closeBooking();
-                    btn.innerText = originalText;
-                    form.reset();
-                }, 1000);
+                // Affichage de la modale de succès (Vente)
+                showSuccessModal(formData.nom);
+            } else {
+                throw new Error("Erreur serveur");
             }
+        } catch (error) {
+            console.error(error);
+            alert("Une erreur est survenue. Vérifiez votre connexion.");
+            btn.innerText = originalText;
+            btn.style.background = "";
+            btn.disabled = false;
         }
+    }
+}
+
+        // Fonction Modale de Vente (A ajouter si elle n'existe pas déjà)
+        function showSuccessModal(nom) {
+            const modal = document.getElementById('resultModal');
+            const content = document.getElementById('result-details');
+            // N'oublie pas de mettre ton vrai lien Calendly ici aussi
+            const calendlyLink = "https://calendly.com/TON-LIEN-ICI";
+        
+            document.getElementById('result-name').innerText = nom;
+            content.innerHTML = `
+                <div style="text-align:center;">
+                    <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+                    <h4 style="color:var(--primary-blue);">Dossier analysé et Pré-programme généré.</h4>
+                    <p style="margin-bottom:1.5rem; color:var(--text-dark);">
+                        J'ai détecté des points de vigilance sur votre profil. Un rapport complet vient d'être envoyé sur votre email.
+                    </p>
+                    <div style="background:#fff3cd; padding:1rem; border-radius:10px; border-left:4px solid #ffc107; text-align:left; margin-bottom:1.5rem; font-size:0.9rem;">
+                        <strong>⚠️ Action Requise :</strong> Pour débloquer votre programme complet (PDF), une validation de sécurité est nécessaire.
+                    </div>
+                    <a href="${calendlyLink}" target="_blank" class="btn btn-primary" style="width:100%; display:block; text-align:center;">
+                        Réserver ma validation (Gratuit)
+                    </a>
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+
         
         // Smooth Scroll pour les ancres
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
