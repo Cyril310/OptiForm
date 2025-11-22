@@ -59,7 +59,7 @@ exports.handler = async (event) => {
     `;
 
     // 2. Appel IA
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     const result = await model.generateContent(promptSysteme);
 
         // --- 1. CALCUL DES DATES (Séquence J+1 et J+2) ---
