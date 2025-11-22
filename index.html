@@ -348,7 +348,7 @@
                 <li><a href="#concept" onclick="toggleMenu()">Concept</a></li>
                 <li><a href="#temoignages" onclick="toggleMenu()">Avis</a></li>
                 <li><a href="#offres" onclick="toggleMenu()">Offres</a></li>
-                <li><a href="#contact" class="cta-nav" onclick="toggleMenu()">Commencer</a></li>
+                <li><a href="#bilan-gratuit" class="cta-nav" onclick="toggleMenu()">Mon Bilan Gratuit</a></li>
             </ul>
         </nav>
     </header>
@@ -358,7 +358,7 @@
             <h1>Votre Transformation Corps & Esprit par l'IA</h1>
             <p class="hero-subtitle">La première méthode qui combine la précision de l'Intelligence Artificielle à l'expertise d'un ostéopathe pour des résultats rapides et sans douleur.</p>
             <div class="btn-group">
-                <a href="#offres" class="btn btn-primary">Mon Bilan Gratuit</a>
+                <a href="#bilan-gratuit" class="btn btn-primary">Mon Bilan Gratuit</a>
                 <a href="#concept" class="btn btn-secondary">Découvrir la méthode</a>
             </div>
         </div>
@@ -382,7 +382,7 @@
                 <div class="step-badge">ÉTAPE 1</div>
                 <div class="concept-icon-wrapper">📋</div>
                 <h3>Bilan Initial & IA</h3>
-                <p>>Notre premier échange sert à réaliser votre bilan postural et à renseigner un formulaire spécifiquement conçu pour ce processus unique. L’IA fusionne ces données techniques et vos objectifs personnels pour créer un programme 100% adapté.</p>
+                <p>Notre premier échange sert à réaliser votre bilan postural et à renseigner un formulaire spécifiquement conçu pour ce processus unique. L’IA fusionne ces données techniques et vos objectifs personnels pour créer un programme 100% adapté.</p>
             </div>
 
             <div class="concept-card">
@@ -537,11 +537,11 @@
 
         </div>
     </section>
-
-    <section class="container" id="contact" style="background: var(--light-blue); border-radius: 20px; margin-bottom: 4rem;">
-        <h2 class="section-title">Une question avant de démarrer ?</h2>
+        <section class="container" id="bilan-gratuit" style="background: var(--light-blue); border-radius: 20px; margin-bottom: 4rem;">
+        <h2 class="section-title">Démarrez Votre Bilan Gratuit (5 min)</h2>
+        <p class="section-subtitle">Répondez à quelques questions pour recevoir un aperçu de votre programme personnalisé par IA.</p>
         <div class="form-box">
-            <form onsubmit="handleSubmit(event, 'contact')">
+            <form onsubmit="handleSubmit(event, 'bilan')">
                 <div class="form-group">
                     <label>Nom complet</label>
                     <input type="text" class="form-input" required placeholder="Votre nom">
@@ -551,13 +551,29 @@
                     <input type="email" class="form-input" required placeholder="votre@email.com">
                 </div>
                 <div class="form-group">
-                    <label>Votre objectif ou question</label>
-                    <textarea class="form-input" required placeholder="Je souhaite perdre du poids, j'ai mal au dos..."></textarea>
+                    <label>Quel est votre objectif principal ?</label>
+                    <select class="form-input" required>
+                        <option value="">-- Choisissez un objectif --</option>
+                        <option value="perte">Perte de Poids / Minceur</option>
+                        <option value="muscle">Gain Musculaire / Performance</option>
+                        <option value="douleur">Réduction de Douleur / Posture</option>
+                        <option value="energie">Retrouver de l'Énergie / Bien-être</option>
+                    </select>
                 </div>
-                <button type="submit" class="submit-btn">Envoyer mon message</button>
+                <div class="form-group">
+                    <label>Décrivez brièvement votre situation (douleurs, historique...)</label>
+                    <textarea class="form-input" required placeholder="J'ai mal au genou droit après 10km, je suis sédentaire, je souhaite faire X..."></textarea>
+                </div>
+                <div class="form-group" style="text-align: left; margin-top: 2rem;">
+                    <input type="checkbox" id="newsletter" name="newsletter" checked style="width: auto; margin-right: 0.5rem; transform: scale(1.2);">
+                    <label for="newsletter" style="display: inline; font-weight: 500; font-size: 0.95rem; color: var(--text-dark);">Oui, je souhaite recevoir votre newsletter hebdomadaire et des conseils exclusifs.</label>
+                </div>
+    
+                <button type="submit" class="submit-btn">Recevoir mon Aperçu Gratuit</button>
             </form>
-        </div>
+            </div>
     </section>
+
 
     <footer>
         <div class="footer-links">
@@ -622,24 +638,29 @@
             }
         }
 
+        // Remplacez votre fonction handleSubmit existante
         function handleSubmit(e, type) {
             e.preventDefault();
             const btn = e.target.querySelector('button');
             const originalText = btn.innerText;
-            
+        
             btn.innerText = "Envoi en cours...";
             btn.style.background = "#27ae60";
-            
+        
             setTimeout(() => {
-                alert(type === 'booking' 
-                    ? "Demande reçue ! Je reviens vers vous sous 24h pour l'entretien." 
+                alert(type === 'booking'
+                    ? "Demande reçue ! Je reviens vers vous sous 24h pour l'entretien."
+                    : type === 'bilan' // Nouveau message pour le bilan
+                    ? "Félicitations ! Votre aperçu de programme et votre premier conseil par mail sont en route. Vérifiez vos spams si rien n'apparaît sous 5 minutes."
                     : "Message envoyé avec succès !");
+        
                 e.target.reset();
                 btn.innerText = originalText;
                 btn.style.background = "";
                 if(type === 'booking') closeBooking();
             }, 1500);
         }
+
         
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
