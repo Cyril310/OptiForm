@@ -19,8 +19,7 @@ exports.handler = async (event) => {
 
     console.log(`Traitement Gemini pour ${nom}`);
 
-    // 2. Le Prompt pour Gemini
-        // 2. Le Prompt "Copywriting & Design" pour Gemini
+    // 2. Le Prompt "Copywriting & Design" pour Gemini
     const promptSysteme = `
       Agis comme un expert mondial en biomécanique et coaching sportif de haut niveau.
       Ton but est de convaincre ce prospect qu'il a besoin d'un accompagnement payant immédiat.
@@ -86,6 +85,17 @@ exports.handler = async (event) => {
             RÉSERVER MON BILAN DE VALIDATION
           </a>
           <p style="font-size: 12px; color: #999; margin-top: 15px;">*Créneau de 15 min offert - Engagement de présence requis.</p>
+        </div>
+        </a>
+       
+        <div style="border-top: 1px solid #ddd; padding-top: 20px; text-align:
+        center; "> 
+        <p style="margin-bottom: 10px; font-size: 14px;">En attendant notre appel, retrouvez mes conseils santé & performance :</p>
+        <a href="${instagramlink}" style="text-decoration: none; 
+        color: #C13584; font-weight: bold; font-size: 16px: display: flex: align-items: center:
+        justify-content: center: gap: 8px;"> <span>📸</span> suivre mon
+        Instagram Pro (@cyril_fitlife)
+          </a>
         </div>
 
       </div>
