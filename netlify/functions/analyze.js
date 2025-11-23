@@ -162,67 +162,75 @@ exports.handler = async (event) => {
       </div>
     `;
 
-           // --- 4. ENVOI SÉQUENTIEL (Correctif Anti-Erreur 429 & 401) ---
+    // --- 4. ENVOI SÉQUENTIEL (Anti-Blocage Plan Gratuit) ---
     
-      // Etape A : Email 1 (Immédiat - Le plus important)
+    // ÉTAPE A : Email 1 (Immédiat - Le plus important)
+    // On l'envoie et ON ATTEND (await) la réponse avant de passer à la suite.
+    try {
+      await resend.emails.send({
+        from: "Coach IA <onboarding@resend.dev>", // ⚠️ Pense à changer si tu as validé ton domaine
+        to: email,
+        subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
+        html: htmlEmail1,
+      });
+      console.log("✅ Email 1 (Rapport) envoyé.");
+    } catch (error) {
+      console.error("❌ Erreur critique Email 1:", error);
+      throw error; // Si celui-là plante, on arrête tout.
+    }
+
+    // Petite pause de sécurité (optionnel mais aide le plan gratuit)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // ÉTAPE B : Email 2 (Demain)
+    try {
+      await resend.emails.send({
+        from: "Cyril Mangeolle <onboarding@resend.dev>",
+        to: email,
+        subject: `Une pensée concernant votre ${douleur}...`,
+        html: htmlEmail2,
+        scheduled_at: demain.toISOString(),
+      });
+      console.log("✅ Email 2 programmé.");
+    } catch (error) {
+      console.warn("⚠️ Erreur Email 2 (Limitation plan gratuit ?):", error.message);
+    }
+
+    // Petite pause de sécurité
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // ÉTAPE C : Email 3 (Après-demain)
+    try {
+      await resend.emails.send({
+        from: "Cyril Mangeolle <onboarding@resend.dev>",
+        to: email,
+        subject: `Fermeture de votre dossier ${nom}`,
+        html: htmlEmail3,
+        scheduled_at: apresDemain.toISOString(),
+      });
+      console.log("✅ Email 3 programmé.");
+    } catch (error) {
+      console.warn("⚠️ Erreur Email 3:", error.message);
+    }
+
+    // ÉTAPE D : Sauvegarde Contact
+    // Important : Assure-toi d'avoir recréé ta clé API en "Full Access" comme vu avant
+    if (process.env.RESEND_AUDIENCE_ID) {
       try {
-        await resend.emails.send({
-          from: "Coach IA <onboarding@resend.dev>", // ⚠️ Pense à valider ton domaine sur Resend pour changer ça
-          to: email,
-          subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
-          html: htmlEmail1,
+        await resend.contacts.create({
+          email: email,
+          first_name: nom,
+          unsubscribed: false,
+          audienceId: process.env.RESEND_AUDIENCE_ID
         });
-        console.log("✅ Email 1 envoyé.");
+        console.log("✅ Contact ajouté à l'audience.");
       } catch (error) {
-        console.error("❌ Erreur critique Email 1:", error);
-        throw error; // Si le rapport ne part pas, on arrête tout.
+        console.warn("⚠️ Erreur Contact (Vérifie ta clé API Full Access):", error.message);
       }
-  
-      // Etape B : Email 2 (Demain) - On attend que le 1er soit fini pour éviter le blocage "Too many requests"
-      try {
-        await resend.emails.send({
-          from: "Cyril Mangeolle <onboarding@resend.dev>",
-          to: email,
-          subject: `Une pensée concernant votre ${douleur}...`,
-          html: htmlEmail2,
-          scheduled_at: demain.toISOString(),
-        });
-        console.log("✅ Email 2 programmé.");
-      } catch (error) {
-        console.warn("⚠️ Erreur Email 2 (Probablement option payante ou limite):", error.message);
-      }
-  
-      // Etape C : Email 3 (Après-demain)
-      try {
-        await resend.emails.send({
-          from: "Cyril Mangeolle <onboarding@resend.dev>",
-          to: email,
-          subject: `Fermeture de votre dossier ${nom}`,
-          html: htmlEmail3,
-          scheduled_at: apresDemain.toISOString(),
-        });
-        console.log("✅ Email 3 programmé.");
-      } catch (error) {
-        console.warn("⚠️ Erreur Email 3:", error.message);
-      }
-  
-      // Etape D : Sauvegarde Contact (Avec protection erreur API Key)
-      // Ton erreur 401 (Image 2) vient d'ici. On met un try/catch pour que ça ne plante pas le reste.
-      if (process.env.RESEND_AUDIENCE_ID) {
-        try {
-          await resend.contacts.create({
-            email: email,
-            first_name: nom,
-            unsubscribed: false,
-            audienceId: process.env.RESEND_AUDIENCE_ID
-          });
-          console.log("✅ Contact sauvegardé.");
-        } catch (error) {
-          console.warn("⚠️ Impossible de sauver le contact (Vérifie que ta clé API a l'accès 'Full Access' et pas juste 'Sending'):", error.message);
-        }
-      }
-  
-      return { statusCode: 200, body: JSON.stringify({ message: "Cycle d'envoi terminé !" }) };
+    }
+
+    return { statusCode: 200, body: JSON.stringify({ message: "Cycle terminé avec succès !" }) };
+
 
 
 
