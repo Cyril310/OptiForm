@@ -543,32 +543,31 @@
         }
 
         /* --- GESTION DES FONDS DE SECTIONS (THEME PREMIUM OPTIMISÉ POUR CONSTRASTE) --- */
+        
+        /* 1. À Propos : Gris très clair. Sépare le Hero (sombre) du Concept (blanc) */
+        #a-propos {
+            background-color: #f9fafb; 
+            padding: 5rem 1.5rem 2rem 1.5rem; /* MODIFICATION : Le padding du bas passe à 3rem (4rem avant) */
+            margin-top: 6rem;
+            position: relative; 
+            z-index: 5; 
+            border-radius: 40px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
 
-        /* 1. Section À Propos : On s'assure qu'elle est blanche et on ajuste les espacements */
-        #a-propos.about-section {
-            background-color: white; /* Fond blanc pur */
-            padding-top: 6rem;
-            padding-bottom: 6rem; /* On donne de l'espace en bas */
-            position: relative;
-            z-index: 2; /* On la place "au-dessus" pour une transition nette */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05); /* Optionnel : une ombre légère pour la décoller du fond */
+            /* 2. RÉDUCTION DE LA LARGEUR (Pour suivre les Trust Badges et créer la forme de bulle) */
+            max-width: 1300px; /* AJOUT : Limite la largeur (aligné sur les Trust Badges) */
+            margin-left: auto; /* AJOUT : Centrage horizontal */
+            margin-right: auto; /* AJOUT : Centrage horizontal */
         }
-        
-        /* 2. Section Méthode (Concept) : On change le fond pour le contraste */
+
+         /* 2. Concept : Blanc pur */
         #concept {
-            /* C'est LA clé : on utilise votre bleu clair pour créer le bloc distinct */
-            background-color: var(--light-blue); 
-            padding-top: 8rem; 
-            padding-bottom: 8rem;
-            margin-top: 0; 
+            background-color: #ffffff; 
+            padding: 6rem 1.5rem 6rem; /* On aère */
             position: relative;
-            z-index: 1;
+            z-index: 1; 
         }
-        
-        /* Ajustement optionnel si vous trouvez que les cartes sont trop hautes dans la section colorée */
-        #concept .container {
-            padding-top: 0;
-        }
+
 
         /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
         #temoignages {
