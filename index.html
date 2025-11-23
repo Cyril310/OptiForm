@@ -534,13 +534,19 @@
         /* 1. À Propos : Gris très clair. Sépare le Hero (sombre) du Concept (blanc) */
         #a-propos {
             background-color: #f9fafb; 
-            padding: 4rem 1.5rem; 
-            margin-top: -12rem; 
+            padding: 4rem 1.5rem 3rem 1.5rem; /* MODIFICATION : Le padding du bas passe à 3rem (4rem avant) */
+            margin-top: -8rem;
             position: relative; 
             z-index: 5; 
-            border-radius: 40px; /* MODIFICATION CLÉ : Augmenté pour un effet plus prononcé */
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05); /* Ajout d'une ombre légère pour la faire flotter */
+            border-radius: 40px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+
+            /* 2. RÉDUCTION DE LA LARGEUR (Pour suivre les Trust Badges et créer la forme de bulle) */
+            max-width: 1000px; /* AJOUT : Limite la largeur (aligné sur les Trust Badges) */
+            margin-left: auto; /* AJOUT : Centrage horizontal */
+            margin-right: auto; /* AJOUT : Centrage horizontal */
         }
+
 
 
         /* 2. Concept : Blanc pur */
