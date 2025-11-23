@@ -148,8 +148,15 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
             gap: 1.5rem;
         }
+                
+        .trust-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
+        }
+
         .trust-item { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--primary-blue); }
         .trust-icon { color: var(--success); font-size: 1.4rem; }
 
@@ -309,7 +316,7 @@
         .about-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-weight: 500; }
         .about-list li::before { content: "✓"; color: white; background: var(--success); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
 
-                /* --- DESIGN CAROUSEL 3D --- */
+        /* --- DESIGN CAROUSEL 3D --- */
         .carousel-container { position: relative; max-width: 1000px; margin: 0 auto; padding: 20px 0; perspective: 1000px; overflow: hidden; }
         
         .carousel-track-3d {
@@ -385,7 +392,8 @@
         @media (max-width: 768px) {
             .review-card-3d { width: 85%; padding: 1.5rem; }
             .review-card-3d.prev, .review-card-3d.next { opacity: 0; } /* Sur mobile, on cache les côtés pour la lisibilité */
-            .carousel-track-3d { height: 350px; }
+            .carousel-track-3d { height: 450px; }
+            .review-text { mini-height: 110;}
         }
 
        /* --- DESIGN SECTION BILAN (MODIFIÉ POUR ALIGNEMENT) --- */
@@ -490,16 +498,15 @@
         #a-propos {
             background-color: #f9fafb; /* Gris très léger */
             padding: 6rem 1.5rem;
+            margin-top: -3rem
             position: relative; 
             z-index: 5; /* Assure qu'elle est sous le Trust Badges mais au-dessus d'autres éléments */
         }
 
-
-
         /* 2. Concept : Blanc pur */
         #concept {
             background-color: #ffffff; 
-            padding: 6rem 1.5rem 10rem; /* Augmenter le padding pour la coupe */
+            padding: 6rem 1.5rem 12rem; /* Augmenter le padding pour la coupe */
             border-top: none; 
             position: relative; /* Indispensable pour clip-path */
             /* COUPE EN ANGLE */
@@ -509,12 +516,11 @@
 
         /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
         #temoignages {
-            margin-top: -8rem;
+            margin-top: -10rem;
             background-color: #eef6f9; 
             padding: 6rem 1.5rem;
             position: relative;
         }
-
 
         /* 4. Offres (Prix) : Blanc (Contraste maximal avec #temoignages Bleu) */
         #offres {
