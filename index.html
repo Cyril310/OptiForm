@@ -104,7 +104,7 @@
             padding: 8rem 1.5rem 10rem;
             text-align: center;
             position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
         }
 
         .hero-content { max-width: 900px; margin: 0 auto; }
@@ -314,7 +314,7 @@
         
         .carousel-track-3d {
             position: relative;
-            height: 400px; /* Hauteur fixe nécessaire pour l'absolute positioning */
+            height: 450px; /* Hauteur fixe nécessaire pour l'absolute positioning */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -490,7 +490,11 @@
         #a-propos {
             background-color: #f9fafb; /* Gris très léger */
             padding: 6rem 1.5rem;
+            margin-top: -3rem; /* AJOUT : Remonte la section A Propos */
+            position: relative; /* Indispensable pour la marge négative */
+            z-index: 5; /* Assure que le contenu À Propos passe au-dessus du Hero */
         }
+
 
         /* 2. Concept : Blanc pur */
         #concept {
@@ -503,14 +507,14 @@
             z-index: 10; /* Pour s'assurer qu'elle soit au-dessus de Témoignages */
         }
 
-        /* 3. Témoignages : Bleu Glacier */
+        /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
         #temoignages {
-            /* Nous faisons remonter la section Témoignages */
-            margin-top: -6rem; 
+            margin-top: -8rem;
             background-color: #eef6f9; 
             padding: 6rem 1.5rem;
             position: relative;
         }
+
 
         /* 4. Offres (Prix) : Blanc (Contraste maximal avec #temoignages Bleu) */
         #offres {
