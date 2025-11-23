@@ -325,8 +325,11 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
          /* --- DESIGN SECTION À PROPOS --- */
-        .about-section { background: white; padding: 6rem 1.5rem; }
-        .about-wrapper { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; }
+        .about-section { background: #f9fafb; padding: 4rem 1.5rem; }
+        .about-wrapper { display: flex; align-items: center; 
+            gap: 2rem; /* MODIFICATION : Réduit l'espace entre l'image et le texte (de 4rem à 2rem) */
+            flex-wrap: wrap; 
+        }
         .about-image { flex: 1; min-width: 300px; position: relative; }
         .about-image img { width: 100%; border-radius: 20px; box-shadow: var(--shadow-hover); }
         
@@ -341,8 +344,12 @@
 
         .about-content { flex: 1; min-width: 300px; }
         .lead-text { font-size: 1.2rem; color: var(--primary-blue); font-weight: 600; margin-bottom: 1.5rem; }
-        .bio-text p { margin-bottom: 1rem; color: var(--text-light); }
-        .about-list { margin: 2rem 0; }
+        .bio-text p { margin-bottom: 1rem; color: var(--text-light); font-size: 0.95rem; } /* OPTIONNEL : Texte légèrement plus petit */
+        
+        .about-list { 
+            margin: 1.5rem 0; /* MODIFICATION : Réduit l'espace vertical autour de la liste (de 2rem à 1.5rem) */
+        }
+
         .about-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-weight: 500; }
         .about-list li::before { content: "✓"; color: white; background: var(--success); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
 
