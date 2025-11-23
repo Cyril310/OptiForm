@@ -287,6 +287,67 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+         /* --- DESIGN SECTION À PROPOS --- */
+        .about-section { background: white; padding: 6rem 1.5rem; }
+        .about-wrapper { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; }
+        .about-image { flex: 1; min-width: 300px; position: relative; }
+        .about-image img { width: 100%; border-radius: 20px; box-shadow: var(--shadow-hover); }
+        
+        .experience-badge {
+            position: absolute; bottom: -20px; right: -20px; background: white;
+            padding: 1.5rem; border-radius: 15px; box-shadow: var(--shadow-hover);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            border: 2px solid var(--primary-orange);
+        }
+        .experience-badge .years { font-size: 2.5rem; font-weight: 800; color: var(--primary-orange); line-height: 1; }
+        .experience-badge .text { font-size: 0.8rem; font-weight: 600; color: var(--dark-blue); }
+
+        .about-content { flex: 1; min-width: 300px; }
+        .lead-text { font-size: 1.2rem; color: var(--primary-blue); font-weight: 600; margin-bottom: 1.5rem; }
+        .bio-text p { margin-bottom: 1rem; color: var(--text-light); }
+        .about-list { margin: 2rem 0; }
+        .about-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-weight: 500; }
+        .about-list li::before { content: "✓"; color: white; background: var(--success); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+
+        /* --- DESIGN CAROUSEL --- */
+        .carousel-container { position: relative; max-width: 800px; margin: 0 auto; padding: 0 40px; }
+        .carousel-track-container { overflow: hidden; height: 400px; position: relative; } /* Hauteur fixe pour éviter les sauts */
+        .carousel-track { padding: 0; margin: 0; list-style: none; position: relative; height: 100%; transition: transform 0.5s ease-in-out; }
+        .carousel-slide { position: absolute; top: 0; bottom: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+        
+        .review-card-featured {
+            background: white; padding: 3rem; border-radius: 20px; text-align: center;
+            box-shadow: var(--shadow-soft); width: 90%; position: relative;
+        }
+        .quote-icon { font-size: 4rem; color: var(--light-blue); line-height: 1; margin-bottom: -20px; }
+        .review-text-featured { font-size: 1.2rem; font-style: italic; color: var(--text-dark); margin: 2rem 0; }
+        
+        .author-featured { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .avatar-featured { width: 60px; height: 60px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; }
+
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: transparent; border: none; font-size: 3rem; color: var(--primary-blue);
+            cursor: pointer; z-index: 10; transition: 0.2s;
+        }
+        .carousel-btn:hover { color: var(--primary-orange); transform: translateY(-50%) scale(1.2); }
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
+
+        .carousel-nav { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .carousel-indicator { width: 12px; height: 12px; border-radius: 50%; background: #ccc; border: none; cursor: pointer; transition: 0.3s; }
+        .carousel-indicator.current-indicator { background: var(--primary-orange); transform: scale(1.2); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .about-wrapper { flex-direction: column; gap: 2rem; }
+            .experience-badge { right: 10px; padding: 1rem; }
+            .carousel-track-container { height: 450px; } /* Plus haut sur mobile car texte plus étroit */
+            .review-card-featured { padding: 1.5rem; }
+            .review-text-featured { font-size: 1rem; }
+            .carousel-container { padding: 0; }
+            .carousel-btn { display: none; } /* On cache les flèches sur mobile, on garde les points */
+        }
     </style>
 </head>
 <body>
@@ -330,6 +391,38 @@
         </div>
     </section>
 
+    <section id="a-propos" class="about-section">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070" alt="Cyril Mangeolle Coach">
+                    <div class="experience-badge">
+                        <span class="years">10+</span>
+                        <span class="text">Années<br>d'expérience</span>
+                    </div>
+                </div>
+                <div class="about-content" data-aos="fade-left">
+                    <h2 class="section-title" style="text-align: left;">Plus qu'un Coach,<br>un Expert du Mouvement</h2>
+                    <p class="lead-text">Je m'appelle Cyril Mangeolle. Je combine l'exigence de l'ostéopathie à la puissance de la data pour transformer votre corps.</p>
+                    
+                    <div class="bio-text">
+                        <p>Beaucoup de coachs se concentrent uniquement sur "pousser plus lourd". Mon approche est différente : je commence par analyser <strong>comment</strong> votre corps bouge.</p>
+                        <p>En détectant vos déséquilibres invisibles (bassin, colonne, appuis), je conçois avec l'IA des programmes qui ne se contentent pas de vous muscler, mais qui vous <strong>réparent</strong> tout en vous transformant.</p>
+                    </div>
+
+                    <ul class="about-list">
+                        <li>🏆 Diplômé d'État & Ostéopathe D.O</li>
+                        <li>🧠 Expert en reprogrammation posturale</li>
+                        <li>🤝 +500 Transformations réussies</li>
+                    </ul>
+
+                    <a href="#bilan-gratuit" class="btn btn-primary">Discuter avec moi (Bilan)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <section class="container" id="concept">
         <div data-aos="fade-up">
             <h2 class="section-title">Une Méthode Révolutionnaire</h2>
@@ -367,43 +460,78 @@
         </div>
     </section>
 
-    <section id="temoignages">
-        <div class="container" style="padding-top:0; padding-bottom:0;">
+    <section id="temoignages" class="reviews-section">
+        <div class="container">
             <div data-aos="fade-up">
                 <h2 class="section-title">Ils ont changé leur vie</h2>
-                <p class="section-subtitle">Plus de 500 personnes accompagnées. 98% de réussite.</p>
+                <p class="section-subtitle">Défilez pour voir les transformations réelles.</p>
             </div>
             
-            <div class="review-grid">
-                <div class="review-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="review-text">"J'avais mal au dos depuis 3 ans. En 3 semaines, la douleur a disparu et j'ai perdu 4kg. L'approche ostéo change tout."</p>
-                    <div class="review-author">
-                        <div class="avatar">S</div>
-                        <div class="author-info"><h4>Sophie Laurent</h4><span>Programme Performance</span></div>
-                    </div>
+            <div class="carousel-container" data-aos="zoom-in">
+                <button class="carousel-btn prev-btn" onclick="moveSlide(-1)">❮</button>
+                
+                <div class="carousel-track-container">
+                    <ul class="carousel-track">
+                        
+                        <li class="carousel-slide current-slide">
+                            <div class="review-card-featured">
+                                <div class="quote-icon">❝</div>
+                                <p class="review-text-featured">"J'avais mal au dos depuis 3 ans. En 3 semaines, la douleur a disparu et j'ai perdu 4kg. L'approche ostéo change tout, je ne m'entraîne plus au hasard."</p>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                                <div class="author-featured">
+                                    <div class="avatar-featured">S</div>
+                                    <div>
+                                        <h4>Sophie Laurent</h4>
+                                        <span>Programme Performance</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="carousel-slide">
+                            <div class="review-card-featured">
+                                <div class="quote-icon">❝</div>
+                                <p class="review-text-featured">"Ce n'est pas juste du sport, c'est une éducation. L'IA rend le suivi hyper réactif, je me sens encadré 24/7. C'est la première fois que je tiens sur la durée."</p>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                                <div class="author-featured">
+                                    <div class="avatar-featured">M</div>
+                                    <div>
+                                        <h4>Marc Dubois</h4>
+                                        <span>Programme Transformation</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="carousel-slide">
+                            <div class="review-card-featured">
+                                <div class="quote-icon">❝</div>
+                                <p class="review-text-featured">"Résultat : record personnel battu de 15 minutes sur mon marathon et aucune tendinite ! Cyril a su adapter le plan à ma fatigue. Merci Coach."</p>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                                <div class="author-featured">
+                                    <div class="avatar-featured">T</div>
+                                    <div>
+                                        <h4>Thomas V.</h4>
+                                        <span>Programme Performance</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
                 </div>
 
-                <div class="review-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="review-text">"Ce n'est pas juste du sport, c'est une éducation. L'IA rend le suivi hyper réactif, je me sens encadré 24/7."</p>
-                    <div class="review-author">
-                        <div class="avatar">M</div>
-                        <div class="author-info"><h4>Marc Dubois</h4><span>Programme Transformation</span></div>
-                    </div>
-                </div>
+                <button class="carousel-btn next-btn" onclick="moveSlide(1)">❯</button>
+            </div>
 
-                <div class="review-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="review-text">"Résultat : record personnel battu de 15 minutes sur mon marathon et aucune tendinite ! Merci Coach."</p>
-                    <div class="review-author">
-                        <div class="avatar">T</div>
-                        <div class="author-info"><h4>Thomas V.</h4><span>Programme Performance</span></div>
-                    </div>
-                </div>
+            <div class="carousel-nav">
+                <button class="carousel-indicator current-indicator" onclick="jumpToSlide(0)"></button>
+                <button class="carousel-indicator" onclick="jumpToSlide(1)"></button>
+                <button class="carousel-indicator" onclick="jumpToSlide(2)"></button>
             </div>
         </div>
     </section>
+
 
     <section class="container" id="offres">
         <div data-aos="fade-up">
@@ -703,7 +831,103 @@
                 }
             });
         });
-    </script>
 
+            // --- LOGIQUE DU CAROUSEL ---
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.next-btn');
+    const prevButton = document.querySelector('.prev-btn');
+    const dotsNav = document.querySelector('.carousel-nav');
+    const dots = Array.from(dotsNav.children);
+
+    const slideWidth = slides[0].getBoundingClientRect().width;
+
+    // Aligner les slides les unes à côté des autres
+    const setSlidePosition = (slide, index) => {
+        slide.style.left = slideWidth * index + 'px';
+    };
+    slides.forEach(setSlidePosition);
+
+    const moveToSlide = (track, currentSlide, targetSlide) => {
+        track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
+        currentSlide.classList.remove('current-slide');
+        targetSlide.classList.add('current-slide');
+    };
+
+    const updateDots = (currentDot, targetDot) => {
+        currentDot.classList.remove('current-indicator');
+        targetDot.classList.add('current-indicator');
+    };
+
+    // Fonction pour le bouton Suivant
+    const moveSlide = (direction) => {
+        const currentSlide = track.querySelector('.current-slide');
+        const currentDot = dotsNav.querySelector('.current-indicator');
+        
+        let nextSlide;
+        let nextDot;
+        let targetIndex;
+
+        const currentIndex = slides.findIndex(slide => slide === currentSlide);
+
+        if (direction === 1) { // Suivant
+            nextSlide = currentSlide.nextElementSibling;
+            nextDot = currentDot.nextElementSibling;
+            targetIndex = currentIndex + 1;
+            
+            // Boucle infini (retour au début)
+            if (!nextSlide) {
+                nextSlide = slides[0];
+                nextDot = dots[0];
+                targetIndex = 0;
+            }
+        } else { // Précédent
+            nextSlide = currentSlide.previousElementSibling;
+            nextDot = currentDot.previousElementSibling;
+            targetIndex = currentIndex - 1;
+
+            // Boucle infini (aller à la fin)
+            if (!nextSlide) {
+                nextSlide = slides[slides.length - 1];
+                nextDot = dots[dots.length - 1];
+                targetIndex = slides.length - 1;
+            }
+        }
+
+        moveToSlide(track, currentSlide, nextSlide);
+        updateDots(currentDot, nextDot);
+    };
+
+    // Clic sur les points
+    dotsNav.addEventListener('click', e => {
+        const targetDot = e.target.closest('button');
+        if (!targetDot) return;
+
+        const currentSlide = track.querySelector('.current-slide');
+        const currentDot = dotsNav.querySelector('.current-indicator');
+        const targetIndex = dots.findIndex(dot => dot === targetDot);
+        const targetSlide = slides[targetIndex];
+
+        moveToSlide(track, currentSlide, targetSlide);
+        updateDots(currentDot, targetDot);
+    });
+
+    // Auto-play (Défilement automatique toutes les 5 secondes)
+    setInterval(() => {
+        moveSlide(1);
+    }, 5000);
+    
+    // Recalculer la largeur si on redimensionne la fenêtre
+    window.addEventListener('resize', () => {
+        const newSlideWidth = slides[0].getBoundingClientRect().width;
+        slides.forEach((slide, index) => {
+            slide.style.left = newSlideWidth * index + 'px';
+        });
+        // Recentrer sur la slide active
+        const currentSlide = track.querySelector('.current-slide');
+        track.style.transform = 'translateX(-' + currentSlide.style.left + ')';
+    });
+
+    </script>
 </body>
 </html>
