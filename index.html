@@ -482,40 +482,35 @@
             #bilan-gratuit .form-box { max-width: 100%; }
         }
 
-        /* --- GESTION DES FONDS DE SECTIONS (THEME PREMIUM) --- */
-        /* 1. À Propos : Blanc pur pour la clarté */
-        #a-propos {
-            background-color: #ffffff;
-            padding: 6rem 1.5rem;
-        }
+        /* --- GESTION DES FONDS DE SECTIONS (THEME PREMIUM OPTIMISÉ POUR CONSTRASTE) --- */
 
-        /* 2. Concept : Gris très doux (Nuance subtile) */
+        /* 2. Concept : Blanc pur (Casse la monotonie avec #a-propos) */
         #concept {
-            background-color: #f9fafb; /* Gris très léger */
+            background-color: #ffffff; 
             padding: 6rem 1.5rem;
-            border-top: 1px solid #f0f0f0;
+            border-top: none; 
         }
 
-        /* 3. Témoignages : Bleu "Glacier" (Marque de confiance) */
+        /* 3. Témoignages : Bleu Glacier (Couleur de marque / Contraste avec Concept Blanc) */
         #temoignages {
             background-color: #eef6f9; /* Bleu très pâle, apaisant */
             padding: 6rem 1.5rem;
             position: relative;
         }
 
-        /* 4. Offres (Prix) : Blanc (Pour faire ressortir les cartes) */
+        /* 4. Offres (Prix) : Blanc (Contraste maximal avec #temoignages Bleu) */
         #offres {
             background-color: #ffffff;
             padding: 6rem 1.5rem;
             position: relative;
-            /* On ajoute une petite ombre portée inversée pour créer de la profondeur */
+            /* L'ombre crée une sensation de profondeur ici, très bien */
             box-shadow: 0 -10px 30px rgba(0,0,0,0.02); 
             z-index: 2;
         }
 
-        /* 5. Bilan (Formulaire) : Dégradé "Action" (Vers le chaud) */
+        /* 5. Bilan (Formulaire) : Dégradé "Action" (Contraste maximal avant le footer) */
         #bilan-gratuit {
-            /* Dégradé subtil du blanc vers une teinte crème/orangée très légère */
+            /* Dégradé subtil vers le chaud pour inciter à la conversion */
             background: linear-gradient(180deg, #ffffff 0%, #fff8f0 100%);
             padding: 6rem 1.5rem;
             border-top: 1px solid #eee;
@@ -523,10 +518,10 @@
 
         /* 6. FAQ : Gris neutre (Clôture) */
         .faq-section-bg { 
-            /* Tu devras ajouter cette classe à ta section FAQ dans le HTML */
             background-color: #f8f9fa; 
             padding: 5rem 1.5rem;
         }
+
 
 
     </style>
