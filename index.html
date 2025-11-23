@@ -561,20 +561,22 @@
             margin-right: auto; /* AJOUT : Centrage horizontal */
         }
 
-            #concept {
-            /* On garde le fond blanc (ou bleu clair si vous préférez) */
+           #concept {
             background-color: #ffffff; 
-            padding: 6rem 1.5rem;
+            
+            /* ESPACEMENT INTERNE */
+            padding: 6rem 2rem;
             border-radius: 50px;
+            width: 90%;          /* Le bloc prend 90% de la largeur de l'écran */
+            max-width: 1200px;   /* Mais il s'arrête à 1200px (standard pro) */
+            margin: 4rem auto;   /* 4rem en haut/bas (l'écart), AUTO à gauche/droite (le centrage) */
             
-            /* On peut aussi ajouter une petite marge sur les côtés pour faire "carte flottante" */
-            margin: 0 1.5rem; 
-            
-            /* Ombre pour harmoniser */
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            /* OMBRE ET POSITION */
             position: relative;
             z-index: 1;
-        }
+            box-shadow: 0 10px 50px rgba(0,0,0,0.05);
+}
+
         
         /* Ajustement pour mobile pour éviter que les marges soient trop grandes */
         @media (max-width: 768px) {
@@ -595,7 +597,7 @@
             background-color: var(--light-blue);
             
             /* DESIGN CARTE FLOTTANTE */
-            margin: 4rem 1.5rem; /* Marge sur les côtés */
+            margin: 2rem 1.5rem; /* Marge sur les côtés */
             border-radius: 40px; /* Gros arrondis */
             padding: 4rem 1.5rem;
             
