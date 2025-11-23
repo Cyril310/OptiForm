@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){
-          // REMPLACEZ PAR VOTRE VRAIE CLÉ PUBLIQUE (trouvée dans Account sur EmailJS)
-          emailjs.init("UyEMunlspVwoIFzG");
-       })();
-    </script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -1174,58 +1164,62 @@
             if (event.target == resultModal) closeResultModal();
         }
 
-       function handleSubmit(e, type) {
-    e.preventDefault();
+       async function handleSubmit(e, type) {
+        e.preventDefault();
+        const btn = document.getElementById('btn-bilan');
+        const btnText = document.getElementById('btn-text');
+        const spinner = btn.querySelector('.spinner'); // On cible la roue
     
-    // On cible les éléments
-    const btn = document.getElementById('btn-bilan');
-    const btnText = document.getElementById('btn-text');
-    const spinner = btn.querySelector('.spinner');
-
-    if (type === 'bilan') {
-        // 1. Animation "IA en cours"
-        btnText.innerText = "Analyse IA en cours...";
-        spinner.style.display = "inline-block";
-        btn.style.background = "#e67e22";
-        btn.disabled = true;
-
-        // 2. Préparation des données pour l'email
-        // Assurez-vous que ces ID existent bien dans votre HTML
-        const templateParams = {
+        if (type === 'bilan') {
+            // 1. ON LANCE L'ANIMATION
+            btnText.innerText = "IA en cours de réflexion...";
+            spinner.style.display = "inline-block"; // La roue apparaît
+            btn.style.background = "#e67e22";
+            btn.disabled = true; // On bloque le clic
+    
+         const formData = {
             nom: document.getElementById('bilan-nom').value,
             email: document.getElementById('bilan-email').value,
+            sexe: document.getElementById('bilan-sexe').value,
+            age: document.getElementById('bilan-age').value,       // Ajouté
+            taille: document.getElementById('bilan-taille').value, // Ajouté
+            poids: document.getElementById('bilan-poids').value,   // Ajouté
             objectif: document.getElementById('bilan-objectif').value,
-            // On regroupe les détails techniques
-            message: `Sexe: ${document.getElementById('bilan-sexe').value}
-                      Age: ${document.getElementById('bilan-age').value}
-                      Taille: ${document.getElementById('bilan-taille').value}
-                      Poids: ${document.getElementById('bilan-poids').value}
-                      Sommeil: ${document.getElementById('bilan-sommeil').value}
-                      Douleur: ${document.getElementById('bilan-description').value}`
-        };
+            douleur: document.getElementById('bilan-description').value, 
+            description: document.getElementById('bilan-description').value,
+            sommeil: document.getElementById('bilan-sommeil').value
+            };
 
-        // 3. Envoi via EmailJS
-        // REMPLACEZ 'SERVICE_ID' et 'TEMPLATE_ID' par ceux de votre compte EmailJS
-        emailjs.send('service_r93yonp', 'template_ol95zhg', templateParams)
-            .then(function() {
-                // SUCCÈS
-                console.log('SUCCESS!');
-                btnText.innerText = "Analyse Envoyée !";
-                spinner.style.display = "none";
-                btn.style.background = "#27ae60";
-                
-                // Affichage de la modale de succès
-                document.getElementById('result-name').innerText = templateParams.nom;
-                document.getElementById('resultModal').style.display = 'flex';
-            }, function(error) {
-                // ERREUR
-                console.log('FAILED...', error);
-                alert("Erreur d'envoi. Vérifiez votre connexion.");
+
+    
+            try {
+                const response = await fetch('/.netlify/functions/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+    
+                if (response.ok) {
+                    // SUCCÈS : ON ARRÊTE L'ANIMATION
+                    btnText.innerText = "Analyse Envoyée !";
+                    spinner.style.display = "none";
+                    btn.style.background = "#27ae60";
+                    
+                    // On ouvre la modale "Check tes mails"
+                    document.getElementById('result-name').innerText = formData.nom;
+                    document.getElementById('resultModal').style.display = 'flex';
+                } else {
+                    throw new Error("Erreur serveur");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Erreur de connexion.");
+                // En cas d'erreur, on remet le bouton normal
                 btnText.innerText = "Réessayer";
                 spinner.style.display = "none";
-                btn.style.background = "var(--gradient-cta)";
+                btn.style.background = "";
                 btn.disabled = false;
-            });
+            }
         }
     }
 
