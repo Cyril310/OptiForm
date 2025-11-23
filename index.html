@@ -94,18 +94,27 @@
 
         /* --- HERO --- */
         .hero {
-            /* NOUVELLE IMAGE DE FOND : Plus contrastée, plus pro */
-            background: linear-gradient(rgba(26, 61, 82, 0.75), rgba(26, 61, 82, 0.85)), /* MODIFICATION : Opacité réduite */
-                        url('https://images.unsplash.com/photo-1616803274291-a1b637a7b822?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            padding: 8rem 1.5rem 10rem;
-            text-align: center;
-            position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-        }
+        /* Fond inchangé */
+        background: linear-gradient(rgba(26, 61, 82, 0.75), rgba(26, 61, 82, 0.85)),
+                    url('https://images.unsplash.com/photo-1616803274291-a1b637a7b822?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        
+        /* MODIFICATION : On aère et on arrondit le bas */
+        padding: 9rem 1.5rem 12rem; /* Plus d'espace en bas pour les badges */
+        text-align: center;
+        position: relative;
+        
+        /* LE SECRET DU LOOK PREMIUM : */
+        border-radius: 0 0 60px 60px; /* Arrondi doux en bas */
+        clip-path: none; /* On enlève le polygone dur */
+        
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1); /* Ombre portée sur le fond blanc */
+        margin-bottom: 0;
+        z-index: 2;
+    }
 
         .hero-content { max-width: 900px; margin: 0 auto; }
         .hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -1px; }
@@ -139,21 +148,25 @@
         /* --- TRUST BADGES (OPTIMISÉ POUR INTERACTION 3D) --- */
         .trust-badges {
             max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 24px; 
+            /* POSITIONNEMENT : On remonte de 80px pour chevaucher le Hero */
+            margin: -80px auto 4rem; 
             
-            box-shadow: 0 15px 45px rgba(43, 95, 127, 0.25);
+            background: white;
+            padding: 1.5rem 2.5rem; /* Un peu plus large */
+            border-radius: 20px; 
+            
+            /* OMBRE PROFONDE pour l'effet 3D */
+            box-shadow: 0 20px 50px rgba(43, 95, 127, 0.15);
             
             display: flex;
             justify-content: space-around;
+            align-items: center;
             flex-wrap: wrap;
-            /* On conserve la transition uniquement pour le lift de la barre */
-            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; 
             gap: 1.5rem;
-            margin-top: -5rem;
+            position: relative;
+            z-index: 10; /* Passe au-dessus de tout */
         }
+
 
         /* EFFET DE LIFT GLOBAL (CONSERVÉ) */
         .trust-badges:hover {
@@ -550,22 +563,35 @@
          /* 2. Concept : Blanc pur */
         #concept {
             background-color: #ffffff; 
-            padding: 8rem 1.5rem 12rem;
-            border-top: none; 
+            padding: 4rem 1.5rem 6rem; /* On aère */
             position: relative;
-            z-index: 10; 
-
-            /* AJOUT/MODIFICATION : Remonter la section pour qu'elle se rapproche de "À Propos" */
-            margin-top: 1rem; 
+            z-index: 1; 
         }
+
 
         /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
         #temoignages {
-            margin-top: -8rem;
-            background-color: #eef6f9; 
+            background-color: var(--light-blue);
+            
+            /* DESIGN CARTE FLOTTANTE */
+            margin: 4rem 1.5rem; /* Marge sur les côtés */
+            border-radius: 40px; /* Gros arrondis */
             padding: 6rem 1.5rem;
+            
             position: relative;
+            /* Ombre subtile pour détacher la section */
+            box-shadow: 0 20px 60px rgba(43, 95, 127, 0.08);
         }
+        
+        /* Petit ajustement pour mobile */
+        @media (max-width: 768px) {
+            #temoignages {
+                margin: 2rem 0.5rem; /* Moins de marge sur mobile */
+                border-radius: 25px;
+                padding: 4rem 1rem;
+            }
+        }
+
 
         /* 4. Offres (Prix) : Blanc (Contraste maximal avec #temoignages Bleu) */
         #offres {
@@ -778,11 +804,6 @@
                 <h3>Résultats Durables</h3>
                 <p>Pas de régime drastique ni de sport excessif. Juste la dose parfaite pour votre corps, pour une transformation à vie.</p>
             </div>
-            <div class="custom-shape-divider-bottom">
-                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-                </svg>
-            </div> 
         </div>
     </section>
 
@@ -881,11 +902,6 @@
 
 
     <section class="container" id="offres">
-        <div class="custom-shape-divider-top">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-            </svg>
-        </div>
         <div data-aos="fade-up">
             <h2 class="section-title">Choisissez votre Transformation</h2>
             <p class="section-subtitle">Des formules adaptées à tous les budgets et objectifs.</p>
