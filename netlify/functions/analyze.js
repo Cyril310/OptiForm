@@ -162,60 +162,68 @@ exports.handler = async (event) => {
       </div>
     `;
 
-       // --- 4. ENVOI SÉCURISÉ (MODIFIÉ) ---
+           // --- 4. ENVOI SÉQUENTIEL (Correctif Anti-Erreur 429 & 401) ---
     
-    // ÉTAPE A : Envoi du mail immédiat (Le plus important)
-    // On l'envoie seul pour être sûr qu'il parte, même si le compte Resend est gratuit.
-    try {
-      await resend.emails.send({
-        from: "Coach IA <onboarding@resend.dev>", // ⚠️ Si tu n'as pas validé ton domaine, laisse onboarding@resend.dev et envoie uniquement vers TON email admin pour tester
-        to: email,
-        subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
-        html: htmlEmail1,
-      });
-      console.log("✅ Email 1 (Immédiat) envoyé avec succès.");
-    } catch (err) {
-      console.error("❌ Erreur critique sur l'Email 1:", err);
-      throw new Error("L'envoi du rapport a échoué."); // Arrête le script ici si le rapport ne part pas
-    }
+      // Etape A : Email 1 (Immédiat - Le plus important)
+      try {
+        await resend.emails.send({
+          from: "Coach IA <onboarding@resend.dev>", // ⚠️ Pense à valider ton domaine sur Resend pour changer ça
+          to: email,
+          subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
+          html: htmlEmail1,
+        });
+        console.log("✅ Email 1 envoyé.");
+      } catch (error) {
+        console.error("❌ Erreur critique Email 1:", error);
+        throw error; // Si le rapport ne part pas, on arrête tout.
+      }
+  
+      // Etape B : Email 2 (Demain) - On attend que le 1er soit fini pour éviter le blocage "Too many requests"
+      try {
+        await resend.emails.send({
+          from: "Cyril Mangeolle <onboarding@resend.dev>",
+          to: email,
+          subject: `Une pensée concernant votre ${douleur}...`,
+          html: htmlEmail2,
+          scheduled_at: demain.toISOString(),
+        });
+        console.log("✅ Email 2 programmé.");
+      } catch (error) {
+        console.warn("⚠️ Erreur Email 2 (Probablement option payante ou limite):", error.message);
+      }
+  
+      // Etape C : Email 3 (Après-demain)
+      try {
+        await resend.emails.send({
+          from: "Cyril Mangeolle <onboarding@resend.dev>",
+          to: email,
+          subject: `Fermeture de votre dossier ${nom}`,
+          html: htmlEmail3,
+          scheduled_at: apresDemain.toISOString(),
+        });
+        console.log("✅ Email 3 programmé.");
+      } catch (error) {
+        console.warn("⚠️ Erreur Email 3:", error.message);
+      }
+  
+      // Etape D : Sauvegarde Contact (Avec protection erreur API Key)
+      // Ton erreur 401 (Image 2) vient d'ici. On met un try/catch pour que ça ne plante pas le reste.
+      if (process.env.RESEND_AUDIENCE_ID) {
+        try {
+          await resend.contacts.create({
+            email: email,
+            first_name: nom,
+            unsubscribed: false,
+            audienceId: process.env.RESEND_AUDIENCE_ID
+          });
+          console.log("✅ Contact sauvegardé.");
+        } catch (error) {
+          console.warn("⚠️ Impossible de sauver le contact (Vérifie que ta clé API a l'accès 'Full Access' et pas juste 'Sending'):", error.message);
+        }
+      }
+  
+      return { statusCode: 200, body: JSON.stringify({ message: "Cycle d'envoi terminé !" }) };
 
-    // ÉTAPE B : Envois programmés (J+1, J+2) et Contact
-    // On utilise allSettled : si Resend bloque le "scheduled_at" (option payante), cela ne fera pas planter le script.
-    const resultatsSecondaires = await Promise.allSettled([
-      
-      // Email 2 (J+1)
-      resend.emails.send({
-        from: "Cyril Mangeolle <onboarding@resend.dev>",
-        to: email,
-        subject: `Une pensée concernant votre ${douleur}...`,
-        html: htmlEmail2,
-        scheduled_at: demain.toISOString(),
-      }),
-
-      // Email 3 (J+2)
-      resend.emails.send({
-        from: "Cyril Mangeolle <onboarding@resend.dev>",
-        to: email,
-        subject: `Fermeture de votre dossier ${nom}`,
-        html: htmlEmail3,
-        scheduled_at: apresDemain.toISOString(),
-      }),
-
-      // Création Contact (Seulement si l'ID est présent)
-      process.env.RESEND_AUDIENCE_ID ? resend.contacts.create({
-        email: email,
-        first_name: nom,
-        unsubscribed: false,
-        audienceId: process.env.RESEND_AUDIENCE_ID
-      }) : Promise.resolve("Pas d'audience ID")
-    ]);
-
-    // Log pour déboguer si les programmés échouent (souvent car compte Gratuit)
-    resultatsSecondaires.forEach((res, index) => {
-      if (res.status === 'rejected') console.warn(`⚠️ Note: L'envoi secondaire ${index+1} a été refusé (Probablement limite du plan Gratuit).`);
-    });
-
-    return { statusCode: 200, body: JSON.stringify({ message: "Analyse envoyée !" }) };
 
 
   } catch (error) {
