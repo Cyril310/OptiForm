@@ -733,6 +733,62 @@
         </div>
     </section>
 
+    <section class="container" style="max-width: 800px;">
+        <h2 class="section-title" data-aos="fade-up">Vos Questions Fréquentes</h2>
+        
+        <div class="faq-container" data-aos="fade-up">
+            
+            <div class="faq-item">
+                <button class="faq-question">J'ai une douleur (dos, genou...), puis-je suivre le programme ? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Absolument. C'est même ma spécialité. En tant d'ostéopathe, je ne vous donnerai jamais un exercice dangereux. L'IA adapte les mouvements pour contourner votre douleur et renforcer la zone sans risque.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Je n'ai pas accès à une salle de sport, est-ce grave ? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Non ! Lors de la création du programme, vous précisez votre matériel (Poids du corps, élastiques, haltères...). L'IA recalcule tout en fonction de votre environnement.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">En quoi l'IA est-elle différente d'un PDF classique ? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Un PDF est statique. Mon système IA est dynamique : si vous êtes fatigué une semaine, ou si vous progressez très vite, le programme se recalcule instantanément. C'est du sur-mesure vivant.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Comment se passe le suivi ? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Selon la formule, nous avons des points visio réguliers. Entre temps, vous avez accès à mon WhatsApp pro pour poser vos questions 7j/7. Vous n'êtes jamais seul.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <style>
+        .faq-item { border-bottom: 1px solid #eee; margin-bottom: 10px; }
+        .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 20px 0; font-size: 1.1rem; font-weight: 600; color: var(--dark-blue); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: 0.3s ease; color: #666; }
+        .faq-answer p { padding-bottom: 20px; }
+        .faq-item.active .faq-answer { max-height: 200px; }
+        .faq-item.active .icon { transform: rotate(45deg); }
+        .icon { font-size: 1.5rem; transition: 0.3s; }
+    </style>
+
+    <script>
+        // A ajouter dans ton script existant tout en bas
+        const faqs = document.querySelectorAll('.faq-question');
+        faqs.forEach(faq => {
+            faq.addEventListener('click', () => {
+                faq.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+
 
     <footer>
         <div class="footer-links">
