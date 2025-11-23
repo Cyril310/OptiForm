@@ -482,33 +482,50 @@
             #bilan-gratuit .form-box { max-width: 100%; }
         }
 
-        /* --- SÉPARATION VISUELLE DES SECTIONS --- */
-        
-        /* 1. Témoignages : Fond Bleu très clair */
-        #temoignages {
-            background-color: #e8f4f8; /* Var light-blue */
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-            position: relative;
-            z-index: 1;
+        /* --- GESTION DES FONDS DE SECTIONS (THEME PREMIUM) --- */
+        /* 1. À Propos : Blanc pur pour la clarté */
+        #a-propos {
+            background-color: #ffffff;
+            padding: 6rem 1.5rem;
         }
 
-        /* 2. Offres (Prix) : Fond Blanc (pour faire ressortir les cartes) */
+        /* 2. Concept : Gris très doux (Nuance subtile) */
+        #concept {
+            background-color: #f9fafb; /* Gris très léger */
+            padding: 6rem 1.5rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        /* 3. Témoignages : Bleu "Glacier" (Marque de confiance) */
+        #temoignages {
+            background-color: #eef6f9; /* Bleu très pâle, apaisant */
+            padding: 6rem 1.5rem;
+            position: relative;
+        }
+
+        /* 4. Offres (Prix) : Blanc (Pour faire ressortir les cartes) */
         #offres {
             background-color: #ffffff;
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+            padding: 6rem 1.5rem;
             position: relative;
-            z-index: 2; /* Pour passer au dessus de l'ombre précédente */
+            /* On ajoute une petite ombre portée inversée pour créer de la profondeur */
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.02); 
+            z-index: 2;
         }
 
-        /* 3. Bilan (Formulaire) : Fond "Premium" (Crème très léger) */
-        /* Cela crée une "zone finale" distincte */
+        /* 5. Bilan (Formulaire) : Dégradé "Action" (Vers le chaud) */
         #bilan-gratuit {
-            background: linear-gradient(to bottom, #ffffff 0%, #fffbf5 100%); /* Dégradé subtil vers le chaud */
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+            /* Dégradé subtil du blanc vers une teinte crème/orangée très légère */
+            background: linear-gradient(180deg, #ffffff 0%, #fff8f0 100%);
+            padding: 6rem 1.5rem;
             border-top: 1px solid #eee;
+        }
+
+        /* 6. FAQ : Gris neutre (Clôture) */
+        .faq-section-bg { 
+            /* Tu devras ajouter cette classe à ta section FAQ dans le HTML */
+            background-color: #f8f9fa; 
+            padding: 5rem 1.5rem;
         }
 
 
@@ -838,9 +855,9 @@
 
 
 
-    <section class="container" style="max-width: 800px;">
-        <h2 class="section-title" data-aos="fade-up">Vos Questions Fréquentes</h2>
-        
+        <section class="faq-section-bg">
+        <div class="container" style="max-width: 800px; padding: 0;"> <h2 class="section-title" data-aos="fade-up">Vos Questions Fréquentes</h2>
+
         <div class="faq-container" data-aos="fade-up">
             
             <div class="faq-item">
