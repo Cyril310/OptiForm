@@ -11,232 +11,140 @@ exports.handler = async (event) => {
   }
 
   try {
-    const data = JSON.parse(event.body);
-    // On ajoute 'sexe' ici pour le récupérer
-    const { nom, email, sexe, age, taille,poids, objectif, douleur, description, sommeil } = data;
+        const data = JSON.parse(event.body);
+    const { nom, email, sexe, age, taille, poids, objectif, douleur, description, sommeil } = data;
+    const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques"; // Ton lien agenda
 
-    console.log(`Traitement Gemini pour ${nom} (${sexe}),${poids}`);
-
-    // 1. PROMPT MODIFIÉ (Intégration du sexe)
+    // --- 1. PROMPT DESIGN (On force l'IA à structurer pour le Template) ---
     const promptSysteme = `
-      Agis comme un expert mondial en biomécanique et coaching sportif (Ostéopathe & Coach).
-      Ton but : Présenter une stratégie de haut niveau pour convaincre le prospect de réserver son bilan biomécanique.
+      Agis comme un Expert en Biomécanique et Physiologie du Sport.
+      Ton client est : ${nom} (${sexe}, ${age} ans, ${taille}cm, ${poids}kg).
+      Objectif : ${objectif}.
+      Douleur actuelle : ${douleur} (${description}).
       
-      Données du prospect :
-      - Nom : ${nom} (${sexe}, ${age} ans)
-      - Morphologie : ${taille}cm pour ${poids}kg 
-      - Objectif : ${objectif}
-      - Douleur : ${douleur} (${description})
-      - Sommeil : ${sommeil}
+      Rédige l'analyse SANS titre principal, SANS "Bonjour", SANS signature.
+      Utilise impérativement ce format HTML (balises h3, ul, li, p) :
 
-      Consigne Spéciale : Prends en compte le ratio poids/taille et l'âge pour adapter ton analyse biomecanique. Adapte tes explications physiologiques et biomécaniques au sexe du prospect (${sexe}). Par exemple, adapte les références hormonales ou morphologiques si nécessaire.
+      <h3 style="color: #2b5f7f; margin-top: 0;">1. 🩺 Diagnostic & Biomécanique</h3>
+      <p>Analyse le lien mécanique entre sa douleur (${douleur}) et sa morphologie. Sois expert mais pédagogique.</p>
 
-      Rédige un email au format HTML riche (utilise des balises <h3>, <ul>, <li>, <strong>, <br>).
-      Ne mets PAS de balises <html> ou <body>.
+      <h3 style="color: #e67e22; margin-top: 25px;">2. 🚀 Stratégie en 3 Phases</h3>
+      <ul style="padding-left: 20px; color: #444;">
+        <li style="margin-bottom: 10px;"><strong>Phase 1 (Soulagement) :</strong> ...</li>
+        <li style="margin-bottom: 10px;"><strong>Phase 2 (Renforcement) :</strong> ...</li>
+        <li style="margin-bottom: 10px;"><strong>Phase 3 (Performance) :</strong> ...</li>
+      </ul>
 
-      STRUCTURE OBLIGATOIRE DE L'EMAIL :
-      
-      1. ACCROCHE (H3) : "⚠️ Analyse de ${nom} : Potentiel détecté & Points de vigilance"
-      
-      2. DIAGNOSTIC EXPERT (Paragraphe) : Analyse le lien entre sa douleur (${douleur}) et son sommeil (${sommeil}).
-      
-      3. LA FEUILLE DE ROUTE (Liste structurée) : 
-         Dis : "Voici les 3 piliers stratégiques que nous devrons mettre en place :"
-         <ul>
-           <li><strong>Phase 1 (Fondations) :</strong> Protocole de décompression articulaire spécifique pour soulager ${douleur}.</li>
-           <li><strong>Phase 2 (Construction) :</strong> Renforcement structurel adapté à votre biomécanique pour sécuriser le mouvement.</li>
-           <li><strong>Phase 3 (Performance) :</strong> Intensification métabolique pour atteindre l'objectif : ${objectif}.</li>
-         </ul>
-
-      4. LE "GAP" :
-         Explique clairement : "Ceci est une ébauche stratégique. En tant qu'ostéopathe, je ne peux pas construire votre programme détaillé sans vous voir bouger."
-
-      5. APPEL À L'ACTION :
-         "Réservez votre Bilan Biomécanique (Visio) pour que j'analyse vos chaînes musculaires."
-
-      Ton ton doit être : Professionnel, Rassurant, Expert.
-      Signe : "L'IA OptiForm (Supervisée par Cyril Mangeolle)".
+      <div style="background-color: #fff3cd; padding: 15px; border-radius: 8px; border-left: 5px solid #ffc107; margin-top: 25px;">
+        <strong style="color: #856404;">⚠️ Point de Vigilance :</strong>
+        <p style="margin: 5px 0 0 0; color: #856404; font-size: 14px;">Un avertissement court sur les risques de suivre un programme générique.</p>
+      </div>
     `;
 
-    // 2. Appel IA
+    // Génération IA
     const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     const result = await model.generateContent(promptSysteme);
     const emailContent = result.response.text();
 
-        // --- 1. CALCUL DES DATES (Séquence J+1 et J+2) ---
-    const demain = new Date();
-    demain.setDate(demain.getDate() + 1);
-    
-    const apresDemain = new Date();
-    apresDemain.setDate(apresDemain.getDate() + 2);
-
-    // --- 2. LIENS ---
-    const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques";
+    // --- 2. TEMPLATE EMAIL PRO (DESIGN TABLEAU DE BORD + INSTA PERSONNALISÉ) ---
     const instagramLink = "https://www.instagram.com/cyril_fitlife";
 
-    // --- 3. CONTENU DES 3 EMAILS ---
-
-    // EMAIL 1 : L'Analyse IA (Immédiat)
-    const htmlEmail1 = `
-      <div style="font-family: 'Helvetica', sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+    const htmlEmail = `
+    <!DOCTYPE html>
+    <html>
+    <body style="margin: 0; padding: 0; font-family: 'Helvetica', sans-serif; background-color: #f4f4f4;">
+      <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
         
-        <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #e67e22; padding-bottom: 10px;">
-          <h2 style="color: #2b5f7f; margin: 0;">Rapport Stratégique IA 🤖</h2>
-          <p style="color: #666; font-size: 12px;">Dossier Réf: #OPT-${Date.now().toString().slice(-4)}</p>
+        <div style="background-color: #2b5f7f; padding: 30px 20px; text-align: center;">
+          <h1 style="color: #ffffff; margin: 0; font-size: 22px; text-transform: uppercase; letter-spacing: 1px;">Rapport Stratégique IA</h1>
+          <p style="color: #aecbe0; margin: 5px 0 0; font-size: 14px;">Biomécanique & Performance</p>
         </div>
 
-        <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            ${emailContent}
+        <div style="background-color: #f8f9fa; border-bottom: 1px solid #eee;">
+           <table width="100%" cellpadding="15" cellspacing="0" style="font-size: 13px; color: #555;">
+             <tr>
+               <td width="33%" align="center" style="border-right: 1px solid #eee;"><strong>👤 Profil</strong><br>${sexe}, ${age} ans</td>
+               <td width="33%" align="center" style="border-right: 1px solid #eee;"><strong>⚖️ Métriques</strong><br>${taille}cm / ${poids}kg</td>
+               <td width="33%" align="center"><strong>🎯 Objectif</strong><br>${objectif}</td>
+             </tr>
+           </table>
         </div>
 
-        <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-          <p style="font-weight: bold; color: #e67e22; margin-bottom: 10px;">👇 Étape suivante : Création de votre Plan</p>
-          <a href="${bookingLink}" style="background-color: #e67e22; color: white; padding: 16px 25px; text-decoration: none; font-weight: bold; border-radius: 5px; font-size: 18px; display: inline-block; box-shadow: 0 4px 6px rgba(230, 126, 34, 0.3);">
-            RÉSERVER MON BILAN EXPERT
+        <div style="padding: 30px; color: #333; line-height: 1.6;">
+          <p style="font-size: 16px; margin-bottom: 20px;">Bonjour <strong>${nom}</strong>,</p>
+          ${emailContent}
+        </div>
+
+        <div style="text-align: center; padding: 0 30px 20px;">
+          <a href="${bookingLink}" style="background-color: #e67e22; color: #ffffff; text-decoration: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);">
+            📅 RÉSERVER MON BILAN OFFERT
           </a>
-          <p style="font-size: 12px; color: #999; margin-top: 10px;">*Audit visio nécessaire pour valider la faisabilité du programme.</p>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">*Audit visio nécessaire pour valider la faisabilité.</p>
         </div>
-       
-        <div style="border-top: 1px solid #ddd; padding-top: 20px; text-align: center;"> 
-            <p style="margin-bottom: 10px; font-size: 14px;">En attendant notre appel, retrouvez mes conseils santé & performance :</p>
-            <a href="${instagramLink}" style="text-decoration: none; color: #C13584; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;"> 
-                <span>📸</span> Suivre mon Instagram Pro (@cyril_fitlife)
+
+        <div style="margin: 20px; padding: 25px; background-color: #fff0f5; border-radius: 12px; border: 1px solid #ffdee9; text-align: center;">
+            
+            <h3 style="color: #C13584; margin: 0 0 10px 0; font-size: 18px;">🚀 Boostez vos résultats au quotidien</h3>
+            
+            <p style="font-size: 14px; color: #444; margin-bottom: 15px; line-height: 1.5;">
+                En story, je partage des astuces "Flash" (moins d'une minute) pour agir sur vos 4 piliers :<br>
+                <strong>🧠 Mental &bull; 💪 Physique &bull; 🥗 Nutrition &bull; 💤 Sommeil</strong>
+            </p>
+            
+            <p style="font-size: 13px; color: #666; margin-bottom: 20px; font-style: italic; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 5px;">
+                "Puisque votre sommeil est <strong>${sommeil}</strong>, mes conseils du soir vous aideront directement à atteindre votre objectif : <strong>${objectif}</strong>."
+            </p>
+
+            <a href="${instagramLink}" style="
+                display: block;
+                background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+                color: white; 
+                text-decoration: none; 
+                padding: 14px 20px; 
+                border-radius: 8px; 
+                font-weight: bold; 
+                font-size: 14px;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
+                📸 VOIR LES CONSEILS GRATUITS (@cyril_fitlife)
             </a>
         </div>
 
-      </div>
-    `;
-
-        // EMAIL 2 : Le Suivi Humain + Preuve Sociale (J+1)
-    const htmlEmail2 = `
-      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <p>Bonjour ${nom},</p>
-        <p>C'est Cyril.</p>
-        <p>Je repensais à votre dossier ce matin. L'analyse IA a confirmé une chose importante sur votre <strong>${douleur}</strong> : ce n'est pas une fatalité, c'est un signal mécanique.</p>
-        <p>Beaucoup de mes clients attendent que "ça passe". Le problème, c'est que sans correction, le corps compense... et crée d'autres douleurs ailleurs.</p>
-        
-        <div style="background-color: #f0f4f8; border-left: 4px solid #2b5f7f; padding: 15px; margin: 20px 0;">
-            <p style="margin:0; font-style:italic;">"Le meilleur moment pour agir, c'était avant la douleur. Le deuxième meilleur moment, c'est maintenant."</p>
-        </div>
-
-        <p><strong>Je vous ai gardé un créneau prioritaire cette semaine :</strong></p>
-        <p>
-            <a href="${bookingLink}" style="color: #e67e22; font-weight: bold; text-decoration: underline;">👉 Accéder à mon agenda privé (Bilan Offert)</a>
-        </p>
-        
-        <p>À très vite,</p>
-        <p><strong>Cyril Mangeolle</strong><br>Ostéopathe & Coach</p>
-
-        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; font-size: 13px; color: #666;">
-            <p>P.S. En attendant, je publie quotidiennement des conseils sur la biomécanique ici :<br>
-            <a href="${instagramLink}" style="color: #C13584; text-decoration: none; font-weight: bold;">📸 Voir mon Instagram (@cyril_fitlife)</a></p>
+        <div style="background-color: #2b5f7f; color: #ffffff; text-align: center; padding: 15px; font-size: 11px;">
+          <p>&copy; 2025 OptiForm Coaching. Supervisé par Cyril Mangeolle.</p>
         </div>
       </div>
+    </body>
+    </html>
     `;
 
-    // EMAIL 3 : La Dernière Chance / Urgence (J+2)
-    const htmlEmail3 = `
-      <div style="font-family: Helvetica, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <p>${nom},</p>
-        <p>Je boucle mon planning pour la semaine à venir.</p>
-        <p>Je garde votre analyse biomécanique ouverte encore <strong>24 heures</strong>. Passé ce délai, je devrai archiver le dossier et libérer votre créneau de bilan offert pour une personne sur liste d'attente.</p>
-        
-        <p>Vous avez deux options :</p>
-        <ol>
-            <li>Ignorer ce message et continuer avec votre douleur/gêne actuelle.</li>
-            <li>Prendre 15 minutes pour valider une stratégie qui peut changer votre quotidien.</li>
-        </ol>
 
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${bookingLink}" style="background-color: #e67e22; color: white; padding: 14px 25px; text-decoration: none; font-weight: bold; border-radius: 5px; font-size: 16px; display: inline-block;">
-            DERNIER RAPPEL : VALIDER MON PLAN
-          </a>
-        </div>
-
-        <p>C'est le moment de passer à l'action.</p>
-        <p>Cyril.</p>
-
-        <div style="margin-top: 40px; font-size: 12px; text-align: center; color: #999;">
-            <p>Pas prêt maintenant ? Suivez-moi sur <a href="${instagramLink}" style="color: #666; text-decoration: underline;">Instagram</a> pour des conseils gratuits.</p>
-        </div>
-      </div>
-    `;
-
-       // --- 4. ENVOI SÉCURISÉ "MODE TORTUE" (Anti-Erreur 429) ---
+    // --- 3. ENVOI UNIQUE & SAUVEGARDE ---
     
-      // Petite fonction pour faire des pauses (indispensable en mode Gratuit)
-      const pause = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-  
-      // ÉTAPE A : Email 1 (Immédiat)
-      try {
-        await resend.emails.send({
-          from: "Coach IA <onboarding@resend.dev>", // Mettez votre nom d'expéditeur validé ici
-          to: email,
-          subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
-          html: htmlEmail1,
-        });
-        console.log("✅ Email 1 envoyé.");
-      } catch (error) {
-        console.error("❌ Erreur critique Email 1:", error);
-        throw error; // Stop tout si le rapport ne part pas
-      }
-  
-      // PAUSE DE 2 SECONDES (Pour remettre le compteur Resend à zéro)
-      await pause(2000); 
-  
-      // ÉTAPE B : Email 2 (Demain)
-      try {
-        await resend.emails.send({
-          from: "Cyril Mangeolle <onboarding@resend.dev>",
-          to: email,
-          subject: `Une pensée concernant votre ${douleur}...`,
-          html: htmlEmail2,
-          scheduled_at: demain.toISOString(),
-        });
-        console.log("✅ Email 2 programmé.");
-      } catch (error) {
-        console.warn("⚠️ Erreur Email 2 (Probable limite forfait):", error.message);
-      }
-  
-      // PAUSE DE 2 SECONDES
-      await pause(2000);
-  
-      // ÉTAPE C : Email 3 (Après-demain)
-      try {
-        await resend.emails.send({
-          from: "Cyril Mangeolle <onboarding@resend.dev>",
-          to: email,
-          subject: `Fermeture de votre dossier ${nom}`,
-          html: htmlEmail3,
-          scheduled_at: apresDemain.toISOString(),
-        });
-        console.log("✅ Email 3 programmé.");
-      } catch (error) {
-        console.warn("⚠️ Erreur Email 3:", error.message);
-      }
-  
-      // PAUSE DE 2 SECONDES (Avant de tenter l'ajout contact)
-      await pause(2000);
-  
-      // ÉTAPE D : Sauvegarde Contact (Audience)
-      if (process.env.RESEND_AUDIENCE_ID) {
+    // A. Envoi du Rapport (Priorité absolue)
+    await resend.emails.send({
+        from: "Coach IA <onboarding@resend.dev>", // ⚠️ À changer par ton adresse pro dès que possible
+        to: email,
+        subject: `📋 Votre Rapport Biomécanique : ${nom}`,
+        html: htmlEmail,
+    });
+    console.log(`✅ Rapport envoyé à ${email}`);
+
+    // B. Sauvegarde Contact (Si clé API OK)
+    if (process.env.RESEND_AUDIENCE_ID) {
         try {
-          await resend.contacts.create({
-            email: email,
-            first_name: nom,
-            unsubscribed: false,
-            audienceId: process.env.RESEND_AUDIENCE_ID
-          });
-          console.log("✅ Contact ajouté à l'audience.");
-        } catch (error) {
-          // Si erreur 429 ici, c'est que Resend est vraiment très strict, mais ça ne plantera pas le reste.
-          console.warn("⚠️ Erreur Ajout Contact:", error.message);
+            await resend.contacts.create({
+                email: email,
+                first_name: nom,
+                unsubscribed: false,
+                audienceId: process.env.RESEND_AUDIENCE_ID
+            });
+            console.log("✅ Contact sauvegardé");
+        } catch (err) {
+            console.warn("⚠️ Contact non sauvegardé (Probable doublon ou limite):", err.message);
         }
-      }
-  
-      return { statusCode: 200, body: JSON.stringify({ message: "Tout est traité (avec pauses de sécurité)." }) };
+    }
 
-
+    return { statusCode: 200, body: JSON.stringify({ message: "Analyse envoyée avec succès !" }) };
 
 
 
