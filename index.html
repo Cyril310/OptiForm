@@ -94,9 +94,9 @@
 
         /* --- HERO --- */
         .hero {
-            /* Overlay plus sombre pour lisibilité */
-            background: linear-gradient(rgba(26, 61, 82, 0.85), rgba(26, 61, 82, 0.95)), 
-                        url('https://images.unsplash.com/photo-1551076801-0985c7f890c2?q=80&w=2070&auto=format&fit=crop');
+            /* NOUVELLE IMAGE DE FOND : Plus contrastée, plus pro */
+            background: linear-gradient(rgba(26, 61, 82, 0.75), rgba(26, 61, 82, 0.85)), /* MODIFICATION : Opacité réduite */
+                        url('https://images.unsplash.com/photo-1616803274291-a1b637a7b822?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -108,7 +108,7 @@
         }
 
         .hero-content { max-width: 900px; margin: 0 auto; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1.5rem; letter-spacing: -1px; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -1px; }
         .hero-subtitle { font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.9; font-weight: 300; }
         
         .btn { padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; font-size: 1.1rem; cursor: pointer; border: none; display: inline-block; transition: 0.3s; }
@@ -528,7 +528,7 @@
         #a-propos {
             background-color: #f9fafb; /* Gris très léger */
             padding: 6rem 1.5rem;
-            margin-top: -3rem
+            margin-top: -8rem
             position: relative; 
             z-index: 5; /* Assure qu'elle est sous le Trust Badges mais au-dessus d'autres éléments */
         }
