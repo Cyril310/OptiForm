@@ -144,7 +144,6 @@
             padding: 1.5rem;
             border-radius: 24px; 
             
-            /* OMBRE FORTE POUR LA FLOTTAISON DE LA BARRE ENTIÈRE */
             box-shadow: 0 15px 45px rgba(43, 95, 127, 0.25);
             
             display: flex;
@@ -153,6 +152,7 @@
             /* On conserve la transition uniquement pour le lift de la barre */
             transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; 
             gap: 1.5rem;
+            margin-top: -8rem;
         }
 
         /* EFFET DE LIFT GLOBAL (CONSERVÉ) */
@@ -547,17 +547,17 @@
             margin-right: auto; /* AJOUT : Centrage horizontal */
         }
 
-
-
-        /* 2. Concept : Blanc pur */
+         /* 2. Concept : Blanc pur */
         #concept {
             background-color: #ffffff; 
-            padding: 6rem 1.5rem 12rem; /* Augmenter le padding pour la coupe */
+            padding: 6rem 1.5rem 12rem;
             border-top: none; 
-            position: relative; /* Indispensable pour clip-path */
-            /* COUPE EN ANGLE */
+            position: relative;
             clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
-            z-index: 10; /* Pour s'assurer qu'elle soit au-dessus de Témoignages */
+            z-index: 10; 
+
+            /* AJOUT/MODIFICATION : Remonter la section pour qu'elle se rapproche de "À Propos" */
+            margin-top: -6rem; /* Valeur à ajuster. -6rem devrait réduire l'espace blanc */
         }
 
         /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
