@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     `;
 
     // 2. APPEL IA (Modèle Flash pour la vitesse)
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     const result = await model.generateContent(promptSysteme);
     const aiAnalysis = result.response.text(); // On récupère juste l'analyse
 
