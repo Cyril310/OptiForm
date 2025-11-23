@@ -136,36 +136,59 @@
             100% { transform: translateX(-50%) translateY(0px); }
         }
 
-        /* --- TRUST BADGES --- */
-                .trust-badges {
+        /* --- TRUST BADGES (OPTIMISÉ POUR INTERACTION 3D) --- */
+        .trust-badges {
             max-width: 1000px;
             margin: 0 auto;
             background: white;
             padding: 1.5rem;
             border-radius: 24px; 
             
-            box-shadow: 0 15px 45px rgba(43, 95, 127, 0.25); /* MODIFICATION : Ombre plus foncée et plus large */
+            /* OMBRE FORTE POUR LA FLOTTAISON DE LA BARRE ENTIÈRE */
+            box-shadow: 0 15px 45px rgba(43, 95, 127, 0.25);
             
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            /* On conserve la transition uniquement pour le lift de la barre */
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; 
             gap: 1.5rem;
         }
 
+        /* EFFET DE LIFT GLOBAL (CONSERVÉ) */
         .trust-badges:hover {
-            /* Remonte légèrement l'ensemble des badges au survol */
-            transform: translateY(-8px); /* MODIFICATION : Remonte un peu plus */
+            transform: translateY(-8px); 
             box-shadow: 0 25px 50px rgba(43, 95, 127, 0.35); /* OMBRE DE SURVOL PLUS INTENSE */
         }
-        
+
         /* Retouche de l'item individuel */
         .trust-item { 
-            transition: color 0.3s;
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            /* On s'assure que le texte est Bleu Foncé pour le contraste */
+            font-weight: 600; 
+            color: var(--dark-blue); /* MODIFICATION : Couleur de marque */
+            
+            transition: all 0.2s ease-in-out; 
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.05) inset; 
-            padding: 5px 10px; /* Petit padding pour contenir l'ombre intérieure */
-            border-radius: 12px; /* Petites bordures sur les items individuels */
+            padding: 5px 10px;
+            border-radius: 12px;
+            cursor: default;
         }
+
+        /* NOUVEAU : Effet de zoom et de glow sur l'item individuel */
+        .trust-item:hover {
+            transform: scale(1.05); /* L'item grandit légèrement */
+            box-shadow: 0 0 20px rgba(43, 95, 127, 0.2) inset; /* L'ombre interne devient plus foncée */
+            color: var(--primary-orange); /* Le texte devient orange */
+        }
+        
+        /* AJOUT CLÉ : L'icône suit le changement de couleur au survol */
+        .trust-item:hover .trust-icon {
+            color: var(--primary-orange); 
+        }
+
 
         /* --- SECTIONS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem; }
