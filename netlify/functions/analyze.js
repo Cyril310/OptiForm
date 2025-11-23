@@ -162,74 +162,80 @@ exports.handler = async (event) => {
       </div>
     `;
 
-    // --- 4. ENVOI SÉQUENTIEL (Anti-Blocage Plan Gratuit) ---
+       // --- 4. ENVOI SÉCURISÉ "MODE TORTUE" (Anti-Erreur 429) ---
     
-    // ÉTAPE A : Email 1 (Immédiat - Le plus important)
-    // On l'envoie et ON ATTEND (await) la réponse avant de passer à la suite.
-    try {
-      await resend.emails.send({
-        from: "Coach IA <onboarding@resend.dev>", // ⚠️ Pense à changer si tu as validé ton domaine
-        to: email,
-        subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
-        html: htmlEmail1,
-      });
-      console.log("✅ Email 1 (Rapport) envoyé.");
-    } catch (error) {
-      console.error("❌ Erreur critique Email 1:", error);
-      throw error; // Si celui-là plante, on arrête tout.
-    }
-
-    // Petite pause de sécurité (optionnel mais aide le plan gratuit)
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // ÉTAPE B : Email 2 (Demain)
-    try {
-      await resend.emails.send({
-        from: "Cyril Mangeolle <onboarding@resend.dev>",
-        to: email,
-        subject: `Une pensée concernant votre ${douleur}...`,
-        html: htmlEmail2,
-        scheduled_at: demain.toISOString(),
-      });
-      console.log("✅ Email 2 programmé.");
-    } catch (error) {
-      console.warn("⚠️ Erreur Email 2 (Limitation plan gratuit ?):", error.message);
-    }
-
-    // Petite pause de sécurité
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // ÉTAPE C : Email 3 (Après-demain)
-    try {
-      await resend.emails.send({
-        from: "Cyril Mangeolle <onboarding@resend.dev>",
-        to: email,
-        subject: `Fermeture de votre dossier ${nom}`,
-        html: htmlEmail3,
-        scheduled_at: apresDemain.toISOString(),
-      });
-      console.log("✅ Email 3 programmé.");
-    } catch (error) {
-      console.warn("⚠️ Erreur Email 3:", error.message);
-    }
-
-    // ÉTAPE D : Sauvegarde Contact
-    // Important : Assure-toi d'avoir recréé ta clé API en "Full Access" comme vu avant
-    if (process.env.RESEND_AUDIENCE_ID) {
+      // Petite fonction pour faire des pauses (indispensable en mode Gratuit)
+      const pause = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  
+      // ÉTAPE A : Email 1 (Immédiat)
       try {
-        await resend.contacts.create({
-          email: email,
-          first_name: nom,
-          unsubscribed: false,
-          audienceId: process.env.RESEND_AUDIENCE_ID
+        await resend.emails.send({
+          from: "Coach IA <onboarding@resend.dev>", // Mettez votre nom d'expéditeur validé ici
+          to: email,
+          subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
+          html: htmlEmail1,
         });
-        console.log("✅ Contact ajouté à l'audience.");
+        console.log("✅ Email 1 envoyé.");
       } catch (error) {
-        console.warn("⚠️ Erreur Contact (Vérifie ta clé API Full Access):", error.message);
+        console.error("❌ Erreur critique Email 1:", error);
+        throw error; // Stop tout si le rapport ne part pas
       }
-    }
+  
+      // PAUSE DE 2 SECONDES (Pour remettre le compteur Resend à zéro)
+      await pause(2000); 
+  
+      // ÉTAPE B : Email 2 (Demain)
+      try {
+        await resend.emails.send({
+          from: "Cyril Mangeolle <onboarding@resend.dev>",
+          to: email,
+          subject: `Une pensée concernant votre ${douleur}...`,
+          html: htmlEmail2,
+          scheduled_at: demain.toISOString(),
+        });
+        console.log("✅ Email 2 programmé.");
+      } catch (error) {
+        console.warn("⚠️ Erreur Email 2 (Probable limite forfait):", error.message);
+      }
+  
+      // PAUSE DE 2 SECONDES
+      await pause(2000);
+  
+      // ÉTAPE C : Email 3 (Après-demain)
+      try {
+        await resend.emails.send({
+          from: "Cyril Mangeolle <onboarding@resend.dev>",
+          to: email,
+          subject: `Fermeture de votre dossier ${nom}`,
+          html: htmlEmail3,
+          scheduled_at: apresDemain.toISOString(),
+        });
+        console.log("✅ Email 3 programmé.");
+      } catch (error) {
+        console.warn("⚠️ Erreur Email 3:", error.message);
+      }
+  
+      // PAUSE DE 2 SECONDES (Avant de tenter l'ajout contact)
+      await pause(2000);
+  
+      // ÉTAPE D : Sauvegarde Contact (Audience)
+      if (process.env.RESEND_AUDIENCE_ID) {
+        try {
+          await resend.contacts.create({
+            email: email,
+            first_name: nom,
+            unsubscribed: false,
+            audienceId: process.env.RESEND_AUDIENCE_ID
+          });
+          console.log("✅ Contact ajouté à l'audience.");
+        } catch (error) {
+          // Si erreur 429 ici, c'est que Resend est vraiment très strict, mais ça ne plantera pas le reste.
+          console.warn("⚠️ Erreur Ajout Contact:", error.message);
+        }
+      }
+  
+      return { statusCode: 200, body: JSON.stringify({ message: "Tout est traité (avec pauses de sécurité)." }) };
 
-    return { statusCode: 200, body: JSON.stringify({ message: "Cycle terminé avec succès !" }) };
 
 
 
