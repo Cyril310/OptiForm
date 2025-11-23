@@ -386,14 +386,17 @@
             .carousel-track-3d { height: 350px; }
         }
 
-        /* --- 1. DESIGN SECTION BILAN (2 COLONNES) --- */
+       /* --- DESIGN SECTION BILAN (MODIFIÉ POUR ALIGNEMENT) --- */
         .bilan-wrapper {
             display: flex;
-            align-items: flex-start;
-            gap: 3rem;
+            align-items: center; /* C'est ici que la magie opère : alignement vertical */
+            gap: 4rem;
             justify-content: center;
             flex-wrap: wrap;
+            max-width: 1100px; /* On limite la largeur pour garder les éléments proches */
+            margin: 0 auto;
         }
+
         
         /* Colonne Gauche (Visuel) */
         .bilan-visual {
@@ -478,6 +481,36 @@
             .bilan-visual { max-width: 100%; }
             #bilan-gratuit .form-box { max-width: 100%; }
         }
+
+        /* --- SÉPARATION VISUELLE DES SECTIONS --- */
+        
+        /* 1. Témoignages : Fond Bleu très clair */
+        #temoignages {
+            background-color: #e8f4f8; /* Var light-blue */
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 2. Offres (Prix) : Fond Blanc (pour faire ressortir les cartes) */
+        #offres {
+            background-color: #ffffff;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            position: relative;
+            z-index: 2; /* Pour passer au dessus de l'ombre précédente */
+        }
+
+        /* 3. Bilan (Formulaire) : Fond "Premium" (Crème très léger) */
+        /* Cela crée une "zone finale" distincte */
+        #bilan-gratuit {
+            background: linear-gradient(to bottom, #ffffff 0%, #fffbf5 100%); /* Dégradé subtil vers le chaud */
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            border-top: 1px solid #eee;
+        }
+
 
     </style>
 </head>
