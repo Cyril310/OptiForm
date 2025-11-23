@@ -340,9 +340,11 @@
             opacity: 1;
             transform: scale(1.1) translateX(0);
             z-index: 10;
-            box-shadow: 0 20px 50px rgba(43, 95, 127, 0.25);
-            border: 2px solid var(--primary-orange); /* Mise en valeur */
+            /* OMBRE PLUS FORTE ET BLEUTÉE */
+            box-shadow: 0 30px 60px rgba(43, 95, 127, 0.45); /* Plus intense */
+            border: 2px solid var(--primary-orange); 
         }
+
 
         .review-card-3d.prev {
             opacity: 0.6;
@@ -483,17 +485,29 @@
         }
 
         /* --- GESTION DES FONDS DE SECTIONS (THEME PREMIUM OPTIMISÉ POUR CONSTRASTE) --- */
-
-        /* 2. Concept : Blanc pur (Casse la monotonie avec #a-propos) */
-        #concept {
-            background-color: #ffffff; 
+        
+        /* 1. À Propos : Gris très clair. Sépare le Hero (sombre) du Concept (blanc) */
+        #a-propos {
+            background-color: #f9fafb; /* Gris très léger */
             padding: 6rem 1.5rem;
-            border-top: none; 
         }
 
-        /* 3. Témoignages : Bleu Glacier (Couleur de marque / Contraste avec Concept Blanc) */
+                /* 2. Concept : Blanc pur */
+        #concept {
+            background-color: #ffffff; 
+            padding: 6rem 1.5rem 8rem; /* Augmenter le padding pour la coupe */
+            border-top: none; 
+            position: relative; /* Indispensable pour clip-path */
+            /* COUPE EN ANGLE */
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            z-index: 10; /* Pour s'assurer qu'elle soit au-dessus de Témoignages */
+        }
+
+        /* 3. Témoignages : Bleu Glacier */
         #temoignages {
-            background-color: #eef6f9; /* Bleu très pâle, apaisant */
+            /* Nous faisons remonter la section Témoignages */
+            margin-top: -6rem; 
+            background-color: #eef6f9; 
             padding: 6rem 1.5rem;
             position: relative;
         }
@@ -503,14 +517,12 @@
             background-color: #ffffff;
             padding: 6rem 1.5rem;
             position: relative;
-            /* L'ombre crée une sensation de profondeur ici, très bien */
             box-shadow: 0 -10px 30px rgba(0,0,0,0.02); 
             z-index: 2;
         }
 
         /* 5. Bilan (Formulaire) : Dégradé "Action" (Contraste maximal avant le footer) */
         #bilan-gratuit {
-            /* Dégradé subtil vers le chaud pour inciter à la conversion */
             background: linear-gradient(180deg, #ffffff 0%, #fff8f0 100%);
             padding: 6rem 1.5rem;
             border-top: 1px solid #eee;
@@ -522,8 +534,12 @@
             padding: 5rem 1.5rem;
         }
 
-
-
+        /* --- AMÉLIORATION ESTHÉTIQUE (Texture Noise) --- */
+        #a-propos, .faq-section-bg {
+            /* On utilise une image de bruit invisible ou un petit dégradé répété */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f0f0f0' d='M1 3h1v1H1V3zm2-2h1v1H3V1z' opacity='0.2' /%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
     </style>
 </head>
 <body>
