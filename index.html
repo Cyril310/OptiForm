@@ -398,7 +398,7 @@
             transform: scale(1.1) translateX(0);
             z-index: 10;
             /* OMBRE PLUS FORTE ET BLEUTÉE */
-            box-shadow: 0 30px 60px rgba(43, 95, 127, 0.45); /* Plus intense */
+            box-shadow: 0 20px 50px rgba(43, 95, 127, 0.15); /* Plus intense */
             border: 2px solid var(--primary-orange); 
         }
 
@@ -553,6 +553,7 @@
             z-index: 5; 
             border-radius: 40px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            margin-bottom: 4rem;
 
             /* 2. RÉDUCTION DE LA LARGEUR (Pour suivre les Trust Badges et créer la forme de bulle) */
             max-width: 1300px; /* AJOUT : Limite la largeur (aligné sur les Trust Badges) */
@@ -560,13 +561,33 @@
             margin-right: auto; /* AJOUT : Centrage horizontal */
         }
 
-         /* 2. Concept : Blanc pur */
-        #concept {
+            #concept {
+            /* On garde le fond blanc (ou bleu clair si vous préférez) */
             background-color: #ffffff; 
-            padding: 6rem 1.5rem 6rem; /* On aère */
+            padding: 6rem 1.5rem;
+            border-radius: 50px;
+            
+            /* On peut aussi ajouter une petite marge sur les côtés pour faire "carte flottante" */
+            margin: 0 1.5rem; 
+            
+            /* Ombre pour harmoniser */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
             position: relative;
-            z-index: 1; 
+            z-index: 1;
         }
+        
+        /* Ajustement pour mobile pour éviter que les marges soient trop grandes */
+        @media (max-width: 768px) {
+            #a-propos.about-section {
+                margin-bottom: 2rem; /* Écart plus petit sur mobile */
+                border-radius: 0 0 30px 30px;
+            }
+            #concept {
+                margin: 0 10px; /* Marges réduites sur les côtés */
+                border-radius: 30px;
+            }
+        }
+
 
 
         /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
@@ -576,11 +597,10 @@
             /* DESIGN CARTE FLOTTANTE */
             margin: 4rem 1.5rem; /* Marge sur les côtés */
             border-radius: 40px; /* Gros arrondis */
-            padding: 6rem 1.5rem;
+            padding: 4rem 1.5rem;
             
             position: relative;
-            /* Ombre subtile pour détacher la section */
-            box-shadow: 0 20px 60px rgba(43, 95, 127, 0.08);
+            box-shadow: 0 10px 30px rgba(43, 95, 127, 0.05);
         }
         
         /* Petit ajustement pour mobile */
