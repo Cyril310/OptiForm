@@ -137,28 +137,35 @@
         }
 
         /* --- TRUST BADGES --- */
-        .trust-section { margin-top: -6rem; padding: 0 1.5rem; position: relative; z-index: 10; }
-        .trust-badges {
+                .trust-badges {
             max-width: 1000px;
             margin: 0 auto;
             background: white;
-            padding: 2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-soft);
+            padding: 1.5rem;
+            border-radius: 24px; 
+            
+            box-shadow: 0 15px 45px rgba(43, 95, 127, 0.25); /* MODIFICATION : Ombre plus foncée et plus large */
+            
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
             gap: 1.5rem;
         }
-                
-        .trust-badge:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
-        }
 
-        .trust-item { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--primary-blue); }
-        .trust-icon { color: var(--success); font-size: 1.4rem; }
+        .trust-badges:hover {
+            /* Remonte légèrement l'ensemble des badges au survol */
+            transform: translateY(-8px); /* MODIFICATION : Remonte un peu plus */
+            box-shadow: 0 25px 50px rgba(43, 95, 127, 0.35); /* OMBRE DE SURVOL PLUS INTENSE */
+        }
+        
+        /* Retouche de l'item individuel */
+        .trust-item { 
+            transition: color 0.3s;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05) inset; 
+            padding: 5px 10px; /* Petit padding pour contenir l'ombre intérieure */
+            border-radius: 12px; /* Petites bordures sur les items individuels */
+        }
 
         /* --- SECTIONS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem; }
