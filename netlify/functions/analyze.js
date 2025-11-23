@@ -18,36 +18,44 @@ exports.handler = async (event) => {
     console.log(`Traitement Gemini pour ${nom} (${sexe}),${poids}`);
 
     // 1. PROMPT MODIFIÉ (Intégration du sexe)
-       // 1. PROMPT OPTIMISÉ (Expertise Biomécanique)
     const promptSysteme = `
-      Tu es un expert mondial en biomécanique et ostéopathie.
-      Ton objectif : Rédiger UNIQUEMENT le corps de l'analyse stratégique pour ${nom}.
+      Agis comme un expert mondial en biomécanique et coaching sportif (Ostéopathe & Coach).
+      Ton but : Présenter une stratégie de haut niveau pour convaincre le prospect de réserver son bilan biomécanique.
       
-      PROFIL DU PROSPECT :
-      - ${nom} (${sexe}, ${age} ans).
-      - Morphologie : ${taille}cm pour ${poids}kg.
-      - Objectif : ${objectif}.
-      - Problème majeur : ${douleur} (${description}).
-      - Sommeil : ${sommeil}.
+      Données du prospect :
+      - Nom : ${nom} (${sexe}, ${age} ans)
+      - Morphologie : ${taille}cm pour ${poids}kg 
+      - Objectif : ${objectif}
+      - Douleur : ${douleur} (${description})
+      - Sommeil : ${sommeil}
 
-      CONSIGNE DE RÉDACTION :
-      Ne rédige PAS l'introduction ("Bonjour..."), ni la conclusion, ni la signature. Concentre-toi sur l'expertise technique.
-      Utilise un format HTML simple (balises <p>, <ul>, <li>, <strong>).
+      Consigne Spéciale : Prends en compte le ratio poids/taille et l'âge pour adapter ton analyse biomecanique. Adapte tes explications physiologiques et biomécaniques au sexe du prospect (${sexe}). Par exemple, adapte les références hormonales ou morphologiques si nécessaire.
 
-      CONTENU ATTENDU (Dans cet ordre précis) :
+      Rédige un email au format HTML riche (utilise des balises <h3>, <ul>, <li>, <strong>, <br>).
+      Ne mets PAS de balises <html> ou <body>.
+
+      STRUCTURE OBLIGATOIRE DE L'EMAIL :
       
-      1. <p><strong>Analyse Clinique Rapide :</strong></p>
-         Explique le lien mécanique et physiologique entre sa douleur (${douleur}), son sommeil et sa morphologie (${poids}kg/${taille}cm). Utilise un vocabulaire expert mais compréhensible (ex: inflammation systémique, charge articulaire, cortisol).
+      1. ACCROCHE (H3) : "⚠️ Analyse de ${nom} : Potentiel détecté & Points de vigilance"
       
-      2. <p><strong>Votre Stratégie en 3 Phases :</strong></p>
+      2. DIAGNOSTIC EXPERT (Paragraphe) : Analyse le lien entre sa douleur (${douleur}) et son sommeil (${sommeil}).
+      
+      3. LA FEUILLE DE ROUTE (Liste structurée) : 
+         Dis : "Voici les 3 piliers stratégiques que nous devrons mettre en place :"
          <ul>
-           <li><strong>Phase 1 (Soulagement) :</strong> Propose une action spécifique liée à sa douleur pour décompresser la zone.</li>
-           <li><strong>Phase 2 (Structure) :</strong> Explique quel type de renforcement est nécessaire pour sa morphologie.</li>
-           <li><strong>Phase 3 (Performance) :</strong> Comment atteindre l'objectif "${objectif}" une fois le corps réparé.</li>
+           <li><strong>Phase 1 (Fondations) :</strong> Protocole de décompression articulaire spécifique pour soulager ${douleur}.</li>
+           <li><strong>Phase 2 (Construction) :</strong> Renforcement structurel adapté à votre biomécanique pour sécuriser le mouvement.</li>
+           <li><strong>Phase 3 (Performance) :</strong> Intensification métabolique pour atteindre l'objectif : ${objectif}.</li>
          </ul>
 
-      3. <p><strong>Point de Vigilance :</strong></p>
-         Une phrase d'avertissement sur les risques de suivre un programme générique sans validation de sa posture.
+      4. LE "GAP" :
+         Explique clairement : "Ceci est une ébauche stratégique. En tant qu'ostéopathe, je ne peux pas construire votre programme détaillé sans vous voir bouger."
+
+      5. APPEL À L'ACTION :
+         "Réservez votre Bilan Biomécanique (Visio) pour que j'analyse vos chaînes musculaires."
+
+      Ton ton doit être : Professionnel, Rassurant, Expert.
+      Signe : "L'IA OptiForm (Supervisée par Cyril Mangeolle)".
     `;
 
     // 2. Appel IA
@@ -68,7 +76,7 @@ exports.handler = async (event) => {
 
     // --- 3. CONTENU DES 3 EMAILS ---
 
-       // EMAIL 1 : L'Analyse IA (Immédiat)
+    // EMAIL 1 : L'Analyse IA (Immédiat)
     const htmlEmail1 = `
       <div style="font-family: 'Helvetica', sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
         
@@ -78,14 +86,7 @@ exports.handler = async (event) => {
         </div>
 
         <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            
-            <p style="margin-top: 0;"><strong>Bonjour ${nom},</strong></p>
-            
             ${emailContent}
-
-            <p style="margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; font-style: italic; color: #555; font-size: 14px;">
-                L'IA OptiForm (Supervisée par Cyril Mangeolle)
-            </p>
         </div>
 
         <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
@@ -105,7 +106,6 @@ exports.handler = async (event) => {
 
       </div>
     `;
-
 
         // EMAIL 2 : Le Suivi Humain + Preuve Sociale (J+1)
     const htmlEmail2 = `
@@ -162,19 +162,28 @@ exports.handler = async (event) => {
       </div>
     `;
 
-
-    // --- 4. ENVOI GROUPÉ (Resend) ---
-    await Promise.all([
-      
-      // Email 1 : Immédiat
-      resend.emails.send({
-        from: "Coach IA <onboarding@resend.dev>",
+       // --- 4. ENVOI SÉCURISÉ (MODIFIÉ) ---
+    
+    // ÉTAPE A : Envoi du mail immédiat (Le plus important)
+    // On l'envoie seul pour être sûr qu'il parte, même si le compte Resend est gratuit.
+    try {
+      await resend.emails.send({
+        from: "Coach IA <onboarding@resend.dev>", // ⚠️ Si tu n'as pas validé ton domaine, laisse onboarding@resend.dev et envoie uniquement vers TON email admin pour tester
         to: email,
         subject: `⚠️ Analyse terminée : Votre Stratégie pour ${nom}`,
         html: htmlEmail1,
-      }),
+      });
+      console.log("✅ Email 1 (Immédiat) envoyé avec succès.");
+    } catch (err) {
+      console.error("❌ Erreur critique sur l'Email 1:", err);
+      throw new Error("L'envoi du rapport a échoué."); // Arrête le script ici si le rapport ne part pas
+    }
 
-      // Email 2 : Demain
+    // ÉTAPE B : Envois programmés (J+1, J+2) et Contact
+    // On utilise allSettled : si Resend bloque le "scheduled_at" (option payante), cela ne fera pas planter le script.
+    const resultatsSecondaires = await Promise.allSettled([
+      
+      // Email 2 (J+1)
       resend.emails.send({
         from: "Cyril Mangeolle <onboarding@resend.dev>",
         to: email,
@@ -183,7 +192,7 @@ exports.handler = async (event) => {
         scheduled_at: demain.toISOString(),
       }),
 
-      // Email 3 : Après-demain
+      // Email 3 (J+2)
       resend.emails.send({
         from: "Cyril Mangeolle <onboarding@resend.dev>",
         to: email,
@@ -192,17 +201,22 @@ exports.handler = async (event) => {
         scheduled_at: apresDemain.toISOString(),
       }),
 
-      // SAUVEGARDE DU CONTACT (NEWSLETTER)
-      // Note : Il n'y a pas de fermeture "]);" avant cette partie, juste une virgule implicite
-      resend.contacts.create({
+      // Création Contact (Seulement si l'ID est présent)
+      process.env.RESEND_AUDIENCE_ID ? resend.contacts.create({
         email: email,
         first_name: nom,
         unsubscribed: false,
         audienceId: process.env.RESEND_AUDIENCE_ID
-      })
-    ]); // <--- C'est ICI qu'on ferme tout le bloc, une seule fois.
+      }) : Promise.resolve("Pas d'audience ID")
+    ]);
 
-    return { statusCode: 200, body: JSON.stringify({ message: "Tout est envoyé !" }) };
+    // Log pour déboguer si les programmés échouent (souvent car compte Gratuit)
+    resultatsSecondaires.forEach((res, index) => {
+      if (res.status === 'rejected') console.warn(`⚠️ Note: L'envoi secondaire ${index+1} a été refusé (Probablement limite du plan Gratuit).`);
+    });
+
+    return { statusCode: 200, body: JSON.stringify({ message: "Analyse envoyée !" }) };
+
 
   } catch (error) {
     console.error("Erreur:", error);
