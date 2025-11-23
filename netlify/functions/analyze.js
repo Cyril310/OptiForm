@@ -18,44 +18,36 @@ exports.handler = async (event) => {
     console.log(`Traitement Gemini pour ${nom} (${sexe}),${poids}`);
 
     // 1. PROMPT MODIFIÉ (Intégration du sexe)
+       // 1. PROMPT OPTIMISÉ (Expertise Biomécanique)
     const promptSysteme = `
-      Agis comme un expert mondial en biomécanique et coaching sportif (Ostéopathe & Coach).
-      Ton but : Présenter une stratégie de haut niveau pour convaincre le prospect de réserver son bilan biomécanique.
+      Tu es un expert mondial en biomécanique et ostéopathie.
+      Ton objectif : Rédiger UNIQUEMENT le corps de l'analyse stratégique pour ${nom}.
       
-      Données du prospect :
-      - Nom : ${nom} (${sexe}, ${age} ans)
-      - Morphologie : ${taille}cm pour ${poids}kg 
-      - Objectif : ${objectif}
-      - Douleur : ${douleur} (${description})
-      - Sommeil : ${sommeil}
+      PROFIL DU PROSPECT :
+      - ${nom} (${sexe}, ${age} ans).
+      - Morphologie : ${taille}cm pour ${poids}kg.
+      - Objectif : ${objectif}.
+      - Problème majeur : ${douleur} (${description}).
+      - Sommeil : ${sommeil}.
 
-      Consigne Spéciale : Prends en compte le ratio poids/taille et l'âge pour adapter ton analyse biomecanique. Adapte tes explications physiologiques et biomécaniques au sexe du prospect (${sexe}). Par exemple, adapte les références hormonales ou morphologiques si nécessaire.
+      CONSIGNE DE RÉDACTION :
+      Ne rédige PAS l'introduction ("Bonjour..."), ni la conclusion, ni la signature. Concentre-toi sur l'expertise technique.
+      Utilise un format HTML simple (balises <p>, <ul>, <li>, <strong>).
 
-      Rédige un email au format HTML riche (utilise des balises <h3>, <ul>, <li>, <strong>, <br>).
-      Ne mets PAS de balises <html> ou <body>.
-
-      STRUCTURE OBLIGATOIRE DE L'EMAIL :
+      CONTENU ATTENDU (Dans cet ordre précis) :
       
-      1. ACCROCHE (H3) : "⚠️ Analyse de ${nom} : Potentiel détecté & Points de vigilance"
+      1. <p><strong>Analyse Clinique Rapide :</strong></p>
+         Explique le lien mécanique et physiologique entre sa douleur (${douleur}), son sommeil et sa morphologie (${poids}kg/${taille}cm). Utilise un vocabulaire expert mais compréhensible (ex: inflammation systémique, charge articulaire, cortisol).
       
-      2. DIAGNOSTIC EXPERT (Paragraphe) : Analyse le lien entre sa douleur (${douleur}) et son sommeil (${sommeil}).
-      
-      3. LA FEUILLE DE ROUTE (Liste structurée) : 
-         Dis : "Voici les 3 piliers stratégiques que nous devrons mettre en place :"
+      2. <p><strong>Votre Stratégie en 3 Phases :</strong></p>
          <ul>
-           <li><strong>Phase 1 (Fondations) :</strong> Protocole de décompression articulaire spécifique pour soulager ${douleur}.</li>
-           <li><strong>Phase 2 (Construction) :</strong> Renforcement structurel adapté à votre biomécanique pour sécuriser le mouvement.</li>
-           <li><strong>Phase 3 (Performance) :</strong> Intensification métabolique pour atteindre l'objectif : ${objectif}.</li>
+           <li><strong>Phase 1 (Soulagement) :</strong> Propose une action spécifique liée à sa douleur pour décompresser la zone.</li>
+           <li><strong>Phase 2 (Structure) :</strong> Explique quel type de renforcement est nécessaire pour sa morphologie.</li>
+           <li><strong>Phase 3 (Performance) :</strong> Comment atteindre l'objectif "${objectif}" une fois le corps réparé.</li>
          </ul>
 
-      4. LE "GAP" :
-         Explique clairement : "Ceci est une ébauche stratégique. En tant qu'ostéopathe, je ne peux pas construire votre programme détaillé sans vous voir bouger."
-
-      5. APPEL À L'ACTION :
-         "Réservez votre Bilan Biomécanique (Visio) pour que j'analyse vos chaînes musculaires."
-
-      Ton ton doit être : Professionnel, Rassurant, Expert.
-      Signe : "L'IA OptiForm (Supervisée par Cyril Mangeolle)".
+      3. <p><strong>Point de Vigilance :</strong></p>
+         Une phrase d'avertissement sur les risques de suivre un programme générique sans validation de sa posture.
     `;
 
     // 2. Appel IA
@@ -76,7 +68,7 @@ exports.handler = async (event) => {
 
     // --- 3. CONTENU DES 3 EMAILS ---
 
-    // EMAIL 1 : L'Analyse IA (Immédiat)
+       // EMAIL 1 : L'Analyse IA (Immédiat)
     const htmlEmail1 = `
       <div style="font-family: 'Helvetica', sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
         
@@ -86,7 +78,14 @@ exports.handler = async (event) => {
         </div>
 
         <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            
+            <p style="margin-top: 0;"><strong>Bonjour ${nom},</strong></p>
+            
             ${emailContent}
+
+            <p style="margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; font-style: italic; color: #555; font-size: 14px;">
+                L'IA OptiForm (Supervisée par Cyril Mangeolle)
+            </p>
         </div>
 
         <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
@@ -106,6 +105,7 @@ exports.handler = async (event) => {
 
       </div>
     `;
+
 
         // EMAIL 2 : Le Suivi Humain + Preuve Sociale (J+1)
     const htmlEmail2 = `
