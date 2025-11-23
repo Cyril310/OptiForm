@@ -556,7 +556,7 @@
             z-index: 10; 
 
             /* AJOUT/MODIFICATION : Remonter la section pour qu'elle se rapproche de "À Propos" */
-            margin-top: 1rem; /* Valeur à ajuster. -6rem devrait réduire l'espace blanc */
+            margin-top: 1rem; 
         }
 
         /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
@@ -595,6 +595,73 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f0f0f0' d='M1 3h1v1H1V3zm2-2h1v1H3V1z' opacity='0.2' /%3E%3C/svg%3E");
             background-repeat: repeat;
         }
+
+        /* --- 1. LES CLASSES POUR LES VAGUES (SVG) --- */
+        .custom-shape-divider-bottom {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            overflow: hidden; line-height: 0;
+            transform: rotate(180deg);
+        }
+        .custom-shape-divider-bottom svg {
+            position: relative; display: block;
+            width: calc(100% + 1.3px); height: 100px;
+        }
+        .custom-shape-divider-bottom .shape-fill {
+            fill: #eef6f9; /* Doit être la MEME couleur que la section suivante (Avis) */
+        }
+        
+        .custom-shape-divider-top {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            overflow: hidden; line-height: 0;
+        }
+        .custom-shape-divider-top svg {
+            position: relative; display: block;
+            width: calc(100% + 1.3px); height: 100px;
+        }
+        .custom-shape-divider-top .shape-fill {
+            fill: #eef6f9; /* Doit être la MEME couleur que la section précédente (Avis) */
+        }
+        
+        /* --- 2. MODIFICATION DU HERO (Courbe au lieu de coupure) --- */
+        .hero {
+            /* Gardez vos backgrounds existants ici */
+            background: linear-gradient(rgba(26, 61, 82, 0.75), rgba(26, 61, 82, 0.85)), url('YOUR_IMAGE_URL');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            padding: 8rem 1.5rem 12rem; /* Augmentez le padding du bas */
+            position: relative;
+            
+            /* C'est ICI que la magie opère (Courbe) : */
+            border-radius: 0 0 50% 50% / 40px; 
+            clip-path: none; /* IMPORTANT : Enlevez l'ancien clip-path */
+            margin-bottom: 2rem;
+        }
+        
+        /* --- 3. MODIFICATION DES BADGES (Pour chevaucher la courbe) --- */
+        .trust-badges {
+            /* Gardez vos styles existants (flex, background, shadow...) */
+            background: white;
+            display: flex; justify-content: space-around; flex-wrap: wrap; padding: 1.5rem; border-radius: 24px; box-shadow: 0 15px 45px rgba(43, 95, 127, 0.25);
+            
+            /* La modification clé : Marge négative pour remonter sur le Hero */
+            margin: -7rem auto 0; 
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+        }
+        
+        /* --- 4. COULEUR DE FOND SECTION AVIS --- */
+        #temoignages {
+            background-color: #eef6f9; /* Bleu très clair */
+            padding-top: 8rem; /* Espace pour la vague du haut */
+            padding-bottom: 8rem; /* Espace pour la vague du bas */
+            position: relative;
+        }
+
     </style>
 </head>
 <body>
@@ -711,6 +778,11 @@
                 <h3>Résultats Durables</h3>
                 <p>Pas de régime drastique ni de sport excessif. Juste la dose parfaite pour votre corps, pour une transformation à vie.</p>
             </div>
+            <div class="custom-shape-divider-bottom">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div> 
         </div>
     </section>
 
@@ -809,6 +881,11 @@
 
 
     <section class="container" id="offres">
+        <div class="custom-shape-divider-top">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
         <div data-aos="fade-up">
             <h2 class="section-title">Choisissez votre Transformation</h2>
             <p class="section-subtitle">Des formules adaptées à tous les budgets et objectifs.</p>
