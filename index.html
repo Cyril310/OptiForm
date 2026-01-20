@@ -1239,9 +1239,9 @@
             <p style="font-size: 0.9rem; color: #666; margin-bottom: 1.5rem;">Finalisez pour bloquer ce tarif.</p>
             
             <form onsubmit="handleSubmit(event, 'booking')">
-                <div class="form-group"><label>Nom complet</label><input type="text" class="form-input" required placeholder="Prénom Nom"></div>
-                <div class="form-group"><label>Email</label><input type="email" class="form-input" required placeholder="email@exemple.com"></div>
-                
+                <div class="form-group"><label>Nom complet</label><input type="text" id="booking-nom" class="form-input" required placeholder="Prénom Nom"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="booking-email" class="form-input" required placeholder="email@exemple.com"></div>
+    
                 <div class="referral-box" id="referral-container">
                     <label class="referral-checkbox-label">
                         <input type="checkbox" id="referral-check" onchange="toggleReferral('modal')">
