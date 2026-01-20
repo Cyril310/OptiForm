@@ -1454,53 +1454,83 @@
         });
     });
         
-        /* --- LOGIQUE PARRAINAGE (Gère la Modale, le Bilan ET LE PRIX) --- */
+          /* --- 1. LISTE DE SÉCURITÉ --- */
+    // Ajoute ici tes codes valides en MAJUSCULES
+    const validCodes = ['SOPHIE', 'PIERRE', 'THOMAS', 'JULIE', 'MARC', 'ALAIN', 'VIP2025', 'COACH'];
+
+    /* --- 2. FONCTION GESTION CASE À COCHER --- */
     function toggleReferral(origin) {
-        // Si on vient du Bilan, on cherche les ID avec "-bilan". Sinon, on prend les normaux
         const suffix = origin === 'bilan' ? '-bilan' : '';
-    
         const checkbox = document.getElementById('referral-check' + suffix);
+        const inputName = document.getElementById('referral-name' + suffix);
         const container = document.getElementById('referral-container' + suffix);
         const msg = document.getElementById('referral-msg' + suffix);
-        const inputName = document.getElementById('referral-name' + suffix);
     
         if (!checkbox) return; 
     
         if (checkbox.checked) {
-            // --- ETAT : COCHÉ ---
-            if(container) container.classList.add('validated');
-            if(msg) msg.style.display = 'block';
-            if(inputName) {
-                inputName.style.display = 'block';
-                // Petit focus automatique (sauf dans la modale pour éviter que le clavier saute)
-                if(origin !== 'modal') inputName.focus();
-            }
-
-            // CHANGEMENT DE PRIX (Uniquement si on est dans la Modale)
-            if (origin === 'modal' && currentOffer && pricingData[currentOffer]) {
-                const priceDisplay = document.getElementById('modal-price-display');
-                if(priceDisplay) {
-                    priceDisplay.innerText = pricingData[currentOffer].promo; // Affiche le prix promo
-                    priceDisplay.style.color = '#27ae60'; // Passe en vert
-                }
-            }
-
+            // ON AFFICHE LE CHAMP, MAIS C'EST TOUT (Pas de validation, pas de changement prix)
+            inputName.style.display = 'block';
+            if(origin !== 'modal') inputName.focus();
         } else {
-            // --- ETAT : DÉCOCHÉ ---
-            if(container) container.classList.remove('validated');
-            if(msg) msg.style.display = 'none';
-            if(inputName) inputName.style.display = 'none';
-
-            // RETOUR PRIX NORMAL (Uniquement si on est dans la Modale)
-            if (origin === 'modal' && currentOffer && pricingData[currentOffer]) {
+            // ON DÉCOCHE : ON ANNULE TOUT
+            inputName.style.display = 'none';
+            inputName.value = ""; 
+            container.classList.remove('validated');
+            msg.style.display = 'none';
+            
+            // Si c'est la modale, on remet le prix normal immédiatement
+            if (origin === 'modal') {
                 const priceDisplay = document.getElementById('modal-price-display');
-                if(priceDisplay) {
-                    priceDisplay.innerText = pricingData[currentOffer].normal; // Affiche le prix normal
-                    priceDisplay.style.color = '#e67e22'; // Revient en orange
+                if(priceDisplay && currentOffer && pricingData[currentOffer]) {
+                    priceDisplay.innerText = pricingData[currentOffer].normal;
+                    priceDisplay.style.color = '#e67e22';
                 }
             }
         }
     }
+
+    /* --- 3. FONCTION VÉRIFICATION DU CODE (Temps réel) --- */
+    function checkReferralCode(origin) {
+        const suffix = origin === 'bilan' ? '-bilan' : '';
+        const inputName = document.getElementById('referral-name' + suffix);
+        const container = document.getElementById('referral-container' + suffix);
+        const msg = document.getElementById('referral-msg' + suffix);
+        
+        // On récupère le texte en MAJUSCULES sans espaces
+        const userEntry = inputName.value.trim().toUpperCase();
+
+        // VÉRIFICATION : Le code est-il dans la liste ?
+        const isValid = validCodes.includes(userEntry);
+
+        if (isValid) {
+            // ✅ CODE VALIDE
+            container.classList.add('validated');
+            msg.innerHTML = `<span>✅ Code <strong>${userEntry}</strong> validé !</span>`;
+            msg.style.display = 'block';
+            msg.style.color = '#27ae60';
+
+            // CHANGEMENT PRIX (Seulement Modale)
+            if (origin === 'modal' && currentOffer && pricingData[currentOffer]) {
+                const priceDisplay = document.getElementById('modal-price-display');
+                priceDisplay.innerText = pricingData[currentOffer].promo; // Prix Promo
+                priceDisplay.style.color = '#27ae60'; // Vert
+            }
+
+        } else {
+            // ❌ CODE INVALIDE
+            container.classList.remove('validated');
+            msg.style.display = 'none';
+
+            // RETOUR PRIX NORMAL (Seulement Modale)
+            if (origin === 'modal' && currentOffer && pricingData[currentOffer]) {
+                const priceDisplay = document.getElementById('modal-price-display');
+                priceDisplay.innerText = pricingData[currentOffer].normal; // Prix Normal
+                priceDisplay.style.color = '#e67e22'; // Orange
+            }
+        }
+    }
+
 
     </script>
 </body>
