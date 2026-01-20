@@ -13,7 +13,7 @@ exports.handler = async (event) => {
   try {
         const data = JSON.parse(event.body);
     const { nom, email, sexe, age, taille, poids, objectif, douleur, description, sommeil, parrain } = data;
-    const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques"; // Ton lien agenda
+    const bookingLink = "https://zeeg.me/cyril41mangeolle/bilan-strategique-ou-bilan-offert"; // Ton lien agenda
     
     // --- BLOC PARRAINAGE DYNAMIQUE ---
       let referralBlock = "";
