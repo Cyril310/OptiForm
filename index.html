@@ -1280,13 +1280,39 @@
         }
 
         // Modales
+                // --- CONFIGURATION PRIX ---
+        const pricingData = {
+            'Starter': { normal: '200€', promo: '60€' },
+            'Performance': { normal: '350€', promo: '80€' },
+            'Transformation': { normal: '450€', promo: '100€' }
+        };
+        let currentOffer = ''; // Mémorise l'offre choisie
+
+        // Modales
         const bookingModal = document.getElementById('bookingModal');
         const resultModal = document.getElementById('resultModal');
 
         function openBooking(offerName) {
+            currentOffer = offerName; // On sauvegarde quelle offre a été cliquée
             document.getElementById('modal-offer-name').innerText = offerName;
+            
+            // On initialise le prix normal
+            const priceDisplay = document.getElementById('modal-price-display');
+            if(priceDisplay) {
+                priceDisplay.innerText = pricingData[offerName].normal;
+                priceDisplay.style.color = '#e67e22'; // Orange par défaut
+            }
+
+            // On décoche la case par défaut à l'ouverture
+            const check = document.getElementById('referral-check');
+            if(check) {
+                check.checked = false;
+                toggleReferral('modal'); // On reset l'affichage visuel
+            }
+
             bookingModal.style.display = 'flex';
         }
+
         function closeBooking() { bookingModal.style.display = 'none'; }
         function closeResultModal() { resultModal.style.display = 'none'; }
 
