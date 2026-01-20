@@ -1322,31 +1322,31 @@
             if (event.target == resultModal) closeResultModal();
         }
 
+        
         async function handleSubmit(e, type) {
             e.preventDefault();
-            const btn = document.getElementById('btn-bilan');
-            const btnText = document.getElementById('btn-text');
-            const spinner = btn.querySelector('.spinner');
-        
+            
+            // --- LOGIQUE FORMULAIRE BILAN (Haut de page) ---
             if (type === 'bilan') {
+                const btn = document.getElementById('btn-bilan');
+                const btnText = document.getElementById('btn-text');
+                const spinner = btn.querySelector('.spinner');
+    
                 // Animation
                 btnText.innerText = "IA en cours de réflexion...";
                 spinner.style.display = "inline-block";
                 btn.style.background = "#e67e22";
                 btn.disabled = true;
         
-                // --- SÉCURISATION DE L'ENVOI DU PARRAIN ---
+                // --- SÉCURISATION DU PARRAIN ---
                 const inputParrain = document.getElementById('referral-name-bilan');
-                // On vérifie le conteneur pour voir s'il a la classe "validated" (donc code bon)
                 const containerParrain = document.getElementById('referral-container-bilan');
                 let valParrain = "";
         
-                // Si le conteneur a la classe 'validated', c'est que le code est bon. On l'envoie.
-                // Sinon, on envoie une chaine vide (pas de promo).
+                // On envoie le code SEULEMENT si le cadre est vert (validé)
                 if (containerParrain && containerParrain.classList.contains('validated')) {
                     valParrain = inputParrain.value;
                 }
-                // -----------------------------------------
         
                 const formData = {
                     nom: document.getElementById('bilan-nom').value,
@@ -1359,8 +1359,7 @@
                     douleur: document.getElementById('bilan-description').value,
                     description: document.getElementById('bilan-description').value,
                     sommeil: document.getElementById('bilan-sommeil').value,
-                    
-                    parrain: valParrain // Sera vide si le code n'était pas bon
+                    parrain: valParrain 
                 };
         
                 try {
@@ -1387,6 +1386,26 @@
                     btn.style.background = "";
                     btn.disabled = false;
                 }
+            } 
+            
+            // --- NOUVEAU BLOC : LOGIQUE RÉSERVATION (MODALE) ---
+            else if (type === 'booking') {
+                 
+                 // 1. On récupère les infos saisies dans la modale
+                 // Assure-toi d'avoir bien mis les ID 'booking-nom' et 'booking-email' dans ton HTML
+                 const nom = document.getElementById('booking-nom').value;
+                 const email = document.getElementById('booking-email').value;
+    
+                 // 2. On construit le lien Zeeg avec les infos pré-remplies
+                 const zeegUrl = "https://zeeg.me/cyril41mangeolle/bilanstrategiques" + 
+                                 "?name=" + encodeURIComponent(nom) + 
+                                 "&email=" + encodeURIComponent(email);
+    
+                 // 3. On ferme la modale du site
+                 closeBooking();
+    
+                 // 4. On ouvre Zeeg dans un nouvel onglet
+                 window.open(zeegUrl, '_blank');
             }
         }
 
