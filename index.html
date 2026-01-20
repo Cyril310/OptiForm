@@ -1099,6 +1099,20 @@
                         <input type="checkbox" id="newsletter" name="newsletter" checked style="width: auto; margin-right: 0.5rem; transform: scale(1.2);">
                         <label for="newsletter" style="display: inline; font-weight: 500; font-size: 0.95rem; color: var(--text-dark);">Oui, je m'abonne à la newsletter (conseils exclusifs offerts).</label>
                     </div>
+
+                    <div class="referral-box" id="referral-container-bilan" style="margin-top: 1.5rem;">
+                        <label class="referral-checkbox-label">
+                            <input type="checkbox" id="referral-check-bilan" onchange="toggleReferral('bilan')">
+                            <span>🎁 J'ai un Parrain / Code Promo</span>
+                        </label>
+                        
+                        <div class="referral-success-msg" id="referral-msg-bilan">
+                            <span>✅ Offre validée !</span>
+                            <span style="color: var(--text-dark); font-weight: normal;">Votre dossier sera traité en priorité.</span>
+                        </div>
+                        
+                        <input type="text" id="referral-name-bilan" class="form-input" style="margin-top: 10px; display: none; font-size: 0.9rem;" placeholder="Nom du parrain ou Code">
+                    </div>
                 
                     <button type="submit" class="submit-btn" id="btn-bilan" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
                         <span class="spinner"></span>
