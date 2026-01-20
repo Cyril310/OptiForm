@@ -710,6 +710,56 @@
             position: relative;
         }
 
+        /* --- AJOUTS POUR PRIX BARRÉ & PARRAINAGE --- */
+
+/* Le vieux prix barré au dessus du prix actuel */
+.old-price {
+    text-decoration: line-through;
+    color: #bdc3c7; /* Gris clair */
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: -10px; /* Rapproche le prix barré du vrai prix */
+    display: block;
+}
+
+/* Zone parrainage dans la modale */
+.referral-box {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px dashed var(--primary-blue);
+    margin-bottom: 1.5rem;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.referral-box.validated {
+    background: #e8f5e9;
+    border: 1px solid #27ae60;
+}
+
+.referral-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark-blue);
+}
+
+/* Message de succès caché par défaut */
+.referral-success-msg {
+    display: none;
+    color: #27ae60;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    animation: slideDown 0.3s ease;
+}
+.referral-success-msg span { display: block; }
+
+
     </style>
 </head>
 <body>
