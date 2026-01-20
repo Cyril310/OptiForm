@@ -14,6 +14,20 @@ exports.handler = async (event) => {
         const data = JSON.parse(event.body);
     const { nom, email, sexe, age, taille, poids, objectif, douleur, description, sommeil, parrain } = data;
     const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques"; // Ton lien agenda
+    
+    // --- BLOC PARRAINAGE DYNAMIQUE ---
+      let referralBlock = "";
+      if (parrain && parrain.trim() !== "") {
+          referralBlock = `
+          <div style="background-color: #e8f5e9; border: 1px solid #27ae60; border-radius: 8px; padding: 15px; margin: 20px 30px; text-align: center;">
+              <strong style="color: #27ae60; font-size: 16px; display: block; margin-bottom: 5px;">✅ TARIF PRIVILÈGE ACTIVÉ</strong>
+              <p style="margin: 0; color: #1e4620; font-size: 14px;">
+                  Référence validée : <strong>${parrain}</strong>.<br>
+                  Ce dossier sera traité en priorité avec la réduction associée.
+              </p>
+          </div>
+          `;
+      }
 
     // --- 1. PROMPT DESIGN (On force l'IA à structurer pour le Template) ---
     const promptSysteme = `
