@@ -88,11 +88,6 @@ exports.handler = async (event) => {
           <p style="font-size: 16px; margin-bottom: 20px;">Bonjour <strong>${nom}</strong>,</p>
           ${emailContent}
         </div>
-
-        <div style="padding: 30px; color: #333; line-height: 1.6;">
-            <p style="font-size: 16px; margin-bottom: 20px;">Bonjour <strong>${nom}</strong>,</p>
-            ${emailContent}
-          </div>
   
           ${referralBlock}
           <div style="text-align: center; padding: 0 30px 20px;">
