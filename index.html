@@ -1325,29 +1325,41 @@
         e.preventDefault();
         const btn = document.getElementById('btn-bilan');
         const btnText = document.getElementById('btn-text');
-        const spinner = btn.querySelector('.spinner'); // On cible la roue
+        const spinner = btn.querySelector('.spinner');
     
         if (type === 'bilan') {
-            // 1. ON LANCE L'ANIMATION
+            // Animation
             btnText.innerText = "IA en cours de réflexion...";
-            spinner.style.display = "inline-block"; // La roue apparaît
+            spinner.style.display = "inline-block";
             btn.style.background = "#e67e22";
-            btn.disabled = true; // On bloque le clic
+            btn.disabled = true;
     
-         const formData = {
-            nom: document.getElementById('bilan-nom').value,
-            email: document.getElementById('bilan-email').value,
-            sexe: document.getElementById('bilan-sexe').value,
-            age: document.getElementById('bilan-age').value,       // Ajouté
-            taille: document.getElementById('bilan-taille').value, // Ajouté
-            poids: document.getElementById('bilan-poids').value,   // Ajouté
-            objectif: document.getElementById('bilan-objectif').value,
-            douleur: document.getElementById('bilan-description').value, 
-            description: document.getElementById('bilan-description').value,
-            sommeil: document.getElementById('bilan-sommeil').value
+            // --- NOUVEAU : RÉCUPÉRATION DU PARRAIN ---
+            const checkParrain = document.getElementById('referral-check-bilan');
+            const inputParrain = document.getElementById('referral-name-bilan');
+            let valParrain = "";
+    
+            // Si coché, on prend le nom, sinon on met "Offre validée"
+            if (checkParrain && checkParrain.checked) {
+                valParrain = inputParrain.value ? inputParrain.value : "Parrainage / Code Promo";
+            }
+            // -----------------------------------------
+    
+            const formData = {
+                nom: document.getElementById('bilan-nom').value,
+                email: document.getElementById('bilan-email').value,
+                sexe: document.getElementById('bilan-sexe').value,
+                age: document.getElementById('bilan-age').value,
+                taille: document.getElementById('bilan-taille').value,
+                poids: document.getElementById('bilan-poids').value,
+                objectif: document.getElementById('bilan-objectif').value,
+                douleur: document.getElementById('bilan-description').value,
+                description: document.getElementById('bilan-description').value,
+                sommeil: document.getElementById('bilan-sommeil').value,
+                
+                // AJOUT DE LA LIGNE MAGIQUE ICI :
+                parrain: valParrain 
             };
-
-
     
             try {
                 const response = await fetch('/.netlify/functions/analyze', {
