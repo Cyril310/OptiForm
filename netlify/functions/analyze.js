@@ -19,7 +19,7 @@ exports.handler = async (event) => {
       let referralBlock = "";
       if (parrain && parrain.trim() !== "") {
           referralBlock = `
-          <div style="background-color: #e8f5e9; border: 1px solid #27ae60; border-radius: 8px; padding: 15px; margin: 20px 30px; text-align: center;">
+          <div style="background-color: #e8f5e9; border: 1px solid #27ae60; border-radius: 8px; padding: 15px; margin: 30px 30px 50px 30px; text-align: center;">
               <strong style="color: #27ae60; font-size: 16px; display: block; margin-bottom: 5px;">✅ TARIF PRIVILÈGE ACTIVÉ</strong>
               <p style="margin: 0; color: #1e4620; font-size: 14px;">
                   Référence validée : <strong>${parrain}</strong>.<br>
