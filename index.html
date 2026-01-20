@@ -1390,7 +1390,27 @@
             if (slide.classList.contains('next')) moveSlide(1);
         });
     });
+        
+    /* --- LOGIQUE PARRAINAGE --- */
+    function toggleReferral() {
+        const checkbox = document.getElementById('referral-check');
+        const container = document.getElementById('referral-container');
+        const msg = document.getElementById('referral-msg');
+        const inputName = document.getElementById('referral-name');
     
+        if (checkbox.checked) {
+            // L'utilisateur dit qu'il a un parrain
+            container.classList.add('validated'); // Ça devient vert
+            msg.style.display = 'block'; // Message de succès
+            inputName.style.display = 'block'; // Champ pour mettre le nom
+            inputName.focus();
+        } else {
+            // Il décoche
+            container.classList.remove('validated');
+            msg.style.display = 'none';
+            inputName.style.display = 'none';
+        }
+    }
 
     </script>
 </body>
