@@ -1111,7 +1111,8 @@
                             <span style="color: var(--text-dark); font-weight: normal;">Votre dossier sera traité en priorité.</span>
                         </div>
                         
-                        <input type="text" id="referral-name-bilan" class="form-input" style="margin-top: 10px; display: none; font-size: 0.9rem;" placeholder="Nom du parrain ou Code">
+                        <input type="text" id="referral-name-bilan" class="form-input" style="margin-top: 10px; display: none; font-size: 0.9rem;" placeholder="Entrez le Nom ou Code VIP" 
+                            oninput="checkReferralCode('bilan')">
                     </div>
                 
                     <button type="submit" class="submit-btn" id="btn-bilan" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
@@ -1122,7 +1123,6 @@
             </div>
         </div>
     </section>
-
 
 
         <section class="faq-section-bg">
@@ -1253,8 +1253,8 @@
                         <span style="color: var(--text-dark); font-weight: normal;">Le tarif spécial parrainage est activé.</span>
                     </div>
                     
-                <input type="text" id="referral-name-bilan" class="form-input" style="margin-top: 10px; display: none; font-size: 0.9rem;" placeholder="Entrez le Nom ou Code VIP" 
-                    oninput="checkReferralCode('bilan')">
+                <input type="text" id="referral-name" class="form-input" style="margin-top: 10px; display: none; font-size: 0.9rem;" placeholder="Entrez le Nom ou Code VIP" 
+                    oninput="checkReferralCode('modal')">
                 </div>
     
                 <div class="form-group"><label>Date de début souhaitée</label><input type="date" class="form-input" required></div>
