@@ -1441,9 +1441,9 @@
         });
     });
         
-    /* --- LOGIQUE PARRAINAGE (Gère la Modale ET le Bilan) --- */
+        /* --- LOGIQUE PARRAINAGE (Gère la Modale, le Bilan ET LE PRIX) --- */
     function toggleReferral(origin) {
-        // Si on vient du Bilan, on cherche les ID avec "-bilan". Sinon, on prend les normaux (Modale)
+        // Si on vient du Bilan, on cherche les ID avec "-bilan". Sinon, on prend les normaux
         const suffix = origin === 'bilan' ? '-bilan' : '';
     
         const checkbox = document.getElementById('referral-check' + suffix);
@@ -1451,25 +1451,43 @@
         const msg = document.getElementById('referral-msg' + suffix);
         const inputName = document.getElementById('referral-name' + suffix);
     
-        // Sécurité : on vérifie si les éléments existent avant d'agir
-        if (!checkbox || !container) return; 
+        if (!checkbox) return; 
     
         if (checkbox.checked) {
-            // Case cochée
-            container.classList.add('validated');
+            // --- ETAT : COCHÉ ---
+            if(container) container.classList.add('validated');
             if(msg) msg.style.display = 'block';
             if(inputName) {
                 inputName.style.display = 'block';
-                inputName.focus();
+                // Petit focus automatique (sauf dans la modale pour éviter que le clavier saute)
+                if(origin !== 'modal') inputName.focus();
             }
+
+            // CHANGEMENT DE PRIX (Uniquement si on est dans la Modale)
+            if (origin === 'modal' && currentOffer && pricingData[currentOffer]) {
+                const priceDisplay = document.getElementById('modal-price-display');
+                if(priceDisplay) {
+                    priceDisplay.innerText = pricingData[currentOffer].promo; // Affiche le prix promo
+                    priceDisplay.style.color = '#27ae60'; // Passe en vert
+                }
+            }
+
         } else {
-            // Case décochée
-            container.classList.remove('validated');
+            // --- ETAT : DÉCOCHÉ ---
+            if(container) container.classList.remove('validated');
             if(msg) msg.style.display = 'none';
             if(inputName) inputName.style.display = 'none';
+
+            // RETOUR PRIX NORMAL (Uniquement si on est dans la Modale)
+            if (origin === 'modal' && currentOffer && pricingData[currentOffer]) {
+                const priceDisplay = document.getElementById('modal-price-display');
+                if(priceDisplay) {
+                    priceDisplay.innerText = pricingData[currentOffer].normal; // Affiche le prix normal
+                    priceDisplay.style.color = '#e67e22'; // Revient en orange
+                }
+            }
         }
     }
-
 
     </script>
 </body>
