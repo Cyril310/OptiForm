@@ -1391,26 +1391,35 @@
         });
     });
         
-    /* --- LOGIQUE PARRAINAGE --- */
-    function toggleReferral() {
-        const checkbox = document.getElementById('referral-check');
-        const container = document.getElementById('referral-container');
-        const msg = document.getElementById('referral-msg');
-        const inputName = document.getElementById('referral-name');
+    /* --- LOGIQUE PARRAINAGE (Gère la Modale ET le Bilan) --- */
+    function toggleReferral(origin) {
+        // Si on vient du Bilan, on cherche les ID avec "-bilan". Sinon, on prend les normaux (Modale)
+        const suffix = origin === 'bilan' ? '-bilan' : '';
+    
+        const checkbox = document.getElementById('referral-check' + suffix);
+        const container = document.getElementById('referral-container' + suffix);
+        const msg = document.getElementById('referral-msg' + suffix);
+        const inputName = document.getElementById('referral-name' + suffix);
+    
+        // Sécurité : on vérifie si les éléments existent avant d'agir
+        if (!checkbox || !container) return; 
     
         if (checkbox.checked) {
-            // L'utilisateur dit qu'il a un parrain
-            container.classList.add('validated'); // Ça devient vert
-            msg.style.display = 'block'; // Message de succès
-            inputName.style.display = 'block'; // Champ pour mettre le nom
-            inputName.focus();
+            // Case cochée
+            container.classList.add('validated');
+            if(msg) msg.style.display = 'block';
+            if(inputName) {
+                inputName.style.display = 'block';
+                inputName.focus();
+            }
         } else {
-            // Il décoche
+            // Case décochée
             container.classList.remove('validated');
-            msg.style.display = 'none';
-            inputName.style.display = 'none';
+            if(msg) msg.style.display = 'none';
+            if(inputName) inputName.style.display = 'none';
         }
     }
+
 
     </script>
 </body>
