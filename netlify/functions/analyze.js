@@ -89,11 +89,17 @@ exports.handler = async (event) => {
           ${emailContent}
         </div>
 
-        <div style="text-align: center; padding: 0 30px 20px;">
-          <a href="${bookingLink}" style="background-color: #e67e22; color: #ffffff; text-decoration: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);">
-            📅 RÉSERVER MON BILAN OFFERT
-          </a>
-          <p style="font-size: 12px; color: #999; margin-top: 10px;">*Audit visio nécessaire pour valider la faisabilité.</p>
+        <div style="padding: 30px; color: #333; line-height: 1.6;">
+            <p style="font-size: 16px; margin-bottom: 20px;">Bonjour <strong>${nom}</strong>,</p>
+            ${emailContent}
+          </div>
+  
+          ${referralBlock}
+          <div style="text-align: center; padding: 0 30px 20px;">
+            <a href="${bookingLink}" style="background-color: #e67e22; color: #ffffff; text-decoration: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);">
+              📅 RÉSERVER MON BILAN OFFERT
+            </a>
+            <p style="font-size: 12px; color: #999; margin-top: 10px;">*Audit visio nécessaire pour valider la faisabilité.</p>
         </div>
 
         <div style="margin: 20px; padding: 25px; background-color: #fff0f5; border-radius: 12px; border: 1px solid #ffdee9; text-align: center;">
