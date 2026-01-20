@@ -1322,76 +1322,73 @@
             if (event.target == resultModal) closeResultModal();
         }
 
-       async function handleSubmit(e, type) {
-        e.preventDefault();
-        const btn = document.getElementById('btn-bilan');
-        const btnText = document.getElementById('btn-text');
-        const spinner = btn.querySelector('.spinner');
-    
-        if (type === 'bilan') {
-            // Animation
-            btnText.innerText = "IA en cours de réflexion...";
-            spinner.style.display = "inline-block";
-            btn.style.background = "#e67e22";
-            btn.disabled = true;
-    
-            // --- NOUVEAU : RÉCUPÉRATION DU PARRAIN ---
-            const checkParrain = document.getElementById('referral-check-bilan');
-            const inputParrain = document.getElementById('referral-name-bilan');
-            let valParrain = "";
-    
-            // Si coché, on prend le nom, sinon on met "Offre validée"
-            if (checkParrain && checkParrain.checked) {
-                valParrain = inputParrain.value ? inputParrain.value : "Parrainage / Code Promo";
-            }
-            // -----------------------------------------
-    
-            const formData = {
-                nom: document.getElementById('bilan-nom').value,
-                email: document.getElementById('bilan-email').value,
-                sexe: document.getElementById('bilan-sexe').value,
-                age: document.getElementById('bilan-age').value,
-                taille: document.getElementById('bilan-taille').value,
-                poids: document.getElementById('bilan-poids').value,
-                objectif: document.getElementById('bilan-objectif').value,
-                douleur: document.getElementById('bilan-description').value,
-                description: document.getElementById('bilan-description').value,
-                sommeil: document.getElementById('bilan-sommeil').value,
-                
-                // AJOUT DE LA LIGNE MAGIQUE ICI :
-                parrain: valParrain 
-            };
-    
-            try {
-                const response = await fetch('/.netlify/functions/analyze', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-    
-                if (response.ok) {
-                    // SUCCÈS : ON ARRÊTE L'ANIMATION
-                    btnText.innerText = "Analyse Envoyée !";
-                    spinner.style.display = "none";
-                    btn.style.background = "#27ae60";
-                    
-                    // On ouvre la modale "Check tes mails"
-                    document.getElementById('result-name').innerText = formData.nom;
-                    document.getElementById('resultModal').style.display = 'flex';
-                } else {
-                    throw new Error("Erreur serveur");
+        async function handleSubmit(e, type) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-bilan');
+            const btnText = document.getElementById('btn-text');
+            const spinner = btn.querySelector('.spinner');
+        
+            if (type === 'bilan') {
+                // Animation
+                btnText.innerText = "IA en cours de réflexion...";
+                spinner.style.display = "inline-block";
+                btn.style.background = "#e67e22";
+                btn.disabled = true;
+        
+                // --- SÉCURISATION DE L'ENVOI DU PARRAIN ---
+                const inputParrain = document.getElementById('referral-name-bilan');
+                // On vérifie le conteneur pour voir s'il a la classe "validated" (donc code bon)
+                const containerParrain = document.getElementById('referral-container-bilan');
+                let valParrain = "";
+        
+                // Si le conteneur a la classe 'validated', c'est que le code est bon. On l'envoie.
+                // Sinon, on envoie une chaine vide (pas de promo).
+                if (containerParrain && containerParrain.classList.contains('validated')) {
+                    valParrain = inputParrain.value;
                 }
-            } catch (error) {
-                console.error(error);
-                alert("Erreur de connexion.");
-                // En cas d'erreur, on remet le bouton normal
-                btnText.innerText = "Réessayer";
-                spinner.style.display = "none";
-                btn.style.background = "";
-                btn.disabled = false;
+                // -----------------------------------------
+        
+                const formData = {
+                    nom: document.getElementById('bilan-nom').value,
+                    email: document.getElementById('bilan-email').value,
+                    sexe: document.getElementById('bilan-sexe').value,
+                    age: document.getElementById('bilan-age').value,
+                    taille: document.getElementById('bilan-taille').value,
+                    poids: document.getElementById('bilan-poids').value,
+                    objectif: document.getElementById('bilan-objectif').value,
+                    douleur: document.getElementById('bilan-description').value,
+                    description: document.getElementById('bilan-description').value,
+                    sommeil: document.getElementById('bilan-sommeil').value,
+                    
+                    parrain: valParrain // Sera vide si le code n'était pas bon
+                };
+        
+                try {
+                    const response = await fetch('/.netlify/functions/analyze', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+        
+                    if (response.ok) {
+                        btnText.innerText = "Analyse Envoyée !";
+                        spinner.style.display = "none";
+                        btn.style.background = "#27ae60";
+                        document.getElementById('result-name').innerText = formData.nom;
+                        document.getElementById('resultModal').style.display = 'flex';
+                    } else {
+                        throw new Error("Erreur serveur");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Erreur de connexion.");
+                    btnText.innerText = "Réessayer";
+                    spinner.style.display = "none";
+                    btn.style.background = "";
+                    btn.disabled = false;
+                }
             }
         }
-    }
 
         // Smooth Scroll pour les ancres
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
