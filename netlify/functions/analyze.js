@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
   try {
         const data = JSON.parse(event.body);
-    const { nom, email, sexe, age, taille, poids, objectif, douleur, description, sommeil } = data;
+    const { nom, email, sexe, age, taille, poids, objectif, douleur, description, sommeil, parrain } = data;
     const bookingLink = "https://zeeg.me/cyril41mangeolle/bilanstrategiques"; // Ton lien agenda
 
     // --- 1. PROMPT DESIGN (On force l'IA à structurer pour le Template) ---
