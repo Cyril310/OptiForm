@@ -911,11 +911,28 @@
         .faq-item.active .icon { transform: rotate(135deg); color: var(--primary-orange); }
         .faq-item.active .faq-question { color: var(--primary-orange); }
 
-        /* Feedback champ valide */
-        .form-input:valid, .form-select:valid {
+        /* --- FEEDBACK VISUEL CORRIGÉ --- */
+        /* 1. Pour les champs texte (Nom, Email, etc.) */
+        /* Le vert ne s'affiche QUE si l'utilisateur a écrit dedans (plus de placeholder) */
+        .form-input:not(:placeholder-shown):valid, 
+        textarea:not(:placeholder-shown):valid {
             border-left: 4px solid var(--success);
             background-color: #f9fff9;
         }
+
+        /* 2. Pour les menus déroulants (Select) */
+        /* On applique une bordure verte simple UNIQUEMENT quand une option valide est choisie */
+        /* L'astuce : on utilise :valid mais on force le reset si c'est la valeur par défaut via JS ou HTML */
+        .form-select:valid {
+            border-left: 4px solid var(--success);
+            /* On ne met PAS de fond vert pour éviter que ça fasse "déjà rempli" au chargement */
+        }
+    
+        /* Petit bonus : Bordure rouge si on quitte un champ sans le remplir */
+        .form-input:not(:placeholder-shown):invalid {
+            border-left: 4px solid #e74c3c;
+        }
+
 
         .features-list li { transition: transform 0.2s; }
         .features-list li:hover { transform: translateX(5px); }
