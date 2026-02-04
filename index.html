@@ -100,7 +100,16 @@
         }
 
         .logo-container { display: flex; align-items: center; gap: 1rem; }
-        .logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .logo {
+        width: 80px;   /* Agrandissement pour la lisibilité du texte */
+        height: 80px;  /* On garde le format carré */
+        border-radius: 50%; /* Assure un cercle parfait */
+        object-fit: cover;
+        /* Optionnel : une ombre légère pour un effet "badge" premium */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease; /* Pour une petite animation au survol si souhaité plus tard */
+        }
+
         .brand-name { font-size: 1.2rem; font-weight: 700; color: var(--primary-blue); }
         .nav-links { display: flex; gap: 2rem; align-items: center; }
         .nav-links a { color: var(--text-dark); font-weight: 500; font-size: 0.95rem; position: relative; }
@@ -955,7 +964,7 @@
     <header data-aos="fade-down">
         <nav>
             <div class="logo-container">
-                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/2fc53047-1c89-42cd-807e-63c37986e7da" alt="Logo" class="logo">
+                <img src="logo-optiform.png" alt="Logo OptiForm" class="logo">
                 <a href="#accueil" class="brand-name" style="color: var(--primary-blue); text-decoration: none;">IA & Coaching</a>
             </div>
             <div class="hamburger" onclick="toggleMenu()">☰</div>
