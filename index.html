@@ -864,9 +864,43 @@
             .form-input, .form-select { font-size: 16px !important; }
             footer { border-radius: 40px 40px 0 0; }
         }
+        
+            .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--primary-orange);
+            width: 0%;
+            z-index: 2000;
+            transition: width 0.1s;
+        }
+
+        @keyframes pulse-shadow {
+            0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(230, 126, 34, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
+        }
+        
+        /* Appliquer l'animation au bouton mobile et aux boutons principaux */
+        .sticky-mobile-cta, .btn-primary {
+            animation: pulse-shadow 2s infinite;
+        }
+
+        /* Quand on clique dans le champ */
+        .form-input:focus, .form-select:focus, textarea:focus {
+            border-color: var(--primary-orange) !important;
+            background-color: #fffaf0; /* Fond très légèrement orange */
+            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.15) !important;
+            transform: translateY(-2px);
+        }
+
+        
     </style>
 </head>
 <body>
+
+    <div class="scroll-progress"></div>
 
     <a href="#bilan-gratuit" id="mobile-cta" class="btn btn-primary sticky-mobile-cta">Je fais mon Bilan (Gratuit)</a>
 
@@ -1706,7 +1740,7 @@
     }
     
         // --- GESTION DU BOUTON FLOTTANT AU SCROLL ---
-    window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function() {
         const ctaBtn = document.getElementById('mobile-cta');
         // On affiche le bouton seulement après 600px de scroll (après le Hero)
         if (window.scrollY > 600) {
@@ -1715,6 +1749,14 @@
             ctaBtn.classList.remove('visible');
         }
     });
+
+        window.addEventListener('scroll', () => {
+        const scroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (scroll / height) * 100;
+        document.querySelector('.scroll-progress').style.width = scrolled + '%';
+    });
+
     </script>
 </body>
 </html>
