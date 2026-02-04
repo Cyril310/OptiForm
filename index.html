@@ -101,14 +101,13 @@
 
         .logo-container { display: flex; align-items: center; gap: 1rem; }
         .logo {
-        width: 80px;   /* Agrandissement pour la lisibilité du texte */
-        height: 80px;  /* On garde le format carré */
-        border-radius: 50%; /* Assure un cercle parfait */
-        object-fit: cover;
-        /* Optionnel : une ombre légère pour un effet "badge" premium */
+        width: 80px;
+        height: 80px;
+        border-radius: 15px; /* <-- MODIFICATION ICI : Carré arrondi au lieu d'un cercle */
+        object-fit: cover;   /* On peut garder 'cover' ici car les coins sont moins coupés */
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease; /* Pour une petite animation au survol si souhaité plus tard */
-        }
+        transition: transform 0.3s ease;
+    }
 
         .brand-name { font-size: 1.2rem; font-weight: 700; color: var(--primary-blue); }
         .nav-links { display: flex; gap: 2rem; align-items: center; }
