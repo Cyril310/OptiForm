@@ -36,14 +36,20 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scroll-behavior: smooth; }
-
+        html { 
+            scroll-behavior: smooth; 
+            overflow-x: hidden; /* Empêche le scroll horizontal */
+            width: 100%;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
             background: var(--cream);
-            overflow-x: hidden;
+            overflow-x: hidden; /* Sécurité double */
+            width: 100%;
+            position: relative;
         }
 
         h1, h2, h3 { line-height: 1.2; font-weight: 700; }
@@ -572,7 +578,6 @@
         }
 
 
-
         /* 3. Témoignages : Bleu Glacier (Contraste parfait avec la coupe) */
         #temoignages {
             background-color: var(--light-blue);
@@ -594,7 +599,6 @@
                 padding: 3rem 1rem;
             }
         }
-
 
         /* 4. Offres (Prix) : Blanc (Contraste maximal avec #temoignages Bleu) */
         #offres {
@@ -739,88 +743,105 @@
         }
         .referral-success-msg span { display: block; }
         
-    /* =========================================
-       OPTIMISATION MOBILE FINALE
-       ========================================= */
+        /* =========================================
+           OPTIMISATION MOBILE FINALE CORRIGÉE
+           ========================================= */
+        
+        @media (max-width: 768px) {
+            /* 0. ÉLÉMENTS DE BASE */
+            .sticky-mobile-cta { display: block; }
+            .hamburger { display: block; }
+            
+            /* Force le conteneur à ne pas dépasser */
+            .container { padding: 4rem 1.5rem; overflow: hidden; }
     
-    @media (max-width: 768px) {
-        /* 0. ÉLÉMENTS DE BASE */
-        .sticky-mobile-cta { display: block; }
-        .hamburger { display: block; }
-        
-        /* 1. HERO : On réduit l'espace et la taille du texte */
-        .hero {
-            padding: 6rem 1rem 6rem;
-            border-radius: 0 0 30px 30px;
-            background-attachment: scroll; 
-        }
-        .hero h1 { font-size: 2.2rem; }
-        .hero-subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
+            /* 1. HERO & TITRES QUI DÉPASSENT */
+            .hero {
+                padding: 7rem 1rem 5rem;
+                border-radius: 0 0 40px 40px; /* Bel arrondi en bas */
+                background-attachment: scroll; 
+            }
+            .hero h1 { font-size: 2rem; word-wrap: break-word; } 
+            .section-title { font-size: 2rem; word-wrap: break-word; hyphens: auto; } /* Empêche le texte de sortir */
     
-        /* 2. MENU MOBILE */
-        .nav-links {
-            position: absolute; top: 70px; left: 0; width: 100%; 
-            background: rgba(255, 255, 255, 0.98);
-            flex-direction: column; padding: 2rem; 
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            display: none;
-        }
-        .nav-links.active { display: flex; animation: slideDown 0.3s ease forwards; }
-        .cta-nav { margin-top: 1rem; display: inline-block; }
-
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* 3. TRUST BADGES */
-        .trust-badges {
-            margin: -2rem auto 2rem;
-            width: 90%;
-            gap: 0.5rem;
-            padding: 1rem;
-        }
-        .trust-item {
-            font-size: 0.8rem;
-            flex: 1 1 40%;
-            justify-content: center;
-        }
+            /* 2. MENU MOBILE */
+            .nav-links {
+                position: absolute; top: 70px; left: 0; width: 100%; 
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column; padding: 2rem; 
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                display: none;
+            }
+            .nav-links.active { display: flex; animation: slideDown 0.3s ease forwards; }
+            .cta-nav { margin-top: 1rem; display: inline-block; }
+            @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     
-        /* 4. À PROPOS */
-        .about-wrapper { flex-direction: column; }
-        .experience-badge {
-            position: relative;
-            right: auto; left: auto; bottom: auto;
-            margin: -30px auto 20px auto;
-            width: 90%; max-width: 300px;
-            transform: none;
+            /* 3. TRUST BADGES */
+            .trust-badges {
+                margin: -2.5rem auto 3rem;
+                width: 90%; gap: 0.5rem; padding: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .trust-item { font-size: 0.8rem; flex: 1 1 40%; justify-content: center; }
+        
+            /* 4. TRANSITIONS SECTIONS (À PROPOS & CONCEPT) */
+            #a-propos.about-section {
+                margin-top: 0;
+                padding-top: 4rem;
+                margin-bottom: 2rem;
+                border-radius: 0 0 40px 40px; /* Transition douce */
+            }
+            .about-wrapper { flex-direction: column; }
+            .experience-badge {
+                position: relative; right: auto; left: auto; bottom: auto;
+                margin: -30px auto 20px auto; width: 90%; max-width: 300px; transform: none;
+            }
+            
+            #concept {
+                margin: 0 10px 4rem 10px;
+                border-radius: 30px;
+                width: auto; 
+                padding: 3rem 1.5rem;
+            }
+            .concept-timeline { flex-direction: column; gap: 2rem; }
+            .concept-timeline::before { display: none; }
+            
+            /* CORRECTION : BLOC MINDSET QUI DÉPASSE */
+            .mindset-block {
+                padding: 2rem 1.5rem !important; /* Moins de padding sur les côtés */
+                flex-direction: column;
+                width: 100%;
+                box-sizing: border-box; /* Important pour que le padding ne s'ajoute pas à la largeur */
+            }
+            .mindset-block > div { width: 100%; min-width: 0; } /* Force le contenu à rester dans la boite */
+            
+            /* 5. REVIEWS & CAROUSEL */
+            #temoignages {
+                margin: 0; /* Prend toute la largeur */
+                border-radius: 40px 40px 0 0; /* Arrondi inverse pour emboîter */
+                padding: 4rem 1rem;
+            }
+            .carousel-track-3d { height: auto; min-height: 420px; }
+            .review-card-3d {
+                position: absolute; width: 100%; left: 0;
+                opacity: 0; transform: scale(0.95);
+                transition: opacity 0.3s, transform 0.3s;
+                padding: 2rem 1.5rem; /* Ajustement padding */
+            }
+            .review-card-3d.active { opacity: 1; transform: scale(1); position: relative; z-index: 20; }
+            .review-card-3d.prev, .review-card-3d.next { opacity: 0; pointer-events: none; position: absolute; }
+            .carousel-btn { background: rgba(255,255,255,0.9); width: 40px; height: 40px; font-size: 1.2rem; }
+        
+            /* 6. PRICING & BILAN */
+            .pricing-card.featured { transform: scale(1); margin: 2rem 0; border-width: 2px; }
+            .bilan-wrapper { flex-direction: column-reverse; gap: 2rem; }
+            .phone-mockup { transform: scale(0.9); margin-top: 1rem; }
+            .form-input, .form-select { font-size: 16px !important; }
+            
+            /* 7. FOOTER */
+            footer { border-radius: 40px 40px 0 0; } /* Joli arrondi avant le footer */
         }
-        
-        /* 5. CONCEPT & REVIEWS */
-        .concept-timeline { flex-direction: column; gap: 2rem; }
-        .concept-timeline::before { display: none; }
-        
-        .carousel-track-3d { height: auto; min-height: 400px; }
-        .review-card-3d {
-            position: absolute; width: 100%; left: 0;
-            opacity: 0; transform: scale(0.9);
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        .review-card-3d.active {
-            opacity: 1; transform: scale(1);
-            position: relative; z-index: 20;
-        }
-        .review-card-3d.prev, .review-card-3d.next { opacity: 0; pointer-events: none; position: absolute; }
-        .carousel-btn { background: rgba(255,255,255,0.9); width: 40px; height: 40px; font-size: 1.2rem; }
-    
-        /* 6. PRICING */
-        .pricing-card.featured { transform: scale(1); margin: 2rem 0; border-width: 2px; }
-        .pricing-card.featured .submit-btn { background: #d35400; }
-        
-        /* 7. BILAN (FORMULAIRE EN PREMIER) */
-        .bilan-wrapper { flex-direction: column-reverse; gap: 2rem; }
-        .phone-mockup { transform: scale(0.9) rotate(0deg); margin-top: 2rem; }
-        
-        /* 8. INPUTS (Anti-Zoom iPhone) */
-        .form-input, .form-select { font-size: 16px !important; }
-    }
+            
     </style>
 </head>
 <body>
@@ -831,7 +852,7 @@
         <nav>
             <div class="logo-container">
                 <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/2fc53047-1c89-42cd-807e-63c37986e7da" alt="Logo" class="logo">
-                <span class="brand-name">IA & Coaching</span>
+                <a href="#accueil" class="brand-name" style="color: var(--primary-blue); text-decoration: none;">IA & Coaching</a>
             </div>
             <div class="hamburger" onclick="toggleMenu()">☰</div>
             <ul class="nav-links" id="navLinks">
