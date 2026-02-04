@@ -798,7 +798,7 @@
     
             /* 1. HERO */
             .hero { 
-                padding: 8rem 1rem 5rem; 
+                padding: 8rem 1rem 4rem; 
                 border-radius: 0 0 40px 40px; 
                 background-attachment: scroll; 
             }
@@ -816,7 +816,7 @@
     
             /* 3. TRUST BADGES (Correction Espacement & Intégration) */
             .trust-badges {
-                margin: -3rem auto 1rem; /* Remonté un peu, marge basse réduite */
+                margin: -2.5rem auto 2rem; /* Remonté un peu, marge basse réduite */
                 width: 90%; 
                 gap: 0.5rem; 
                 padding: 1rem;
@@ -846,7 +846,7 @@
             .about-list li::before { flex-shrink: 0; margin-top: 4px; }
     
             /* 5. CONCEPT & MINDSET (Correction texte coupé à droite) */
-            #concept { margin: 2rem 10px; border-radius: 30px; width: auto; padding: 3rem 1.5rem; }
+            #concept { margin: 1rem 10px; border-radius: 30px; width: auto; padding: 3rem 1.5rem; }
             .concept-timeline { flex-direction: column; gap: 2rem; }
             .concept-timeline::before { display: none; }
             
@@ -862,7 +862,7 @@
             .mindset-block > div { width: 100%; min-width: 0; } /* Contient le texte */
     
             /* 6. REVIEWS */
-            #temoignages { margin: 0; border-radius: 40px 40px 0 0; padding: 4rem 1rem; }
+            #temoignages { margin: 0; border-radius: 40px 40px 0 0; padding: 3rem 1rem; }
             .carousel-track-3d { height: auto; min-height: 420px; }
             .review-card-3d { width: 100%; left: 0; opacity: 0; transform: scale(0.95); position: absolute; padding: 2rem 1.5rem; }
             .review-card-3d.active { opacity: 1; transform: scale(1); position: relative; z-index: 20; }
@@ -904,6 +904,26 @@
             background-color: #fffaf0; /* Fond très légèrement orange */
             box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.15) !important;
             transform: translateY(-2px);
+        }
+        
+        /* Animation icône FAQ */
+        .faq-question .icon { transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); }
+        .faq-item.active .icon { transform: rotate(135deg); color: var(--primary-orange); }
+        .faq-item.active .faq-question { color: var(--primary-orange); }
+
+        /* Feedback champ valide */
+        .form-input:valid, .form-select:valid {
+            border-left: 4px solid var(--success);
+            background-color: #f9fff9;
+        }
+
+        .features-list li { transition: transform 0.2s; }
+        .features-list li:hover { transform: translateX(5px); }
+        .features-list li::before { 
+            display: inline-block; 
+            font-size: 1.2rem; 
+            margin-right: 8px;
+            text-shadow: 0 2px 5px rgba(39, 174, 96, 0.3);
         }
 
         
