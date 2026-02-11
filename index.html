@@ -1166,7 +1166,45 @@
             border-radius: 50%; transform: translate(-50%, -50%);
             z-index: 20; pointer-events: none;
         }
-
+        /* --- DESIGN MODALE TITAN --- */
+        .titan-modal-content {
+            background: #000 !important;
+            border: 1px solid #b38728;
+            box-shadow: 0 0 50px rgba(179, 135, 40, 0.15);
+            color: white;
+            max-width: 450px;
+        }
+        
+        .titan-close {
+            color: #b38728 !important;
+            opacity: 0.7;
+        }
+        .titan-close:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        .titan-input-field {
+            background: rgba(255,255,255,0.05) !important;
+            border: 1px solid #333 !important;
+            color: #fff !important;
+            text-align: center;
+            font-size: 1.1rem !important;
+            letter-spacing: 1px;
+        }
+        
+        .titan-input-field:focus {
+            border-color: #b38728 !important;
+            box-shadow: 0 0 15px rgba(179, 135, 40, 0.2) !important;
+            background: rgba(255,255,255,0.1) !important;
+        }
+        
+        /* Animation de chargement spécifique Titan */
+        @keyframes gold-scan {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
     </style>
 </head>
 <body>
@@ -1837,8 +1875,40 @@
             </form>
         </div>
     </div>
-
-
+    
+    <div id="titanModal" class="modal" style="backdrop-filter: blur(15px); background: rgba(0,0,0,0.85);">
+        <div class="modal-content titan-modal-content">
+            <button class="close-modal titan-close" onclick="closeTitanModal()">×</button>
+            
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px #b38728);">🔒</div>
+                <h3 class="titan-title" style="font-size: 2rem; margin-bottom: 0.5rem;">INITIALISATION DU PROTOCOLE</h3>
+                <p style="color: #888; margin-bottom: 2rem; font-size: 0.9rem; letter-spacing: 1px;">
+                    CONFIRMEZ VOTRE ADRESSE POUR RECEVOIR L'ACCÈS SÉCURISÉ.
+                </p>
+            </div>
+    
+            <form onsubmit="handleTitanSubmit(event)">
+                <div class="form-group">
+                    <label style="color: #b38728; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">Adresse Email de réception</label>
+                    <input type="email" id="titan-email" class="titan-input-field" required placeholder="votre@email.com">
+                </div>
+    
+                <div id="titan-success-msg" style="display:none; background: rgba(39, 174, 96, 0.1); border: 1px solid #27ae60; color: #27ae60; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
+                    <strong style="display:block; margin-bottom:5px;">✅ TRANSMISSION RÉUSSIE</strong>
+                    Un lien d'accès unique vient d'être envoyé sur votre boite mail.
+                </div>
+    
+                <button type="submit" class="titan-cta" id="btn-titan-submit" style="width: 100%; border-radius: 8px; margin-top: 1rem;">
+                    ENVOYER LE LIEN D'ACCÈS
+                </button>
+            </form>
+            
+            <p style="text-align: center; color: #444; font-size: 0.7rem; margin-top: 1.5rem;">
+                SECURE CONNECTION SHA-256 ENCRYPTED
+            </p>
+        </div>
+    </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -2257,6 +2327,59 @@
             75% { transform: translateX(10px); } 
         }`;
         document.head.appendChild(styleSheet);
+
+        /* --- LOGIQUE MODALE TITAN (BLACK OPS) --- */
+const titanModal = document.getElementById('titanModal');
+
+function openTitanModal() {
+    titanModal.style.display = 'flex';
+}
+
+function closeTitanModal() {
+    titanModal.style.display = 'none';
+    // Reset du formulaire quand on ferme
+    document.getElementById('titan-success-msg').style.display = 'none';
+    document.getElementById('btn-titan-submit').style.display = 'block';
+    document.getElementById('titan-email').value = '';
+}
+
+// Fermeture au clic dehors
+window.addEventListener('click', function(event) {
+    if (event.target == titanModal) {
+        closeTitanModal();
+    }
+});
+
+function handleTitanSubmit(e) {
+    e.preventDefault();
+    
+    const btn = document.getElementById('btn-titan-submit');
+    const emailInput = document.getElementById('titan-email');
+    const successMsg = document.getElementById('titan-success-msg');
+    
+    // 1. Animation de chargement "Hacking"
+    const originalText = btn.innerText;
+    btn.innerText = "AUTHENTIFICATION EN COURS...";
+    btn.style.opacity = "0.7";
+    btn.disabled = true;
+    
+    // 2. Simulation d'envoi (ici tu pourras brancher ton vrai envoi de mail)
+    setTimeout(() => {
+        // Succès
+        btn.style.display = 'none'; // On cache le bouton
+        successMsg.style.display = 'block'; // On affiche le message vert
+        
+        // Optionnel : Redirection automatique ou fermeture après 3 secondes
+        // setTimeout(() => { closeTitanModal(); }, 4000);
+        
+        console.log("Email Titan envoyé à : " + emailInput.value);
+        
+        /* ICI : C'est là que tu déclencheras l'envoi réel du mail via ton backend 
+           avec le lien Zeeg spécifique pour l'offre Titan.
+        */
+        
+    }, 1500);
+}
 
     </script>
 </body>
