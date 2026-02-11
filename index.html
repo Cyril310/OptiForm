@@ -2389,102 +2389,79 @@
             75% { transform: translateX(10px); } 
         }`;
         document.head.appendChild(styleSheet);
-
-        /* --- LOGIQUE MODALE TITAN (BLACK OPS) --- */
-const titanModal = document.getElementById('titanModal');
-
-function openTitanModal() {
-    titanModal.style.display = 'flex';
-}
-
-function closeTitanModal() {
-    titanModal.style.display = 'none';
-    // Reset du formulaire quand on ferme
-    document.getElementById('titan-success-msg').style.display = 'none';
-    document.getElementById('btn-titan-submit').style.display = 'block';
-    document.getElementById('titan-email').value = '';
-}
-
-// Fermeture au clic dehors
-window.addEventListener('click', function(event) {
-    if (event.target == titanModal) {
-        closeTitanModal();
-    }
-});
-
-/* --- LOGIQUE MODALE TITAN (ANIMATION CINÉMATIQUE) --- */
-const titanModal = document.getElementById('titanModal');
-
-function openTitanModal() {
-    titanModal.style.display = 'flex';
-    // Reset des étapes à l'ouverture
-    document.getElementById('titan-step-form').style.display = 'block';
-    document.getElementById('titan-step-loading').style.display = 'none';
-    document.getElementById('titan-step-success').style.display = 'none';
-    document.getElementById('titan-email').value = '';
-}
-
-function closeTitanModal() {
-    titanModal.style.display = 'none';
-}
-
-// Fermer si clic dehors
-window.onclick = function(event) {
-    if (event.target == titanModal) closeTitanModal();
-    if (event.target == bookingModal) closeBooking();
-    if (event.target == resultModal) closeResultModal();
-}
-
-function handleTitanSubmit(e) {
-    e.preventDefault();
-    
-    const emailValue = document.getElementById('titan-email').value;
-    const formStep = document.getElementById('titan-step-form');
-    const loadingStep = document.getElementById('titan-step-loading');
-    const successStep = document.getElementById('titan-step-success');
-    const progressBar = document.getElementById('titan-progress');
-    const statusText = document.getElementById('upload-status-text');
-
-    // 1. On cache le formulaire et on montre le chargement
-    formStep.style.display = 'none';
-    loadingStep.style.display = 'block';
-    
-    // 2. Séquence d'animation de la barre (2 secondes de faux chargement)
-    let width = 0;
-    const interval = setInterval(() => {
-        if (width >= 100) {
-            clearInterval(interval);
-            // Fin du chargement -> Affichage Succès
-            finishTitanSequence(emailValue);
-        } else {
-            width += Math.random() * 10; // Avance aléatoire pour faire réaliste
-            if(width > 100) width = 100;
-            progressBar.style.width = width + '%';
-            
-            // Changement de texte dynamique
-            if(width > 30 && width < 60) statusText.innerText = "VÉRIFICATION DU STATUT...";
-            if(width > 60 && width < 90) statusText.innerText = "GÉNÉRATION DU LIEN...";
-            if(width >= 90) statusText.innerText = "FINALISATION...";
+        
+        /* --- LOGIQUE MODALE TITAN (ANIMATION CINÉMATIQUE) --- */
+        const titanModal = document.getElementById('titanModal');
+        
+        function openTitanModal() {
+            titanModal.style.display = 'flex';
+            // Reset des étapes à l'ouverture
+            document.getElementById('titan-step-form').style.display = 'block';
+            document.getElementById('titan-step-loading').style.display = 'none';
+            document.getElementById('titan-step-success').style.display = 'none';
+            document.getElementById('titan-email').value = '';
         }
-    }, 150); // Vitesse de la barre
-}
-
-function finishTitanSequence(email) {
-    const loadingStep = document.getElementById('titan-step-loading');
-    const successStep = document.getElementById('titan-step-success');
-    
-    // Petite pause pour le réalisme à 100%
-    setTimeout(() => {
-        loadingStep.style.display = 'none';
-        successStep.style.display = 'block';
-        document.getElementById('titan-email-display').innerText = email;
         
-        // C'est ICI que le mail part réellement (Backend)
-        console.log("Envoi lien Titan à : " + email);
+        function closeTitanModal() {
+            titanModal.style.display = 'none';
+        }
         
-    }, 500);
-}
-
+        // Fermer si clic dehors
+        window.onclick = function(event) {
+            if (event.target == titanModal) closeTitanModal();
+            if (event.target == bookingModal) closeBooking();
+            if (event.target == resultModal) closeResultModal();
+        }
+        
+        function handleTitanSubmit(e) {
+            e.preventDefault();
+            
+            const emailValue = document.getElementById('titan-email').value;
+            const formStep = document.getElementById('titan-step-form');
+            const loadingStep = document.getElementById('titan-step-loading');
+            const successStep = document.getElementById('titan-step-success');
+            const progressBar = document.getElementById('titan-progress');
+            const statusText = document.getElementById('upload-status-text');
+        
+            // 1. On cache le formulaire et on montre le chargement
+            formStep.style.display = 'none';
+            loadingStep.style.display = 'block';
+            
+            // 2. Séquence d'animation de la barre (2 secondes de faux chargement)
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    // Fin du chargement -> Affichage Succès
+                    finishTitanSequence(emailValue);
+                } else {
+                    width += Math.random() * 10; // Avance aléatoire pour faire réaliste
+                    if(width > 100) width = 100;
+                    progressBar.style.width = width + '%';
+                    
+                    // Changement de texte dynamique
+                    if(width > 30 && width < 60) statusText.innerText = "VÉRIFICATION DU STATUT...";
+                    if(width > 60 && width < 90) statusText.innerText = "GÉNÉRATION DU LIEN...";
+                    if(width >= 90) statusText.innerText = "FINALISATION...";
+                }
+            }, 150); // Vitesse de la barre
+        }
+        
+        function finishTitanSequence(email) {
+            const loadingStep = document.getElementById('titan-step-loading');
+            const successStep = document.getElementById('titan-step-success');
+            
+            // Petite pause pour le réalisme à 100%
+            setTimeout(() => {
+                loadingStep.style.display = 'none';
+                successStep.style.display = 'block';
+                document.getElementById('titan-email-display').innerText = email;
+                
+                // C'est ICI que le mail part réellement (Backend)
+                console.log("Envoi lien Titan à : " + email);
+                
+            }, 500);
+        }
     </script>
 </body>
 </html>
