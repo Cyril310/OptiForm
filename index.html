@@ -1584,6 +1584,33 @@
         });
     </script>
 
+    <section id="ambassadeur-titan">
+        <div class="titan-container" data-aos="fade-up">
+            <div class="titan-badge-icon">🏛️</div>
+            <h2 class="titan-title">Espace Titan</h2>
+            <p style="color: #ccc; margin-bottom: 2rem;">Accès réservé aux membres ayant validé leur transformation.</p>
+            
+            <div class="titan-input-group" id="titan-lock-zone">
+                <input type="text" id="titan-code" class="titan-input" placeholder="Code Secret" onkeyup="checkEnter(event)">
+                <button class="titan-btn" onclick="unlockTitan()">Débloquer</button>
+            </div>
+            <p id="titan-error" style="color: #e74c3c; margin-top: 10px; display: none; font-weight: bold;">⛔ Code invalide</p>
+
+            <div id="titan-reward-card">
+                <h3 style="color: #f1c40f; font-size: 1.8rem; margin-bottom: 10px;">FÉLICITATIONS !</h3>
+                <p style="color: white; margin-bottom: 1.5rem;">Vous faites désormais partie de l'élite. Voici votre récompense exclusive :</p>
+                
+                <div style="background: white; color: black; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-weight: bold;">
+                    🎁 -20% À VIE sur tous les suivis<br>
+                    avec le code : <span style="color: #d35400; font-size: 1.2rem;">TITAN-VIP-2025</span>
+                </div>
+
+                <p style="font-size: 0.9rem; color: #aaa;">
+                    Utilisez ce code pour vous ou pour parrainer vos proches (ils bénéficieront de la même remise).
+                </p>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-links">
@@ -1668,7 +1695,7 @@
 
 
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Initialisation des animations
         AOS.init({
@@ -1984,6 +2011,81 @@
         const scrolled = (scroll / height) * 100;
         document.querySelector('.scroll-progress').style.width = scrolled + '%';
     });
+
+            /* --- LOGIQUE AMBASSADEUR TITAN --- */
+    
+    // Liste des codes valides (Tu peux en ajouter d'autres ici)
+    const SECRET_CODES = ['TITAN2025', 'FINISHER', 'OPTI-PRO2584', 'CYRIL-PRO'];
+
+    function checkEnter(event) {
+        if (event.key === "Enter") unlockTitan();
+    }
+
+    function unlockTitan() {
+        const input = document.getElementById('titan-code');
+        const errorMsg = document.getElementById('titan-error');
+        const lockZone = document.getElementById('titan-lock-zone');
+        const rewardCard = document.getElementById('titan-reward-card');
+        
+        // On nettoie l'entrée (majuscule + sans espace)
+        const code = input.value.trim().toUpperCase();
+
+        if (SECRET_CODES.includes(code)) {
+            // SUCCÈS
+            errorMsg.style.display = 'none';
+            lockZone.style.display = 'none'; // On cache le champ
+            rewardCard.style.display = 'block'; // On affiche la récompense
+            
+            // On lance l'explosion
+            fireConfetti();
+            
+        } else {
+            // ERREUR
+            errorMsg.style.display = 'block';
+            input.style.border = "2px solid #e74c3c";
+            // Petite animation de secousse
+            input.animate([
+                { transform: 'translateX(0)' },
+                { transform: 'translateX(-10px)' },
+                { transform: 'translateX(10px)' },
+                { transform: 'translateX(0)' }
+            ], { duration: 300 });
+        }
+    }
+
+    // Fonction d'explosion visuelle (Confetti doré)
+    function fireConfetti() {
+        const colors = ['#f1c40f', '#ffffff', '#e67e22'];
+        const section = document.getElementById('ambassadeur-titan');
+        
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            
+            // Position aléatoire au centre
+            confetti.style.left = '50%';
+            confetti.style.top = '50%';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Trajectoire aléatoire
+            const x = (Math.random() - 0.5) * window.innerWidth;
+            const y = (Math.random() - 1) * window.innerHeight;
+            
+            confetti.animate([
+                { transform: 'translate(0,0)', opacity: 1 },
+                { transform: `translate(${x}px, ${y}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+            ], {
+                duration: 1500 + Math.random() * 1000,
+                easing: 'cubic-bezier(0, .9, .57, 1)',
+                fill: 'forwards'
+            });
+
+            section.appendChild(confetti);
+            
+            // Nettoyage après animation
+            setTimeout(() => confetti.remove(), 2500);
+        }
+    }
 
     </script>
 </body>
