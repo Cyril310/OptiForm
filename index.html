@@ -1856,6 +1856,11 @@
             'Starter': { normal: '200€', promo: '60€' },
             'Performance': { normal: '350€', promo: '80€' },
             'Transformation': { normal: '450€', promo: '100€' }
+
+            // L'OFFRE AMBASSADEUR (Cachée)
+            // Ici pas de "promo" supplémentaire, le prix est déjà cassé (-50%)
+            'Titan Legacy': { normal: '225€', promo: '225€' } 
+        
         };
         let currentOffer = ''; // Mémorise l'offre choisie
 
@@ -2151,18 +2156,6 @@
         const scrolled = (scroll / height) * 100;
         document.querySelector('.scroll-progress').style.width = scrolled + '%';
     });
-
-        /* --- 1. AJOUTE CECI DANS TA VARIABLE pricingData EXISTANTE (en haut du script) --- */
-        /* --- CONFIGURATION DES PRIX (Mise à jour) --- */
-        const pricingData = {
-            // Tes offres classiques (Prix Publics)
-            'Starter': { normal: '200€', promo: '120€' },
-            'Performance': { normal: '350€', promo: '315€' },
-        
-            // L'OFFRE AMBASSADEUR (Cachée)
-            // Ici pas de "promo" supplémentaire, le prix est déjà cassé (-50%)
-            'Titan Legacy': { normal: '225€', promo: '225€' } 
-        };
 
         
         /* --- 2. LOGIQUE DU COFFRE FORT (À mettre à la fin du script) --- */
