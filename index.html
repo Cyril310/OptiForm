@@ -951,107 +951,176 @@
             text-shadow: 0 2px 5px rgba(39, 174, 96, 0.3);
         }
 
-        /* --- SECTION AMBASSADEUR TITAN (EXCLUSIVE) --- */
+        /* --- 1. BOUTON NAV BAR "TITAN" --- */
+        .nav-titan-link {
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            font-weight: 900 !important;
+            letter-spacing: 1px;
+            animation: shine 4s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .nav-titan-link::after {
+            content: '🔒'; 
+            font-size: 0.8rem; 
+            margin-left: 5px; 
+            vertical-align: middle;
+            filter: grayscale(100%);
+            transition: 0.3s;
+        }
+        
+        .nav-titan-link:hover::after { filter: grayscale(0%); transform: scale(1.2); }
+        
+        @keyframes shine { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        /* --- 2. SECTION COFFRE-FORT TITAN (THE VAULT) --- */
         #ambassadeur-titan {
-        background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
-        color: #f1c40f; /* Or */
-        padding: 6rem 1.5rem;
-        position: relative;
-        overflow: hidden;
-        text-align: center;
-        border-top: 4px solid #f1c40f;
-        box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-    }
-    
-    .titan-container {
-        max-width: 600px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .titan-badge-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-        filter: drop-shadow(0 0 10px rgba(241, 196, 15, 0.5));
-        animation: float 3s ease-in-out infinite;
-    }
-    
-    .titan-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: 2.5rem;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        background: linear-gradient(to right, #f1c40f, #fff, #f1c40f);
-        -webkit-background-clip: text;
-        color: transparent;
-        margin-bottom: 1rem;
-        font-weight: 800;
-    }
-    
-    .titan-input-group {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        margin-top: 2rem;
-        transition: opacity 0.5s;
-    }
-    
-    .titan-input {
-        background: rgba(255,255,255,0.1);
-        border: 2px solid #f1c40f;
-        padding: 1rem;
-        color: white;
-        font-size: 1.2rem;
-        border-radius: 8px;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        outline: none;
-        width: 200px;
-    }
-    
-    .titan-input::placeholder { color: rgba(255,255,255,0.3); letter-spacing: normal;}
-    
-    .titan-btn {
-        background: #f1c40f;
-        color: black;
-        font-weight: bold;
-        border: none;
-        padding: 0 1.5rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.3s;
-        text-transform: uppercase;
-    }
-    .titan-btn:hover { background: white; box-shadow: 0 0 20px #f1c40f; }
-    
-    /* Carte de récompense (cachée par défaut) */
-    #titan-reward-card {
-        display: none;
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(241, 196, 15, 0.3);
-        padding: 2rem;
-        border-radius: 20px;
-        margin-top: 2rem;
-        animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    
-    /* Particules d'explosion */
-    .confetti {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background-color: #f1c40f;
-        animation: fall linear forwards;
-    }
-    
-    @keyframes fall {
-        to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
+            background: #000;
+            position: relative;
+            padding: 8rem 1.5rem;
+            overflow: hidden;
+            text-align: center;
+            border-top: 2px solid #b38728;
+            border-bottom: 2px solid #b38728;
+        }
+        
+        /* Fond animé style "Matrix/Data" sombre */
+        #ambassadeur-titan::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(191, 149, 63, 0.1) 0%, #000 70%);
+            z-index: 1;
+        }
+        
+        .titan-container { position: relative; z-index: 10; max-width: 700px; margin: 0 auto; }
+        
+        /* Le Cadenas Visuel */
+        .vault-lock {
+            font-size: 5rem; margin-bottom: 1rem; display: inline-block;
+            transition: 0.5s;
+            text-shadow: 0 0 20px rgba(191, 149, 63, 0.5);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .titan-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #cfc09f 22%, #634f2c 24%, #cfc09f 26%, #cfc09f 27%, #ffecb3 40%, #3a2c0f 78%); 
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .titan-subtitle { color: #888; font-size: 1rem; margin-bottom: 3rem; letter-spacing: 1px; text-transform: uppercase;}
+        
+        /* Input Zone */
+        .vault-input-wrapper {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid rgba(191, 149, 63, 0.3);
+            padding: 10px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
+            display: flex;
+            transition: 0.3s;
+        }
+        
+        .vault-input-wrapper:focus-within {
+            border-color: #fcf6ba;
+            box-shadow: 0 0 15px rgba(191, 149, 63, 0.3);
+        }
+        
+        .titan-input {
+            background: transparent; border: none; color: #fff;
+            font-size: 1.2rem; flex: 1; padding: 0 1rem;
+            text-transform: uppercase; letter-spacing: 2px; text-align: center;
+            outline: none;
+        }
+        
+        .titan-btn {
+            background: linear-gradient(135deg, #b38728, #fcf6ba, #aa771c);
+            border: none; border-radius: 40px; padding: 1rem 2rem;
+            color: #000; font-weight: 800; text-transform: uppercase; cursor: pointer;
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        .titan-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(191, 149, 63, 0.6); }
+        
+        /* --- 3. LA CARTE "WOW" (OFFRE CACHÉE) --- */
+        #titan-reward-card {
+            display: none; /* Caché par défaut */
+            margin-top: 3rem;
+            perspective: 1000px;
+        }
+        
+        .black-card {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            transform-style: preserve-3d;
+            animation: cardAppear 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        
+        /* Bordure dorée brillante */
+        .black-card::before {
+            content: ''; position: absolute; inset: 0; padding: 2px; border-radius: 20px;
+            background: linear-gradient(45deg, transparent, #b38728, transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .vip-badge {
+            background: #b38728; color: black; padding: 5px 15px;
+            font-weight: bold; font-size: 0.8rem; text-transform: uppercase;
+            position: absolute; top: 20px; right: 20px; border-radius: 4px;
+        }
+        
+        .offer-value {
+            font-size: 3.5rem; font-weight: 800; color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            margin: 1rem 0;
+        }
+        
+        .offer-sub { color: #b38728; font-size: 1.2rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; }
+        
+        .titan-cta {
+            display: block; width: 100%; padding: 1.5rem;
+            background: #fff; color: #000; font-size: 1.2rem; font-weight: 800;
+            text-transform: uppercase; border: none; cursor: pointer;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%, 0% 20%);
+            transition: 0.3s;
+            position: relative; overflow: hidden;
+        }
+        
+        .titan-cta:hover { background: #b38728; color: white; letter-spacing: 2px; }
+        
+        /* Animations */
+        @keyframes cardAppear { from { transform: rotateX(20deg) translateY(50px); opacity: 0; } to { transform: rotateX(0) translateY(0); opacity: 1; } }
+        @keyframes shockwave { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(50); opacity: 0; } }
+        
+        .shockwave-element {
+            position: absolute; top: 50%; left: 50%; width: 20px; height: 20px;
+            background: radial-gradient(circle, #fff 0%, #b38728 50%, transparent 70%);
+            border-radius: 50%; transform: translate(-50%, -50%);
+            z-index: 20; pointer-events: none;
+        }
 
     </style>
 </head>
@@ -1074,6 +1143,7 @@
                 <li><a href="#temoignages" onclick="toggleMenu()">Avis</a></li>
                 <li><a href="#offres" onclick="toggleMenu()">Offres</a></li>
                 <li><a href="#bilan-gratuit" class="cta-nav" onclick="toggleMenu()">Mon Bilan Gratuit</a></li>
+                <li><a href="#ambassadeur-titan" class="nav-titan-link">ESPACE TITAN</a></li>
             </ul>
         </nav>
     </header>
@@ -1391,7 +1461,7 @@
 </section>
 
 
-        <section class="container" id="bilan-gratuit" style="margin-bottom: 4rem;">
+    <section class="container" id="bilan-gratuit" style="margin-bottom: 4rem;">
         <div data-aos="fade-up">
             <h2 class="section-title">Démarrez Votre Bilan Gratuit (5 min)</h2>
             <p class="section-subtitle">Recevez instantanément votre analyse stratégique complète par email.</p>
@@ -1528,7 +1598,7 @@
     </section>
 
 
-        <section class="faq-section-bg">
+    <section class="faq-section-bg">
         <div class="container" style="max-width: 800px; padding: 0;"> <h2 class="section-title" data-aos="fade-up">Vos Questions Fréquentes</h2>
 
         <div class="faq-container" data-aos="fade-up">
@@ -1585,29 +1655,44 @@
     </script>
 
     <section id="ambassadeur-titan">
-        <div class="titan-container" data-aos="fade-up">
-            <div class="titan-badge-icon">🏛️</div>
-            <h2 class="titan-title">Espace Titan</h2>
-            <p style="color: #ccc; margin-bottom: 2rem;">Accès réservé aux membres ayant validé leur transformation.</p>
+        <div class="titan-container" data-aos="zoom-in">
             
-            <div class="titan-input-group" id="titan-lock-zone">
-                <input type="text" id="titan-code" class="titan-input" placeholder="Code Secret" onkeyup="checkEnter(event)">
-                <button class="titan-btn" onclick="unlockTitan()">Débloquer</button>
-            </div>
-            <p id="titan-error" style="color: #e74c3c; margin-top: 10px; display: none; font-weight: bold;">⛔ Code invalide</p>
-
-            <div id="titan-reward-card">
-                <h3 style="color: #f1c40f; font-size: 1.8rem; margin-bottom: 10px;">FÉLICITATIONS !</h3>
-                <p style="color: white; margin-bottom: 1.5rem;">Vous faites désormais partie de l'élite. Voici votre récompense exclusive :</p>
+            <div id="titan-locked-state">
+                <div class="vault-lock" id="lock-icon">🔒</div>
+                <h2 class="titan-title">Accès Titan</h2>
+                <p class="titan-subtitle">Code d'accréditation requis. Zone réservée à l'Élite.</p>
                 
-                <div style="background: white; color: black; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-weight: bold;">
-                    🎁 -20% À VIE sur tous les suivis<br>
-                    avec le code : <span style="color: #d35400; font-size: 1.2rem;">TITAN-VIP-2025</span>
+                <div class="vault-input-wrapper" id="titan-wrapper">
+                    <input type="text" id="titan-code" class="titan-input" placeholder="ENTREZ LE CODE" onkeyup="checkEnter(event)">
+                    <button class="titan-btn" onclick="unlockTitan()">ACCÉDER</button>
                 </div>
-
-                <p style="font-size: 0.9rem; color: #aaa;">
-                    Utilisez ce code pour vous ou pour parrainer vos proches (ils bénéficieront de la même remise).
-                </p>
+                <p id="titan-error" style="color: #e74c3c; margin-top: 15px; opacity: 0; transition: 0.3s; font-weight: bold;">⚠️ ACCÈS REFUSÉ : CODE INVALIDE</p>
+            </div>
+    
+            <div id="titan-reward-card">
+                <div class="black-card">
+                    <div class="vip-badge">Statut : Validé</div>
+                    
+                    <h3 style="color: #fff; font-size: 1.8rem; margin-bottom: 0;">PROTOCOLE LEGACY</h3>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">L'étape finale de votre transformation.</p>
+                    
+                    <hr style="border: 0; border-top: 1px solid #333; margin: 1.5rem 0;">
+                    
+                    <div class="offer-value">-150€ <span style="font-size: 1.5rem; font-weight:400; color:#888;">IMMÉDIAT</span></div>
+                    <div class="offer-sub">Sur l'accompagnement "Suivi Annuel"</div>
+                    
+                    <div style="text-align: left; margin-bottom: 2rem; color: #ccc; font-size: 0.95rem;">
+                        <p>✅ Accès direct à mon agenda personnel (prioritaire)</p>
+                        <p>✅ Analyse biomécanique en présentiel offerte (si possible)</p>
+                        <p>✅ 1 an de suivi nutrition & sport IA illimité</p>
+                    </div>
+    
+                    <button class="titan-cta" onclick="openBooking('Titan Elite')">
+                        DÉBLOQUER MA PLACE (VIP)
+                    </button>
+                    
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #555;">Code Titan activé. Offre valable 48h.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -2012,80 +2097,107 @@
         document.querySelector('.scroll-progress').style.width = scrolled + '%';
     });
 
-            /* --- LOGIQUE AMBASSADEUR TITAN --- */
-    
-    // Liste des codes valides (Tu peux en ajouter d'autres ici)
-    const SECRET_CODES = ['TITAN2025', 'FINISHER', 'OPTI-PRO2584', 'CYRIL-PRO'];
-
-    function checkEnter(event) {
-        if (event.key === "Enter") unlockTitan();
-    }
-
-    function unlockTitan() {
-        const input = document.getElementById('titan-code');
-        const errorMsg = document.getElementById('titan-error');
-        const lockZone = document.getElementById('titan-lock-zone');
-        const rewardCard = document.getElementById('titan-reward-card');
+        /* --- 1. AJOUTE CECI DANS TA VARIABLE pricingData EXISTANTE (en haut du script) --- */
+        // pricingData = { 
+        //    ... tes autres offres ...,
+        //    'Titan Elite': { normal: '1200€', promo: '1050€' }  <-- AJOUTE CETTE LIGNE
+        // };
         
-        // On nettoie l'entrée (majuscule + sans espace)
-        const code = input.value.trim().toUpperCase();
-
-        if (SECRET_CODES.includes(code)) {
-            // SUCCÈS
-            errorMsg.style.display = 'none';
-            lockZone.style.display = 'none'; // On cache le champ
-            rewardCard.style.display = 'block'; // On affiche la récompense
-            
-            // On lance l'explosion
-            fireConfetti();
-            
-        } else {
-            // ERREUR
-            errorMsg.style.display = 'block';
-            input.style.border = "2px solid #e74c3c";
-            // Petite animation de secousse
-            input.animate([
-                { transform: 'translateX(0)' },
-                { transform: 'translateX(-10px)' },
-                { transform: 'translateX(10px)' },
-                { transform: 'translateX(0)' }
-            ], { duration: 300 });
-        }
-    }
-
-    // Fonction d'explosion visuelle (Confetti doré)
-    function fireConfetti() {
-        const colors = ['#f1c40f', '#ffffff', '#e67e22'];
-        const section = document.getElementById('ambassadeur-titan');
+        /* --- 2. LOGIQUE DU COFFRE FORT (À mettre à la fin du script) --- */
+        const SECRET_CODES = ['TITAN2025', 'LEGACY', 'OPTI-PRO2584', 'CYRIL-VIP'];
         
-        for (let i = 0; i < 100; i++) {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            
-            // Position aléatoire au centre
-            confetti.style.left = '50%';
-            confetti.style.top = '50%';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Trajectoire aléatoire
-            const x = (Math.random() - 0.5) * window.innerWidth;
-            const y = (Math.random() - 1) * window.innerHeight;
-            
-            confetti.animate([
-                { transform: 'translate(0,0)', opacity: 1 },
-                { transform: `translate(${x}px, ${y}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-            ], {
-                duration: 1500 + Math.random() * 1000,
-                easing: 'cubic-bezier(0, .9, .57, 1)',
-                fill: 'forwards'
-            });
-
-            section.appendChild(confetti);
-            
-            // Nettoyage après animation
-            setTimeout(() => confetti.remove(), 2500);
+        function checkEnter(event) {
+            if (event.key === "Enter") unlockTitan();
         }
-    }
+        
+        function unlockTitan() {
+            const input = document.getElementById('titan-code');
+            const wrapper = document.getElementById('titan-wrapper');
+            const errorMsg = document.getElementById('titan-error');
+            const lockIcon = document.getElementById('lock-icon');
+            const lockedState = document.getElementById('titan-locked-state');
+            const rewardCard = document.getElementById('titan-reward-card');
+            
+            const code = input.value.trim().toUpperCase();
+        
+            if (SECRET_CODES.includes(code)) {
+                // --- SÉQUENCE DE SUCCÈS (WOW EFFECT) ---
+                
+                // 1. Visuel input validé
+                wrapper.style.borderColor = "#27ae60";
+                wrapper.style.boxShadow = "0 0 30px #27ae60";
+                errorMsg.style.opacity = '0';
+                
+                // 2. Le cadenas s'ouvre
+                lockIcon.innerText = "🔓";
+                lockIcon.style.transform = "scale(1.5) rotate(-10deg)";
+                lockIcon.style.color = "#fff";
+                
+                // 3. Onde de choc (Création d'un élément div temporaire)
+                const shockwave = document.createElement('div');
+                shockwave.classList.add('shockwave-element');
+                document.getElementById('ambassadeur-titan').appendChild(shockwave);
+                
+                shockwave.animate([
+                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                    { transform: 'translate(-50%, -50%) scale(100)', opacity: 0 }
+                ], { duration: 800, easing: 'ease-out' });
+        
+                // 4. Transition vers la carte
+                setTimeout(() => {
+                    lockedState.style.display = 'none'; // On cache le formulaire
+                    rewardCard.style.display = 'block'; // On affiche la carte VIP
+                    
+                    // Effet de confettis dorés "Premium" (pluie d'or)
+                    createGoldRain();
+                }, 600);
+        
+            } else {
+                // --- ERREUR ---
+                errorMsg.style.opacity = '1';
+                wrapper.style.borderColor = "#e74c3c";
+                wrapper.style.animation = "shake 0.3s ease";
+                setTimeout(() => wrapper.style.animation = "", 300);
+            }
+        }
+        
+        // Fonction Pluie d'Or (Plus élégant que les confettis classiques)
+        function createGoldRain() {
+            const section = document.getElementById('ambassadeur-titan');
+            for(let i=0; i<50; i++) {
+                const drop = document.createElement('div');
+                drop.style.position = 'absolute';
+                drop.style.width = '2px';
+                drop.style.height = Math.random() * 20 + 10 + 'px'; // Gouttes allongées
+                drop.style.background = 'linear-gradient(to bottom, rgba(255,255,255,0), #b38728)';
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.top = -50 + 'px';
+                drop.style.zIndex = '5';
+                
+                const duration = Math.random() * 1 + 0.5;
+                
+                drop.animate([
+                    { transform: 'translateY(0)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight}px)`, opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'linear',
+                    iterations: Infinity
+                });
+                
+                section.appendChild(drop);
+            }
+        }
+        
+        // CSS Shake Animation (à ajouter dynamiquement ou dans le CSS)
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+        @keyframes shake { 
+            0%, 100% { transform: translateX(0); } 
+            25% { transform: translateX(-10px); } 
+            75% { transform: translateX(10px); } 
+        }`;
+        document.head.appendChild(styleSheet);
 
     </script>
 </body>
