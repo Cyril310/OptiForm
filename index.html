@@ -1671,27 +1671,33 @@
     
             <div id="titan-reward-card">
                 <div class="black-card">
-                    <div class="vip-badge">Statut : Validé</div>
+                    <div class="vip-badge">💎 Statut : Ambassadeur</div>
                     
-                    <h3 style="color: #fff; font-size: 1.8rem; margin-bottom: 0;">PROTOCOLE LEGACY</h3>
-                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">L'étape finale de votre transformation.</p>
+                    <h3 style="color: #fff; font-size: 1.8rem; margin-bottom: 0.5rem; text-transform: uppercase;">Pack Transformation <span style="color:#b38728">"Legacy"</span></h3>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 1rem;">La suite logique de votre parcours, financée à 50%.</p>
                     
                     <hr style="border: 0; border-top: 1px solid #333; margin: 1.5rem 0;">
                     
-                    <div class="offer-value">-150€ <span style="font-size: 1.5rem; font-weight:400; color:#888;">IMMÉDIAT</span></div>
-                    <div class="offer-sub">Sur l'accompagnement "Suivi Annuel"</div>
-                    
-                    <div style="text-align: left; margin-bottom: 2rem; color: #ccc; font-size: 0.95rem;">
-                        <p>✅ Accès direct à mon agenda personnel (prioritaire)</p>
-                        <p>✅ Analyse biomécanique en présentiel offerte (si possible)</p>
-                        <p>✅ 1 an de suivi nutrition & sport IA illimité</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 1rem;">
+                        <span style="text-decoration: line-through; color: #666; font-size: 1.5rem;">450€</span>
+                        <span class="offer-value" style="margin: 0; color: #b38728;">225€</span>
                     </div>
-    
-                    <button class="titan-cta" onclick="openBooking('Titan Elite')">
-                        DÉBLOQUER MA PLACE (VIP)
+                    
+                    <div class="offer-sub" style="font-size: 1rem; margin-bottom: 2rem; color: #fff;">Paiement unique • Accès complet 12 Semaines</div>
+                    
+                    <div style="text-align: left; margin: 0 auto 2rem; max-width: 450px; color: #ccc; font-size: 0.95rem; line-height: 1.8;">
+                        <p style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">✅ <strong>12 Semaines</strong> de Suivi IA & Humain</p>
+                        <p style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">🥗 <strong>Plan Nutritionnel</strong> Complet & Sur-Mesure</p>
+                        <p style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">📹 <strong>6 Entretiens Visio</strong> (Coaching Mental & Technique)</p>
+                        <p style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">🧠 Module Spécial <strong>"Atomic Habits"</strong> (Ancrage)</p>
+                        <p style="color: #b38728; font-weight: bold;">🎁 Accès Illimité Bibliothèque E-books (Valeur 90€)</p>
+                    </div>
+            
+                    <button class="titan-cta" onclick="openBooking('Titan Legacy')">
+                        DÉBLOQUER MA PLACE (225€)
                     </button>
                     
-                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #555;">Code Titan activé. Offre valable 48h.</p>
+                    <p style="margin-top: 1rem; font-size: 0.75rem; color: #555;">Offre strictement personnelle et incessible. Valable uniquement via ce lien.</p>
                 </div>
             </div>
         </div>
@@ -2098,10 +2104,17 @@
     });
 
         /* --- 1. AJOUTE CECI DANS TA VARIABLE pricingData EXISTANTE (en haut du script) --- */
-        // pricingData = { 
-        //    ... tes autres offres ...,
-        //    'Titan Elite': { normal: '1200€', promo: '1050€' }  <-- AJOUTE CETTE LIGNE
-        // };
+        /* --- CONFIGURATION DES PRIX (Mise à jour) --- */
+        const pricingData = {
+            // Tes offres classiques (Prix Publics)
+            'Starter': { normal: '200€', promo: '120€' },
+            'Performance': { normal: '350€', promo: '315€' },
+        
+            // L'OFFRE AMBASSADEUR (Cachée)
+            // Ici pas de "promo" supplémentaire, le prix est déjà cassé (-50%)
+            'Titan Legacy': { normal: '225€', promo: '225€' } 
+        };
+
         
         /* --- 2. LOGIQUE DU COFFRE FORT (À mettre à la fin du script) --- */
         const SECRET_CODES = ['TITAN2025', 'LEGACY', 'OPTI-PRO2584', 'CYRIL-VIP'];
