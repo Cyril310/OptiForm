@@ -2447,20 +2447,42 @@
             }, 150); // Vitesse de la barre
         }
         
-        function finishTitanSequence(email) {
+        async function finishTitanSequence(email) {
             const loadingStep = document.getElementById('titan-step-loading');
             const successStep = document.getElementById('titan-step-success');
+            const statusText = document.getElementById('upload-status-text');
+            const progressBar = document.getElementById('titan-progress');
             
-            // Petite pause pour le réalisme à 100%
-            setTimeout(() => {
-                loadingStep.style.display = 'none';
-                successStep.style.display = 'block';
-                document.getElementById('titan-email-display').innerText = email;
+            try {
+                // ⚠️ TRÈS IMPORTANT : Remplace 'titan' ci-dessous par le nom exact de ton fichier js
+                // Exemple : si ton fichier backend s'appelle "send-titan.js", mets '/.netlify/functions/send-titan'
+                const response = await fetch('/.netlify/functions/titan-access', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+        
+                if (response.ok) {
+                    // Petite pause pour le réalisme de l'animation
+                    setTimeout(() => {
+                        loadingStep.style.display = 'none';
+                        successStep.style.display = 'block';
+                        document.getElementById('titan-email-display').innerText = email;
+                    }, 500);
+                } else {
+                    throw new Error("Erreur API");
+                }
+        
+            } catch (error) {
+                console.error("Erreur de transmission :", error);
                 
-                // C'est ICI que le mail part réellement (Backend)
-                console.log("Envoi lien Titan à : " + email);
-                
-            }, 500);
+                // On affiche visuellement l'erreur dans la modale
+                statusText.innerText = "❌ ÉCHEC DE LA CONNEXION AU SERVEUR";
+                statusText.style.color = "#e74c3c";
+                progressBar.style.background = "#e74c3c";
+            }
         }
     </script>
 </body>
