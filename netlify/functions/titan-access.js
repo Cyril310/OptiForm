@@ -138,16 +138,21 @@ exports.handler = async (event) => {
     </html>
     `;
 
-    // --- ENVOI ---
-    await resend.emails.send({
-        from: "Titan Access <cyril41.mangeolle@gmail.com>", // Ton domaine
+        // --- ENVOI ---
+    const { data: resendData, error } = await resend.emails.send({
+        from: "Titan Access <cyril41.mangeolle@gmail.com>", 
         to: email,
         subject: `🔒 Accès Titan : Déverrouillé`,
         html: htmlEmail,
     });
 
-    console.log(`✅ Mail Titan envoyé à ${email}`);
+    // Si l'API Resend renvoie une erreur (ex: domaine non vérifié)
+    if (error) {
+        console.error("Erreur de l'API Resend:", error);
+        return { statusCode: 400, body: JSON.stringify({ error: error.message }) };
+    }
 
+    console.log(`✅ Mail Titan envoyé à ${email}. ID: ${resendData.id}`);
     return { statusCode: 200, body: JSON.stringify({ message: "Transmission réussie" }) };
 
   } catch (error) {
