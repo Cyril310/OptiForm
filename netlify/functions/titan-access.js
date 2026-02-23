@@ -140,7 +140,7 @@ exports.handler = async (event) => {
 
         // --- ENVOI ---
     const { data: resendData, error } = await resend.emails.send({
-        from: "Titan Access <cyril41.mangeolle@gmail.com>", 
+        from: "Titan Access <onboarding@resend.dev>", 
         to: email,
         subject: `🔒 Accès Titan : Déverrouillé`,
         html: htmlEmail,
