@@ -24,7 +24,7 @@ exports.handler = async (event) => {
     // LIEN DE PAIEMENT ZEEG OU STRIPE
     const titanLink = "https://zeeg.me/cyril41mangeolle/acces-titan-privilege"; 
 
-    // --- TEMPLATE EMAIL "TITAN V2" (LUXE & HACKER) ---
+        // --- TEMPLATE EMAIL "TITAN V3" (AVEC COMPTE À REBOURS & VIDÉO) ---
     const htmlEmail = `
     <!DOCTYPE html>
     <html lang="fr">
@@ -33,19 +33,8 @@ exports.handler = async (event) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accès Titan Déverrouillé</title>
         <style>
-            /* Reset et Mode Sombre Forcé */
             body, table, td, div, p, a { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
             body { margin: 0; padding: 0; background-color: #050505 !important; color: #ffffff; }
-            
-            /* Animations (Fonctionnent sur Apple Mail et certains clients) */
-            @keyframes pulseGlow {
-                0% { box-shadow: 0 0 10px rgba(179, 135, 40, 0.4); }
-                50% { box-shadow: 0 0 25px rgba(252, 246, 186, 0.8); }
-                100% { box-shadow: 0 0 10px rgba(179, 135, 40, 0.4); }
-            }
-            .glow-button {
-                transition: all 0.3s ease;
-            }
             .glow-button:hover {
                 transform: scale(1.05);
                 background: linear-gradient(135deg, #fcf6ba 0%, #b38728 100%) !important;
@@ -78,32 +67,36 @@ exports.handler = async (event) => {
                         </tr>
 
                         <tr>
-                            <td align="center" style="padding: 0 40px;">
-                                <div style="border-bottom: 1px solid rgba(179, 135, 40, 0.3); width: 100%;"></div>
+                            <td align="center" style="padding: 10px 40px 20px;">
+                                <a href="${titanLink}" target="_blank" style="display: block; text-decoration: none; position: relative;">
+                                    <div style="border: 1px solid #b38728; border-radius: 12px; overflow: hidden; position: relative; background-color: #111;">
+                                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z0d2VndTFndnBwdTh0azczNXAwd2ExcnR5cWNxd2p1dXp1eHpqbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7WTq4r7wY6oQ4Hqo/giphy.gif" width="100%" alt="Vidéo Confidentielle" style="display: block; opacity: 0.6; mix-blend-mode: luminosity;">
+                                        
+                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%;">
+                                            <div style="font-size: 40px; margin-bottom: 5px;">▶️</div>
+                                            <div style="background: rgba(0,0,0,0.8); color: #fcf6ba; display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 12px; border: 1px solid #b38728; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">Message Vidéo de Cyril</div>
+                                        </div>
+                                    </div>
+                                </a>
                             </td>
                         </tr>
 
                         <tr>
-                            <td align="center" style="padding: 30px 40px 10px; color: #cccccc; font-size: 15px; line-height: 1.6; text-align: left;">
-                                <p style="margin: 0 0 15px; color: #ffffff; font-weight: bold; font-size: 18px;">Félicitations.</p>
+                            <td align="center" style="padding: 10px 40px 10px; color: #cccccc; font-size: 15px; line-height: 1.6; text-align: left;">
                                 <p style="margin: 0 0 15px;">
-                                    Votre code d'accréditation a été validé par nos systèmes. Vous venez de débloquer l'accès à notre programme le plus élitiste : <strong style="color: #fcf6ba;">Le Pack Transformation</strong>.
+                                    Votre code a été validé. Vous venez de débloquer l'accès à notre programme le plus élitiste : <strong style="color: #fcf6ba;">Le Pack Transformation "Legacy"</strong>.
                                 </p>
                                 <p style="margin: 0;">
-                                    En tant qu'Ambassadeur, le tarif public ne s'applique plus. Vous bénéficiez d'une prise en charge de 50% sur votre parcours.
+                                    En tant qu'Ambassadeur, vous bénéficiez d'une prise en charge de 50%.
                                 </p>
                             </td>
                         </tr>
 
                         <tr>
-                            <td align="center" style="padding: 30px;">
+                            <td align="center" style="padding: 20px 30px;">
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background: linear-gradient(145deg, #111111, #080808); border: 1px solid #b38728; border-radius: 12px;">
                                     <tr>
                                         <td align="center" style="padding: 25px;">
-                                            <div style="background-color: rgba(179, 135, 40, 0.1); border: 1px solid #b38728; color: #fcf6ba; font-size: 10px; font-weight: bold; padding: 4px 12px; border-radius: 20px; display: inline-block; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">
-                                                Subvention Titan Activée
-                                            </div>
-                                            <br>
                                             <span style="text-decoration: line-through; color: #555555; font-size: 20px; font-weight: bold;">450€</span>
                                             <br>
                                             <span style="color: #ffffff; font-size: 55px; font-weight: 900; line-height: 1; text-shadow: 0 0 20px rgba(179, 135, 40, 0.4);">
@@ -111,6 +104,11 @@ exports.handler = async (event) => {
                                             </span>
                                             <br>
                                             <span style="color: #888888; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;">Règlement unique</span>
+                                            
+                                            <div style="margin-top: 25px; border-top: 1px solid #333; padding-top: 20px;">
+                                                <p style="color: #e74c3c; font-size: 11px; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; margin: 0 0 10px;">⚠️ L'offre expire dans :</p>
+                                                <img src="https://gen.sendtric.com/countdown/nphc9a2i7c" style="display: block; width: 100%; max-width: 250px;" alt="Compte à rebours">
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>
@@ -118,9 +116,7 @@ exports.handler = async (event) => {
                         </tr>
 
                         <tr>
-                            <td style="padding: 0 40px 30px;">
-                                <h3 style="color: #b38728; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 20px;">L'Arsenal Inclus :</h3>
-                                
+                            <td style="padding: 0 40px 20px;">
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="color: #dddddd; font-size: 14px; line-height: 1.5;">
                                     <tr>
                                         <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
@@ -132,15 +128,11 @@ exports.handler = async (event) => {
                                     </tr>
                                     <tr>
                                         <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
-                                        <td valign="top" style="padding-bottom: 12px;"><strong>6 Entretiens Visio</strong> individuels (Mental & Technique)</td>
+                                        <td valign="top" style="padding-bottom: 12px;"><strong>6 Entretiens Visio</strong> individuels</td>
                                     </tr>
                                     <tr>
                                         <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
-                                        <td valign="top" style="padding-bottom: 12px;">Module d'ancrage exclusif <strong>"Atomic Habits"</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
-                                        <td valign="top" style="padding-bottom: 12px;">Accès direct WhatsApp <strong>7j/7</strong></td>
+                                        <td valign="top" style="padding-bottom: 12px;">Module <strong>"Atomic Habits"</strong> & Accès WhatsApp <strong>7j/7</strong></td>
                                     </tr>
                                     <tr>
                                         <td valign="top" style="padding-bottom: 12px; width: 25px; color: #fcf6ba; font-size: 16px;">🎁</td>
@@ -166,25 +158,8 @@ exports.handler = async (event) => {
                                     border: 1px solid #fcf6ba;
                                     box-shadow: 0 0 20px rgba(179, 135, 40, 0.4);
                                 ">
-                                    DÉBLOQUER MA PLACE MAINTENANT
+                                    ACTIVER MON PASS TITAN
                                 </a>
-                                <p style="color: #555555; font-size: 11px; margin-top: 15px;">
-                                    ⚠️ Ce lien d'activation est unique et expirera sous 48h.
-                                </p>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td style="background-color: #030303; border-top: 1px solid #1a1a1a; padding: 25px; text-align: center; color: #333333; font-size: 10px; font-family: 'Courier New', monospace;">
-                                <p style="margin: 0 0 5px;">
-                                    SECURE LINK ID: ${Date.now().toString(36).toUpperCase()}-XF
-                                </p>
-                                <p style="margin: 0 0 5px;">
-                                    CRYPTAGE AES-256 // NE PAS TRANSFÉRER CE MESSAGE
-                                </p>
-                                <p style="margin: 0; color: #444444;">
-                                    &copy; 2025 OPTIFORM - PROTOCOLE TITAN
-                                </p>
                             </td>
                         </tr>
 
@@ -195,6 +170,7 @@ exports.handler = async (event) => {
     </body>
     </html>
     `;
+                                  
 
     // --- ENVOI VIA RESEND ---
     const { data: resendData, error } = await resend.emails.send({
