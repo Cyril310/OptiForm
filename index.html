@@ -774,190 +774,6 @@
         }
         .referral-success-msg span { display: block; }
         
-        /* =========================================
-           OPTIMISATION MOBILE FINALE V4 (CORRIGÉE)
-           ========================================= */
-        
-        @media (max-width: 768px) {
-            /* 0. GLOBAL : Stop au décalage latéral */
-            html, body { 
-                overflow-x: hidden !important; 
-                width: 100% !important; 
-                position: relative;
-            }
-            .container { padding: 4rem 1.5rem; overflow: hidden; width: 100%; }
-            
-            .hamburger { display: block; }
-    
-            /* HEADER FIXE */
-            header {
-                position: fixed !important;
-                top: 0; left: 0; width: 100%; z-index: 9999;
-                background: rgba(255, 255, 255, 0.98);
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            }
-    
-            /* BOUTON FLOTTANT */
-            .sticky-mobile-cta { 
-                display: block; opacity: 0; pointer-events: none; 
-                transition: opacity 0.4s ease;
-            }
-            .sticky-mobile-cta.visible { opacity: 1; pointer-events: all; }
-    
-            /* 1. HERO */
-            .hero { 
-                padding: 8rem 1rem 4rem; 
-                border-radius: 0 0 40px 40px; 
-                background-attachment: scroll; 
-            }
-            .hero h1 { font-size: 2rem; word-wrap: break-word; hyphens: auto; } 
-    
-            /* 2. MENU */
-            .nav-links {
-                position: absolute; top: 60px; left: 0; width: 100%; 
-                background: rgba(255, 255, 255, 0.99);
-                flex-direction: column; padding: 2rem; 
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1); display: none;
-            }
-            .nav-links.active { display: flex; animation: slideDown 0.3s ease forwards; }
-            @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    
-            /* 3. TRUST BADGES (Correction Espacement & Intégration) */
-            .trust-badges {
-                margin: -2.5rem auto 2rem; /* Remonté un peu, marge basse réduite */
-                width: 90%; 
-                gap: 0.5rem; 
-                padding: 1rem;
-                position: relative; 
-                z-index: 20; /* Passe devant le reste */
-            }
-            .trust-item { font-size: 0.75rem; flex: 1 1 45%; justify-content: center; }
-    
-            /* 4. À PROPOS (Rapproché du bloc du dessus) */
-            #a-propos.about-section {
-                margin-top: 0; 
-                padding-top: 2rem; /* Moins d'espace en haut */
-                border-radius: 30px; /* Arrondi sur tout le bloc */
-                margin-left: 10px; margin-right: 10px; /* Effet carte */
-            }
-            .about-wrapper { flex-direction: column; }
-            
-            /* Badge 24 mois */
-            .experience-badge {
-                position: relative; margin: -20px auto 20px auto; 
-                width: auto; max-width: 220px; padding: 1rem; transform: none;
-            }
-            .experience-badge .years { font-size: 1.8rem !important; }
-            
-            /* Puces V non déformées */
-            .about-list li { align-items: flex-start; }
-            .about-list li::before { flex-shrink: 0; margin-top: 4px; }
-    
-            /* 5. CONCEPT & MINDSET (Correction texte coupé à droite) */
-            #concept { margin: 1rem 10px; border-radius: 30px; width: auto; padding: 3rem 1.5rem; }
-            .concept-timeline { flex-direction: column; gap: 2rem; }
-            .concept-timeline::before { display: none; }
-            
-            .mindset-block {
-                padding: 2rem 1rem !important; /* Marges latérales réduites */
-                flex-direction: column;
-                width: 100%;
-                box-sizing: border-box; /* IMPORTANT */
-                margin-top: 3rem !important;
-                word-wrap: break-word; /* Coupe les mots si trop longs */
-            }
-            .mindset-block h3 { font-size: 1.4rem !important; line-height: 1.3; }
-            .mindset-block > div { width: 100%; min-width: 0; } /* Contient le texte */
-    
-            /* 6. REVIEWS */
-            #temoignages { margin: 0; border-radius: 40px 40px 0 0; padding: 3rem 1rem; }
-            .carousel-track-3d { height: auto; min-height: 420px; }
-            .review-card-3d { width: 100%; left: 0; opacity: 0; transform: scale(0.95); position: absolute; padding: 2rem 1.5rem; }
-            .review-card-3d.active { opacity: 1; transform: scale(1); position: relative; z-index: 20; }
-            .review-card-3d.prev, .review-card-3d.next { opacity: 0; pointer-events: none; position: absolute; }
-            
-            /* 7. RESTE DU CONTENU */
-            .pricing-card.featured { transform: scale(1); margin: 2rem 0; border-width: 2px; }
-            .bilan-wrapper { flex-direction: column-reverse; gap: 2rem; }
-            .phone-mockup { transform: scale(0.9); margin-top: 1rem; }
-            .form-input, .form-select { font-size: 16px !important; }
-            footer { border-radius: 40px 40px 0 0; }
-
-            /* 8. SECTION TITAN (MOBILE) - REDESIGN PREMIUM */
-            #ambassadeur-titan { padding: 5rem 1rem; } 
-            .vault-lock { font-size: 4rem; margin-bottom: 1rem; }
-            
-            /* Textes aérés et centrés */
-            .titan-title { font-size: 2.2rem; letter-spacing: 1px; line-height: 1.2; margin-bottom: 1rem; }
-            .titan-subtitle { font-size: 0.85rem; line-height: 1.5; margin-bottom: 2.5rem; padding: 0 10px; }
-            
-            /* Panneau de contrôle : On crée une belle carte vitrée unifiée */
-            .vault-input-wrapper { 
-                flex-direction: column; 
-                background: rgba(20, 20, 20, 0.8); 
-                border: 1px solid rgba(191, 149, 63, 0.3); 
-                border-radius: 20px; /* Forme de carte douce */
-                padding: 1.5rem; 
-                gap: 15px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                width: 90%;
-            }
-            .vault-input-wrapper:focus-within { border-color: #fcf6ba; }
-            
-            /* Champ et bouton : Style iOS Premium (Coins adoucis) */
-            .titan-input { 
-                border: 1px solid rgba(255,255,255,0.1); 
-                border-radius: 12px; 
-                padding: 1.2rem; 
-                font-size: 1.1rem; 
-                background: rgba(0,0,0,0.5); 
-                width: 100%; 
-                box-sizing: border-box; 
-                letter-spacing: 3px;
-            }
-            .titan-input:focus { 
-                border-color: #b38728; 
-                background: #000; 
-                box-shadow: inset 0 0 10px rgba(191, 149, 63, 0.2); 
-            }
-            
-            .titan-btn { 
-                width: 100%; 
-                padding: 1.2rem; 
-                border-radius: 12px; 
-                font-size: 1rem;
-                letter-spacing: 1px;
-            }
-            
-            /* Carte WOW (La Récompense) */
-            .black-card { padding: 2.5rem 1.2rem; border-radius: 25px; }
-            .vip-badge { 
-                position: relative; top: 0; right: 0; 
-                display: inline-block; 
-                margin-bottom: 1.5rem; 
-                font-size: 0.75rem; 
-                padding: 8px 15px; 
-                border-radius: 20px;
-            }
-            .offer-value { font-size: 2.8rem; margin: 0.5rem 0; }
-            .offer-sub { font-size: 0.85rem; line-height: 1.4; padding: 0 10px; margin-bottom: 2rem; }
-            
-            /* Bouton d'achat mobile (On enlève le côté biseauté qui rend mal sur téléphone) */
-            .titan-cta { 
-                font-size: 0.9rem; 
-                padding: 1.2rem 1rem; 
-                clip-path: none; /* Remet le bouton droit */
-                border-radius: 12px; /* Ajoute les coins arrondis premium */
-                letter-spacing: 1px;
-            }
-            
-            /* Modale Email Mobile */
-            .titan-modal-content { padding: 2.5rem 1.5rem !important; border-radius: 20px; }
-            #titan-step-form { margin-top: 1rem; }
-            .titan-input-field { font-size: 1rem !important; border-radius: 8px; }
-
-        }
-        
             .scroll-progress {
             position: fixed;
             top: 0;
@@ -1318,6 +1134,190 @@
         
         @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
+         /* =========================================
+           OPTIMISATION MOBILE FINALE V4 (CORRIGÉE)
+           ========================================= */
+        
+        @media (max-width: 768px) {
+            /* 0. GLOBAL : Stop au décalage latéral */
+            html, body { 
+                overflow-x: hidden !important; 
+                width: 100% !important; 
+                position: relative;
+            }
+            .container { padding: 4rem 1.5rem; overflow: hidden; width: 100%; }
+            
+            .hamburger { display: block; }
+    
+            /* HEADER FIXE */
+            header {
+                position: fixed !important;
+                top: 0; left: 0; width: 100%; z-index: 9999;
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+    
+            /* BOUTON FLOTTANT */
+            .sticky-mobile-cta { 
+                display: block; opacity: 0; pointer-events: none; 
+                transition: opacity 0.4s ease;
+            }
+            .sticky-mobile-cta.visible { opacity: 1; pointer-events: all; }
+    
+            /* 1. HERO */
+            .hero { 
+                padding: 8rem 1rem 4rem; 
+                border-radius: 0 0 40px 40px; 
+                background-attachment: scroll; 
+            }
+            .hero h1 { font-size: 2rem; word-wrap: break-word; hyphens: auto; } 
+    
+            /* 2. MENU */
+            .nav-links {
+                position: absolute; top: 60px; left: 0; width: 100%; 
+                background: rgba(255, 255, 255, 0.99);
+                flex-direction: column; padding: 2rem; 
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1); display: none;
+            }
+            .nav-links.active { display: flex; animation: slideDown 0.3s ease forwards; }
+            @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    
+            /* 3. TRUST BADGES (Correction Espacement & Intégration) */
+            .trust-badges {
+                margin: -2.5rem auto 2rem; /* Remonté un peu, marge basse réduite */
+                width: 90%; 
+                gap: 0.5rem; 
+                padding: 1rem;
+                position: relative; 
+                z-index: 20; /* Passe devant le reste */
+            }
+            .trust-item { font-size: 0.75rem; flex: 1 1 45%; justify-content: center; }
+    
+            /* 4. À PROPOS (Rapproché du bloc du dessus) */
+            #a-propos.about-section {
+                margin-top: 0; 
+                padding-top: 2rem; /* Moins d'espace en haut */
+                border-radius: 30px; /* Arrondi sur tout le bloc */
+                margin-left: 10px; margin-right: 10px; /* Effet carte */
+            }
+            .about-wrapper { flex-direction: column; }
+            
+            /* Badge 24 mois */
+            .experience-badge {
+                position: relative; margin: -20px auto 20px auto; 
+                width: auto; max-width: 220px; padding: 1rem; transform: none;
+            }
+            .experience-badge .years { font-size: 1.8rem !important; }
+            
+            /* Puces V non déformées */
+            .about-list li { align-items: flex-start; }
+            .about-list li::before { flex-shrink: 0; margin-top: 4px; }
+    
+            /* 5. CONCEPT & MINDSET (Correction texte coupé à droite) */
+            #concept { margin: 1rem 10px; border-radius: 30px; width: auto; padding: 3rem 1.5rem; }
+            .concept-timeline { flex-direction: column; gap: 2rem; }
+            .concept-timeline::before { display: none; }
+            
+            .mindset-block {
+                padding: 2rem 1rem !important; /* Marges latérales réduites */
+                flex-direction: column;
+                width: 100%;
+                box-sizing: border-box; /* IMPORTANT */
+                margin-top: 3rem !important;
+                word-wrap: break-word; /* Coupe les mots si trop longs */
+            }
+            .mindset-block h3 { font-size: 1.4rem !important; line-height: 1.3; }
+            .mindset-block > div { width: 100%; min-width: 0; } /* Contient le texte */
+    
+            /* 6. REVIEWS */
+            #temoignages { margin: 0; border-radius: 40px 40px 0 0; padding: 3rem 1rem; }
+            .carousel-track-3d { height: auto; min-height: 420px; }
+            .review-card-3d { width: 100%; left: 0; opacity: 0; transform: scale(0.95); position: absolute; padding: 2rem 1.5rem; }
+            .review-card-3d.active { opacity: 1; transform: scale(1); position: relative; z-index: 20; }
+            .review-card-3d.prev, .review-card-3d.next { opacity: 0; pointer-events: none; position: absolute; }
+            
+            /* 7. RESTE DU CONTENU */
+            .pricing-card.featured { transform: scale(1); margin: 2rem 0; border-width: 2px; }
+            .bilan-wrapper { flex-direction: column-reverse; gap: 2rem; }
+            .phone-mockup { transform: scale(0.9); margin-top: 1rem; }
+            .form-input, .form-select { font-size: 16px !important; }
+            footer { border-radius: 40px 40px 0 0; }
+
+            /* 8. SECTION TITAN (MOBILE) - REDESIGN PREMIUM */
+            #ambassadeur-titan { padding: 5rem 1rem; } 
+            .vault-lock { font-size: 4rem; margin-bottom: 1rem; }
+            
+            /* Textes aérés et centrés */
+            .titan-title { font-size: 2.2rem; letter-spacing: 1px; line-height: 1.2; margin-bottom: 1rem; }
+            .titan-subtitle { font-size: 0.85rem; line-height: 1.5; margin-bottom: 2.5rem; padding: 0 10px; }
+            
+            /* Panneau de contrôle : On crée une belle carte vitrée unifiée */
+            .vault-input-wrapper { 
+                flex-direction: column; 
+                background: rgba(20, 20, 20, 0.8); 
+                border: 1px solid rgba(191, 149, 63, 0.3); 
+                border-radius: 20px; /* Forme de carte douce */
+                padding: 1.5rem; 
+                gap: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                width: 90%;
+            }
+            .vault-input-wrapper:focus-within { border-color: #fcf6ba; }
+            
+            /* Champ et bouton : Style iOS Premium (Coins adoucis) */
+            .titan-input { 
+                border: 1px solid rgba(255,255,255,0.1); 
+                border-radius: 12px; 
+                padding: 1.2rem; 
+                font-size: 1.1rem; 
+                background: rgba(0,0,0,0.5); 
+                width: 100%; 
+                box-sizing: border-box; 
+                letter-spacing: 3px;
+            }
+            .titan-input:focus { 
+                border-color: #b38728; 
+                background: #000; 
+                box-shadow: inset 0 0 10px rgba(191, 149, 63, 0.2); 
+            }
+            
+            .titan-btn { 
+                width: 100%; 
+                padding: 1.2rem; 
+                border-radius: 12px; 
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            
+            /* Carte WOW (La Récompense) */
+            .black-card { padding: 2.5rem 1.2rem; border-radius: 25px; }
+            .vip-badge { 
+                position: relative; top: 0; right: 0; 
+                display: inline-block; 
+                margin-bottom: 1.5rem; 
+                font-size: 0.75rem; 
+                padding: 8px 15px; 
+                border-radius: 20px;
+            }
+            .offer-value { font-size: 2.8rem; margin: 0.5rem 0; }
+            .offer-sub { font-size: 0.85rem; line-height: 1.4; padding: 0 10px; margin-bottom: 2rem; }
+            
+            /* Bouton d'achat mobile (On enlève le côté biseauté qui rend mal sur téléphone) */
+            .titan-cta { 
+                font-size: 0.9rem; 
+                padding: 1.2rem 1rem; 
+                clip-path: none; /* Remet le bouton droit */
+                border-radius: 12px; /* Ajoute les coins arrondis premium */
+                letter-spacing: 1px;
+            }
+            
+            /* Modale Email Mobile */
+            .titan-modal-content { padding: 2.5rem 1.5rem !important; border-radius: 20px; }
+            #titan-step-form { margin-top: 1rem; }
+            .titan-input-field { font-size: 1rem !important; border-radius: 8px; }
+
+        }
+        
     </style>
 </head>
 <body>
