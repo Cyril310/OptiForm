@@ -2294,8 +2294,16 @@
     });
 
         
-        /* --- 2. LOGIQUE DU COFFRE FORT (À mettre à la fin du script) --- */
+      /* --- LOGIQUE DU COFFRE FORT TITAN + EFFETS SONORES --- */
         const SECRET_CODES = ['TITAN2025', 'LEGACY', 'OPTI-PRO2584', 'CYRIL-VIP'];
+        
+        // 1. CHARGEMENT DES SONS (Hébergés gratuitement par Google)
+        const soundSuccess = new Audio('https://actions.google.com/sounds/v1/science_fiction/shield_activate.ogg');
+        const soundError = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+        
+        // Réglage du volume (entre 0.0 et 1.0) pour que ce soit élégant et pas agressif
+        soundSuccess.volume = 0.6;
+        soundError.volume = 0.3;
         
         function checkEnter(event) {
             if (event.key === "Enter") unlockTitan();
@@ -2312,7 +2320,11 @@
             const code = input.value.trim().toUpperCase();
         
             if (SECRET_CODES.includes(code)) {
-                // --- SÉQUENCE DE SUCCÈS (WOW EFFECT) ---
+                // --- SÉQUENCE DE SUCCÈS ---
+                
+                // 🎧 PLAY SOUND (Succès)
+                soundSuccess.currentTime = 0; // Remet à zéro
+                soundSuccess.play().catch(err => console.log("Son bloqué par le navigateur", err));
                 
                 // 1. Visuel input validé
                 wrapper.style.borderColor = "#27ae60";
@@ -2324,7 +2336,7 @@
                 lockIcon.style.transform = "scale(1.5) rotate(-10deg)";
                 lockIcon.style.color = "#fff";
                 
-                // 3. Onde de choc (Création d'un élément div temporaire)
+                // 3. Onde de choc
                 const shockwave = document.createElement('div');
                 shockwave.classList.add('shockwave-element');
                 document.getElementById('ambassadeur-titan').appendChild(shockwave);
@@ -2336,21 +2348,25 @@
         
                 // 4. Transition vers la carte
                 setTimeout(() => {
-                    lockedState.style.display = 'none'; // On cache le formulaire
-                    rewardCard.style.display = 'block'; // On affiche la carte VIP
-                    
-                    // Effet de confettis dorés "Premium" (pluie d'or)
+                    lockedState.style.display = 'none'; 
+                    rewardCard.style.display = 'block'; 
                     createGoldRain();
                 }, 600);
         
             } else {
                 // --- ERREUR ---
+                
+                // 🎧 PLAY SOUND (Erreur)
+                soundError.currentTime = 0;
+                soundError.play().catch(err => console.log("Son bloqué par le navigateur", err));
+                
                 errorMsg.style.opacity = '1';
                 wrapper.style.borderColor = "#e74c3c";
                 wrapper.style.animation = "shake 0.3s ease";
                 setTimeout(() => wrapper.style.animation = "", 300);
             }
         }
+
         
         // Fonction Pluie d'Or (Plus élégant que les confettis classiques)
         function createGoldRain() {
