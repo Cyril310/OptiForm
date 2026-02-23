@@ -883,30 +883,79 @@
             .form-input, .form-select { font-size: 16px !important; }
             footer { border-radius: 40px 40px 0 0; }
 
-                        /* 8. SECTION TITAN (MOBILE) */
-            #ambassadeur-titan { padding: 4rem 1rem; }
-            .vault-lock { font-size: 3.5rem; margin-bottom: 0.5rem; }
-            .titan-title { font-size: 2rem; letter-spacing: 2px; }
-            .titan-subtitle { font-size: 0.8rem; margin-bottom: 2rem; }
+            /* 8. SECTION TITAN (MOBILE) - REDESIGN PREMIUM */
+            #ambassadeur-titan { padding: 5rem 1rem; } 
+            .vault-lock { font-size: 4rem; margin-bottom: 1rem; }
             
-            /* Champ de saisie : On empile l'input et le bouton proprement */
-            .vault-input-wrapper { flex-direction: column; background: transparent; border: none; gap: 15px; padding: 0; }
-            .vault-input-wrapper:focus-within { box-shadow: none; border-color: transparent; }
-            .titan-input { border: 1px solid rgba(191, 149, 63, 0.3); border-radius: 50px; padding: 1rem; font-size: 1rem; background: rgba(255,255,255,0.05); width: 100%; box-sizing: border-box; }
-            .titan-input:focus { border-color: #fcf6ba; box-shadow: 0 0 15px rgba(191, 149, 63, 0.3); }
-            .titan-btn { width: 100%; padding: 1rem; border-radius: 50px; }
+            /* Textes aérés et centrés */
+            .titan-title { font-size: 2.2rem; letter-spacing: 1px; line-height: 1.2; margin-bottom: 1rem; }
+            .titan-subtitle { font-size: 0.85rem; line-height: 1.5; margin-bottom: 2.5rem; padding: 0 10px; }
             
-            /* Carte WOW */
-            .black-card { padding: 1.5rem; margin-top: 1rem; }
-            .vip-badge { position: relative; top: 0; right: 0; display: inline-block; margin-bottom: 1rem; font-size: 0.7rem; }
-            .offer-value { font-size: 2.5rem; }
-            .offer-sub { font-size: 0.85rem; letter-spacing: 1px; }
-            .titan-cta { font-size: 0.95rem; padding: 1.2rem 1rem; clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%, 0% 15%); }
+            /* Panneau de contrôle : On crée une belle carte vitrée unifiée */
+            .vault-input-wrapper { 
+                flex-direction: column; 
+                background: rgba(20, 20, 20, 0.8); 
+                border: 1px solid rgba(191, 149, 63, 0.3); 
+                border-radius: 20px; /* Forme de carte douce */
+                padding: 1.5rem; 
+                gap: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                width: 90%;
+            }
+            .vault-input-wrapper:focus-within { border-color: #fcf6ba; }
             
-            /* Modale Mobile */
-            .titan-modal-content { padding: 2rem 1.5rem !important; }
+            /* Champ et bouton : Style iOS Premium (Coins adoucis) */
+            .titan-input { 
+                border: 1px solid rgba(255,255,255,0.1); 
+                border-radius: 12px; 
+                padding: 1.2rem; 
+                font-size: 1.1rem; 
+                background: rgba(0,0,0,0.5); 
+                width: 100%; 
+                box-sizing: border-box; 
+                letter-spacing: 3px;
+            }
+            .titan-input:focus { 
+                border-color: #b38728; 
+                background: #000; 
+                box-shadow: inset 0 0 10px rgba(191, 149, 63, 0.2); 
+            }
+            
+            .titan-btn { 
+                width: 100%; 
+                padding: 1.2rem; 
+                border-radius: 12px; 
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            
+            /* Carte WOW (La Récompense) */
+            .black-card { padding: 2.5rem 1.2rem; border-radius: 25px; }
+            .vip-badge { 
+                position: relative; top: 0; right: 0; 
+                display: inline-block; 
+                margin-bottom: 1.5rem; 
+                font-size: 0.75rem; 
+                padding: 8px 15px; 
+                border-radius: 20px;
+            }
+            .offer-value { font-size: 2.8rem; margin: 0.5rem 0; }
+            .offer-sub { font-size: 0.85rem; line-height: 1.4; padding: 0 10px; margin-bottom: 2rem; }
+            
+            /* Bouton d'achat mobile (On enlève le côté biseauté qui rend mal sur téléphone) */
+            .titan-cta { 
+                font-size: 0.9rem; 
+                padding: 1.2rem 1rem; 
+                clip-path: none; /* Remet le bouton droit */
+                border-radius: 12px; /* Ajoute les coins arrondis premium */
+                letter-spacing: 1px;
+            }
+            
+            /* Modale Email Mobile */
+            .titan-modal-content { padding: 2.5rem 1.5rem !important; border-radius: 20px; }
             #titan-step-form { margin-top: 1rem; }
-            .titan-input-field { font-size: 1rem !important; }
+            .titan-input-field { font-size: 1rem !important; border-radius: 8px; }
+
         }
         
             .scroll-progress {
