@@ -2297,14 +2297,16 @@
      /* --- LOGIQUE DU COFFRE FORT TITAN + EFFETS SONORES + MATRIX --- */
         const SECRET_CODES = ['TITAN2025', 'LEGACY', 'OPTI-PRO2584', 'CYRIL-VIP'];
         
-        // 1. CHARGEMENT DES SONS (Format MP3 Universel - 100% compatible iPhone/Android)
-        const soundSuccess = new Audio('https://www.soundjay.com/buttons/sounds/button-37.mp3'); // Son de déverrouillage moderne
-        const soundError = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3'); // Bip sec d'erreur
+        // 1. MP3 FIABLES (Mixkit CDN - 100% compatibles et sans blocage)
+        const soundSuccess = new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3'); // Son de déverrouillage futuriste
+        const soundError = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'); // Bip d'erreur
         
         soundSuccess.volume = 0.7;
         soundError.volume = 0.4;
         
-        // Ajout de l'animation de rotation pour le cadenas qui charge
+        let audioUnlocked = false; // Le "Hack" pour les téléphones
+        
+        // Ajout de l'animation de rotation
         const extraStyle = document.createElement("style");
         extraStyle.innerText = `@keyframes spinIcon { 100% { transform: rotate(360deg); } }`;
         document.head.appendChild(extraStyle);
@@ -2314,6 +2316,14 @@
         }
         
         function unlockTitan() {
+            // --- LE HACK ANTI-BLOCAGE APPLE/ANDROID ---
+            // On débloque les fichiers audio instantanément au clic de l'utilisateur
+            if (!audioUnlocked) {
+                soundSuccess.play().then(() => soundSuccess.pause()).catch(() => {});
+                soundError.play().then(() => soundError.pause()).catch(() => {});
+                audioUnlocked = true;
+            }
+        
             const input = document.getElementById('titan-code');
             const wrapper = document.getElementById('titan-wrapper');
             const errorMsg = document.getElementById('titan-error');
@@ -2324,18 +2334,14 @@
             const code = input.value.trim().toUpperCase();
         
             if (SECRET_CODES.includes(code)) {
-                // --- SÉQUENCE MATRIX & SUCCÈS ---
-                
-                // 1. On bloque le champ pour éviter que le client clique 10 fois
+                // --- SÉQUENCE MATRIX ---
                 input.disabled = true;
                 wrapper.style.borderColor = "#27ae60";
                 wrapper.style.boxShadow = "0 0 30px #27ae60";
                 
-                // 2. Le cadenas devient un sablier qui tourne
                 lockIcon.innerText = "⏳";
                 lockIcon.style.animation = "spinIcon 2s linear infinite";
                 
-                // 3. Faux Terminal Hacker (Suspense)
                 errorMsg.style.color = "#27ae60";
                 errorMsg.style.opacity = '1';
                 errorMsg.style.fontFamily = "monospace";
@@ -2350,16 +2356,14 @@
                     if(step === 4) {
                         clearInterval(hackInterval);
                         
-                        // 🎧 PLAY SOUND : C'est ici que le son de victoire se lance !
+                        // 🎧 PLAY SOUND (Succès - Maintenant ça marche même avec le délai !)
                         soundSuccess.currentTime = 0;
-                        soundSuccess.play().catch(err => console.log("Son bloqué", err));
+                        soundSuccess.play().catch(err => console.log(err));
                         
-                        // Le cadenas s'ouvre
                         lockIcon.style.animation = "";
                         lockIcon.innerText = "🔓";
                         lockIcon.style.transform = "scale(1.5) rotate(-10deg)";
                         
-                        // Onde de choc visuelle
                         const shockwave = document.createElement('div');
                         shockwave.classList.add('shockwave-element');
                         document.getElementById('ambassadeur-titan').appendChild(shockwave);
@@ -2369,19 +2373,19 @@
                             { transform: 'translate(-50%, -50%) scale(100)', opacity: 0 }
                         ], { duration: 800, easing: 'ease-out' });
         
-                        // Transition vers la carte premium
                         setTimeout(() => {
                             lockedState.style.display = 'none'; 
                             rewardCard.style.display = 'block'; 
-                            createGoldRain(); // La pluie dorée
+                            createGoldRain();
                         }, 600);
                     }
-                }, 800); // Chaque étape dure 800ms (soit 2.4 sec de suspense total)
+                }, 800);
         
             } else {
                 // --- ERREUR ---
+                // 🎧 PLAY SOUND (Erreur)
                 soundError.currentTime = 0;
-                soundError.play().catch(err => console.log("Son bloqué", err));
+                soundError.play().catch(err => console.log(err));
                 
                 errorMsg.style.fontFamily = "inherit";
                 errorMsg.style.color = "#e74c3c";
@@ -2394,7 +2398,6 @@
             }
         }
 
-        
         // Fonction Pluie d'Or (Plus élégant que les confettis classiques)
         function createGoldRain() {
             const section = document.getElementById('ambassadeur-titan');
