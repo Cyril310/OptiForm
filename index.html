@@ -2294,16 +2294,20 @@
     });
 
         
-      /* --- LOGIQUE DU COFFRE FORT TITAN + EFFETS SONORES --- */
+     /* --- LOGIQUE DU COFFRE FORT TITAN + EFFETS SONORES + MATRIX --- */
         const SECRET_CODES = ['TITAN2025', 'LEGACY', 'OPTI-PRO2584', 'CYRIL-VIP'];
         
-        // 1. CHARGEMENT DES SONS (Hébergés gratuitement par Google)
-        const soundSuccess = new Audio('https://actions.google.com/sounds/v1/science_fiction/shield_activate.ogg');
-        const soundError = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+        // 1. CHARGEMENT DES SONS (Format MP3 Universel - 100% compatible iPhone/Android)
+        const soundSuccess = new Audio('https://www.soundjay.com/buttons/sounds/button-37.mp3'); // Son de déverrouillage moderne
+        const soundError = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3'); // Bip sec d'erreur
         
-        // Réglage du volume (entre 0.0 et 1.0) pour que ce soit élégant et pas agressif
-        soundSuccess.volume = 0.6;
-        soundError.volume = 0.3;
+        soundSuccess.volume = 0.7;
+        soundError.volume = 0.4;
+        
+        // Ajout de l'animation de rotation pour le cadenas qui charge
+        const extraStyle = document.createElement("style");
+        extraStyle.innerText = `@keyframes spinIcon { 100% { transform: rotate(360deg); } }`;
+        document.head.appendChild(extraStyle);
         
         function checkEnter(event) {
             if (event.key === "Enter") unlockTitan();
@@ -2320,47 +2324,70 @@
             const code = input.value.trim().toUpperCase();
         
             if (SECRET_CODES.includes(code)) {
-                // --- SÉQUENCE DE SUCCÈS ---
+                // --- SÉQUENCE MATRIX & SUCCÈS ---
                 
-                // 🎧 PLAY SOUND (Succès)
-                soundSuccess.currentTime = 0; // Remet à zéro
-                soundSuccess.play().catch(err => console.log("Son bloqué par le navigateur", err));
-                
-                // 1. Visuel input validé
+                // 1. On bloque le champ pour éviter que le client clique 10 fois
+                input.disabled = true;
                 wrapper.style.borderColor = "#27ae60";
                 wrapper.style.boxShadow = "0 0 30px #27ae60";
-                errorMsg.style.opacity = '0';
                 
-                // 2. Le cadenas s'ouvre
-                lockIcon.innerText = "🔓";
-                lockIcon.style.transform = "scale(1.5) rotate(-10deg)";
-                lockIcon.style.color = "#fff";
+                // 2. Le cadenas devient un sablier qui tourne
+                lockIcon.innerText = "⏳";
+                lockIcon.style.animation = "spinIcon 2s linear infinite";
                 
-                // 3. Onde de choc
-                const shockwave = document.createElement('div');
-                shockwave.classList.add('shockwave-element');
-                document.getElementById('ambassadeur-titan').appendChild(shockwave);
-                
-                shockwave.animate([
-                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                    { transform: 'translate(-50%, -50%) scale(100)', opacity: 0 }
-                ], { duration: 800, easing: 'ease-out' });
+                // 3. Faux Terminal Hacker (Suspense)
+                errorMsg.style.color = "#27ae60";
+                errorMsg.style.opacity = '1';
+                errorMsg.style.fontFamily = "monospace";
+                errorMsg.innerText = "> DÉCHIFFREMENT EN COURS...";
         
-                // 4. Transition vers la carte
-                setTimeout(() => {
-                    lockedState.style.display = 'none'; 
-                    rewardCard.style.display = 'block'; 
-                    createGoldRain();
-                }, 600);
+                let step = 0;
+                const hackInterval = setInterval(() => {
+                    step++;
+                    if(step === 1) errorMsg.innerText = "> CONNEXION SERVEUR... [OK]";
+                    if(step === 2) errorMsg.innerText = "> VÉRIFICATION EMPREINTE... [OK]";
+                    if(step === 3) errorMsg.innerText = "> PROTOCOLE TITAN DÉVERROUILLÉ !";
+                    if(step === 4) {
+                        clearInterval(hackInterval);
+                        
+                        // 🎧 PLAY SOUND : C'est ici que le son de victoire se lance !
+                        soundSuccess.currentTime = 0;
+                        soundSuccess.play().catch(err => console.log("Son bloqué", err));
+                        
+                        // Le cadenas s'ouvre
+                        lockIcon.style.animation = "";
+                        lockIcon.innerText = "🔓";
+                        lockIcon.style.transform = "scale(1.5) rotate(-10deg)";
+                        
+                        // Onde de choc visuelle
+                        const shockwave = document.createElement('div');
+                        shockwave.classList.add('shockwave-element');
+                        document.getElementById('ambassadeur-titan').appendChild(shockwave);
+                        
+                        shockwave.animate([
+                            { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                            { transform: 'translate(-50%, -50%) scale(100)', opacity: 0 }
+                        ], { duration: 800, easing: 'ease-out' });
+        
+                        // Transition vers la carte premium
+                        setTimeout(() => {
+                            lockedState.style.display = 'none'; 
+                            rewardCard.style.display = 'block'; 
+                            createGoldRain(); // La pluie dorée
+                        }, 600);
+                    }
+                }, 800); // Chaque étape dure 800ms (soit 2.4 sec de suspense total)
         
             } else {
                 // --- ERREUR ---
-                
-                // 🎧 PLAY SOUND (Erreur)
                 soundError.currentTime = 0;
-                soundError.play().catch(err => console.log("Son bloqué par le navigateur", err));
+                soundError.play().catch(err => console.log("Son bloqué", err));
                 
+                errorMsg.style.fontFamily = "inherit";
+                errorMsg.style.color = "#e74c3c";
+                errorMsg.innerText = "⚠️ ACCÈS REFUSÉ : CODE INVALIDE";
                 errorMsg.style.opacity = '1';
+                
                 wrapper.style.borderColor = "#e74c3c";
                 wrapper.style.animation = "shake 0.3s ease";
                 setTimeout(() => wrapper.style.animation = "", 300);
