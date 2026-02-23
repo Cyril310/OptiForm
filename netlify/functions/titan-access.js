@@ -198,9 +198,9 @@ exports.handler = async (event) => {
 
     // --- ENVOI VIA RESEND ---
     const { data: resendData, error } = await resend.emails.send({
-        from: "Titan Protocol <onboarding@resend.dev>", // Ton domaine quand tu seras prêt
+        from: "OPTIFORM Titan Protocol <onboarding@resend.dev>", // Ton domaine quand tu seras prêt
         to: email,
-        subject: `👑 Protocole Optiforme TITAN : Accès Ambassadeur Validé`,
+        subject: `👑 Protocole Optiform TITAN : Accès Ambassadeur Validé`,
         html: htmlEmail,
     });
 
