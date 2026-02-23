@@ -24,7 +24,7 @@ exports.handler = async (event) => {
     // LIEN DE PAIEMENT ZEEG OU STRIPE
     const titanLink = "https://zeeg.me/cyril41mangeolle/acces-titan-privilege"; 
 
-        // --- TEMPLATE EMAIL "TITAN V3" (AVEC COMPTE À REBOURS & VIDÉO) ---
+    // --- TEMPLATE EMAIL "TITAN V3" (SÉCURISÉ POUR GMAIL/APPLE MAIL) ---
     const htmlEmail = `
     <!DOCTYPE html>
     <html lang="fr">
@@ -68,14 +68,10 @@ exports.handler = async (event) => {
 
                         <tr>
                             <td align="center" style="padding: 10px 40px 20px;">
-                                <a href="${titanLink}" target="_blank" style="display: block; text-decoration: none; position: relative;">
-                                    <div style="border: 1px solid #b38728; border-radius: 12px; overflow: hidden; position: relative; background-color: #111;">
-                                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z0d2VndTFndnBwdTh0azczNXAwd2ExcnR5cWNxd2p1dXp1eHpqbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7WTq4r7wY6oQ4Hqo/giphy.gif" width="100%" alt="Vidéo Confidentielle" style="display: block; opacity: 0.6; mix-blend-mode: luminosity;">
-                                        
-                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%;">
-                                            <div style="font-size: 40px; margin-bottom: 5px;">▶️</div>
-                                            <div style="background: rgba(0,0,0,0.8); color: #fcf6ba; display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 12px; border: 1px solid #b38728; letter-spacing: 1px; font-weight: bold; text-transform: uppercase;">Message Vidéo de Cyril</div>
-                                        </div>
+                                <a href="${titanLink}" target="_blank" style="display: block; text-decoration: none;">
+                                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop" width="100%" alt="Cyril Mangeolle" style="display: block; border-radius: 12px 12px 0 0; border: 1px solid #b38728; border-bottom: none;">
+                                    <div style="background: linear-gradient(135deg, #b38728 0%, #aa771c 100%); color: #000000; padding: 15px; border-radius: 0 0 12px 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border: 1px solid #b38728; border-top: none;">
+                                        ▶️ CLIQUER POUR VOIR LE MESSAGE VIDÉO
                                     </div>
                                 </a>
                             </td>
@@ -107,7 +103,15 @@ exports.handler = async (event) => {
                                             
                                             <div style="margin-top: 25px; border-top: 1px solid #333; padding-top: 20px;">
                                                 <p style="color: #e74c3c; font-size: 11px; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; margin: 0 0 10px;">⚠️ L'offre expire dans :</p>
-                                                <img src="https://gen.sendtric.com/countdown/nphc9a2i7c" style="display: block; width: 100%; max-width: 250px;" alt="Compte à rebours">
+                                                
+                                                <table width="100%" border='0' cellspacing="0" cellpadding="0" style="margin-top: 15px;">
+                                                    <tr>
+                                                        <td align="center">
+                                                            <img src="https://i.countdownmail.com/4usmq3.gif?id=$2y$10$@d1Z7X/${email}" style="display: block; width: 100%; max-width: 280px; margin: 0 auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);" border="0" alt="L'offre expire bientôt"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -171,7 +175,6 @@ exports.handler = async (event) => {
     </html>
     `;
                                   
-
     // --- ENVOI VIA RESEND ---
     const { data: resendData, error } = await resend.emails.send({
         from: "OPTIFORM Titan Protocol <onboarding@resend.dev>", // Ton domaine quand tu seras prêt
@@ -193,3 +196,4 @@ exports.handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
   }
 };
+
