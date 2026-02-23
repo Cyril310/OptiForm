@@ -140,7 +140,7 @@ exports.handler = async (event) => {
 
     // --- ENVOI ---
     await resend.emails.send({
-        from: "Titan Access <vip@cyrilmangeolle.com>", // Ton domaine
+        from: "Titan Access <cyril41.mangeolle@gmail.com>", // Ton domaine
         to: email,
         subject: `🔒 Accès Titan : Déverrouillé`,
         html: htmlEmail,
