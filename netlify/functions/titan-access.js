@@ -2,20 +2,32 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Les autorisations pour débloquer le navigateur (CORS)
+const headers = {
+  "Access-Control-Allow-Origin": "*", // Autorise tous les domaines (tu pourras restreindre à ton site plus tard)
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS"
+};
+
 exports.handler = async (event) => {
-  // Sécurité : POST uniquement
+  // 1. Débloquer la requête de sécurité du navigateur (Évite le chargement infini)
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 200, headers, body: "OK" };
+  }
+
+  // 2. Sécurité : POST uniquement
   if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
+    return { statusCode: 405, headers, body: JSON.stringify({ error: "Méthode non autorisée" }) };
   }
 
   try {
     const data = JSON.parse(event.body);
     const { email } = data;
 
-    // LIEN DE PAIEMENT (Mets ici ton lien Stripe ou Zeeg pour l'offre à 100€)
+    // LIEN DE PAIEMENT
     const titanLink = "https://zeeg.me/cyril41mangeolle/acces-titan-privilege"; 
 
-    // --- TEMPLATE EMAIL "TITAN ELITE" (Design CSS Pur - Pas d'images lourdes) ---
+    // --- TEMPLATE EMAIL ---
     const htmlEmail = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,23 +38,18 @@ exports.handler = async (event) => {
         <meta name="supported-color-schemes" content="light dark">
         <title>Accès Titan Déverrouillé</title>
         <style>
-            /* Force le mode sombre même si le client mail est en clair */
             body, table, td { background-color: #000000 !important; color: #ffffff !important; }
             .btn-hover:hover { opacity: 0.9 !important; transform: scale(1.02) !important; }
         </style>
     </head>
     <body style="margin: 0; padding: 0; background-color: #000000; font-family: 'Courier New', Courier, monospace;">
-      
       <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #000000;">
         <tr>
           <td align="center" style="padding: 40px 10px;">
-            
             <table border="0" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; border: 1px solid #333333; background-color: #080808; box-shadow: 0 0 50px rgba(179, 135, 40, 0.1);">
-              
               <tr>
                 <td style="background: linear-gradient(90deg, #b38728 0%, #fcf6ba 50%, #aa771c 100%); height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
               </tr>
-              
               <tr>
                 <td align="center" style="padding: 40px 20px 20px;">
                     <div style="font-size: 48px; line-height: 1; margin-bottom: 15px; text-shadow: 0 0 20px rgba(179, 135, 40, 0.6);">🔒</div>
@@ -54,7 +61,6 @@ exports.handler = async (event) => {
                     </p>
                 </td>
               </tr>
-
               <tr>
                 <td align="center">
                     <table border="0" cellpadding="0" cellspacing="0" width="80%">
@@ -62,7 +68,6 @@ exports.handler = async (event) => {
                     </table>
                 </td>
               </tr>
-
               <tr>
                 <td align="center" style="padding: 30px 40px; color: #cccccc; font-size: 16px; line-height: 1.6;">
                   <p style="margin: 0 0 20px;">Félicitations.</p>
@@ -74,7 +79,6 @@ exports.handler = async (event) => {
                   </p>
                 </td>
               </tr>
-
               <tr>
                 <td align="center" style="padding: 0 30px 30px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #111111; border: 1px solid #b38728; border-radius: 8px;">
@@ -97,7 +101,6 @@ exports.handler = async (event) => {
                     </table>
                 </td>
               </tr>
-
               <tr>
                 <td align="center" style="padding: 0 0 40px;">
                     <a href="${titanLink}" target="_blank" style="
@@ -119,7 +122,6 @@ exports.handler = async (event) => {
                     </a>
                 </td>
               </tr>
-
               <tr>
                 <td style="background-color: #050505; border-top: 1px solid #222222; padding: 20px; text-align: center; color: #444444; font-size: 10px;">
                     <p style="margin: 0; font-family: monospace;">
@@ -129,7 +131,6 @@ exports.handler = async (event) => {
                     </p>
                 </td>
               </tr>
-
             </table>
             </td>
         </tr>
@@ -138,26 +139,25 @@ exports.handler = async (event) => {
     </html>
     `;
 
-        // --- ENVOI ---
+    // --- ENVOI ---
     const { data: resendData, error } = await resend.emails.send({
-        from: "Titan Access <onboarding@resend.dev>", 
+        from: "Titan Access <onboarding@resend.dev>", // Toujours onboarding@resend.dev pour le test
         to: email,
         subject: `🔒 Accès Titan : Déverrouillé`,
         html: htmlEmail,
     });
 
-    // Si l'API Resend renvoie une erreur (ex: domaine non vérifié)
+    // Gestion d'erreur propre
     if (error) {
         console.error("Erreur de l'API Resend:", error);
-        return { statusCode: 400, body: JSON.stringify({ error: error.message }) };
+        return { statusCode: 400, headers, body: JSON.stringify({ error: error.message }) };
     }
 
-    console.log(`✅ Mail Titan envoyé à ${email}. ID: ${resendData.id}`);
-    return { statusCode: 200, body: JSON.stringify({ message: "Transmission réussie" }) };
+    console.log(`✅ Mail Titan envoyé à ${email}.`);
+    return { statusCode: 200, headers, body: JSON.stringify({ message: "Transmission réussie" }) };
 
   } catch (error) {
-    console.error("Erreur Titan:", error);
-    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    console.error("Erreur critique:", error);
+    return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
   }
 };
-
