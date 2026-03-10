@@ -1319,156 +1319,156 @@
         }
         /* === MICRO-ANIMATIONS GLOBALES V2 === */
 
-/* Lien de nav actif */
-.nav-links a.active-link {
-  color: var(--primary-orange);
-}
-.nav-links a.active-link::after {
-  width: 100%;
-}
-
-/* Hero : léger parallax et respiration du H1 */
-.hero h1 {
-  animation: heroFadeUp 0.9s ease-out forwards;
-  opacity: 0;
-}
-.hero-subtitle {
-  animation: heroFadeUp 1.1s ease-out forwards;
-  opacity: 0;
-}
-@keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Cards génériques : hover subtil si pas déjà stylé */
-.concept-card,
-.review-card,
-.pricing-card,
-.mindset-block,
-.form-box {
-  transform-origin: center center;
-}
-.concept-card:hover,
-.review-card:hover,
-.pricing-card:hover,
-.mindset-block:hover,
-.form-box:hover {
-  transform: translateY(-4px);
-}
-
-/* Pricing : halo autour de la carte phare */
-.pricing-card.featured {
-  position: relative;
-}
-.pricing-card.featured::before {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 24px;
-  background: radial-gradient(circle at top, rgba(230,126,34,0.16), transparent 65%);
-  z-index: -1;
-}
-
-/* CTA principal : effet “breathing” très léger */
-.btn-primary {
-  position: relative;
-}
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 999px;
-  border: 1px solid rgba(230,126,34,0.5);
-  opacity: 0;
-}
-.btn-primary:hover::after {
-  opacity: 1;
-}
-
-/* === BARRE D'ÉTAPES DU TUNNEL (journey-bar) === */
-
-.journey-bar {
-  position: sticky;
-  top: 70px; /* juste sous ton header fixe */
-  z-index: 900;
-  background: rgba(249,246,242,0.96);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0,0,0,0.03);
-}
-
-.journey-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.4rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  overflow-x: auto;
-}
-
-.journey-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-light);
-  margin-right: 0.75rem;
-  white-space: nowrap;
-}
-
-.journey-step {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.9);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-  font-size: 0.75rem;
-  color: var(--text-light);
-  border: 1px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.journey-step-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: 2px solid rgba(43,95,127,0.5);
-  background: #fff;
-}
-
-.journey-step.active .journey-step-dot {
-  border-color: var(--primary-orange);
-  background: var(--primary-orange);
-}
-
-.journey-step.active {
-  color: var(--primary-blue);
-  font-weight: 600;
-  border-color: rgba(230,126,34,0.4);
-  background: #fff7ee;
-}
-
-.journey-step.passed {
-  color: var(--text-dark);
-}
-.journey-step.passed .journey-step-dot {
-  border-color: var(--success);
-  background: var(--success);
-}
-
-/* Mobile : barre plus compacte */
-@media (max-width: 768px) {
-  .journey-bar {
-    top: 56px;
-  }
-  .journey-label {
-    display: none;
-  }
-}
+        /* Lien de nav actif */
+        .nav-links a.active-link {
+          color: var(--primary-orange);
+        }
+        .nav-links a.active-link::after {
+          width: 100%;
+        }
+        
+        /* Hero : léger parallax et respiration du H1 */
+        .hero h1 {
+          animation: heroFadeUp 0.9s ease-out forwards;
+          opacity: 0;
+        }
+        .hero-subtitle {
+          animation: heroFadeUp 1.1s ease-out forwards;
+          opacity: 0;
+        }
+        @keyframes heroFadeUp {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Cards génériques : hover subtil si pas déjà stylé */
+        .concept-card,
+        .review-card,
+        .pricing-card,
+        .mindset-block,
+        .form-box {
+          transform-origin: center center;
+        }
+        .concept-card:hover,
+        .review-card:hover,
+        .pricing-card:hover,
+        .mindset-block:hover,
+        .form-box:hover {
+          transform: translateY(-4px);
+        }
+        
+        /* Pricing : halo autour de la carte phare */
+        .pricing-card.featured {
+          position: relative;
+        }
+        .pricing-card.featured::before {
+          content: "";
+          position: absolute;
+          inset: -6px;
+          border-radius: 24px;
+          background: radial-gradient(circle at top, rgba(230,126,34,0.16), transparent 65%);
+          z-index: -1;
+        }
+        
+        /* CTA principal : effet “breathing” très léger */
+        .btn-primary {
+          position: relative;
+        }
+        .btn-primary::after {
+          content: "";
+          position: absolute;
+          inset: -4px;
+          border-radius: 999px;
+          border: 1px solid rgba(230,126,34,0.5);
+          opacity: 0;
+        }
+        .btn-primary:hover::after {
+          opacity: 1;
+        }
+        
+        /* === BARRE D'ÉTAPES DU TUNNEL (journey-bar) === */
+        
+        .journey-bar {
+          position: sticky;
+          top: 70px; /* juste sous ton header fixe */
+          z-index: 900;
+          background: rgba(249,246,242,0.96);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+        
+        .journey-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0.4rem 1.5rem;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          overflow-x: auto;
+        }
+        
+        .journey-label {
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: var(--text-light);
+          margin-right: 0.75rem;
+          white-space: nowrap;
+        }
+        
+        .journey-step {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.3rem 0.8rem;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.9);
+          box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+          font-size: 0.75rem;
+          color: var(--text-light);
+          border: 1px solid transparent;
+          cursor: pointer;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        
+        .journey-step-dot {
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          border: 2px solid rgba(43,95,127,0.5);
+          background: #fff;
+        }
+        
+        .journey-step.active .journey-step-dot {
+          border-color: var(--primary-orange);
+          background: var(--primary-orange);
+        }
+        
+        .journey-step.active {
+          color: var(--primary-blue);
+          font-weight: 600;
+          border-color: rgba(230,126,34,0.4);
+          background: #fff7ee;
+        }
+        
+        .journey-step.passed {
+          color: var(--text-dark);
+        }
+        .journey-step.passed .journey-step-dot {
+          border-color: var(--success);
+          background: var(--success);
+        }
+        
+        /* Mobile : barre plus compacte */
+        @media (max-width: 768px) {
+          .journey-bar {
+            top: 56px;
+          }
+          .journey-label {
+            display: none;
+          }
+        }
 
         
     </style>
@@ -1476,6 +1476,43 @@
 <body>
 
     <div class="scroll-progress"></div>
+
+        <!-- BARRE D'ÉTAPES DU PARCOURS -->
+        <div class="journey-bar">
+          <div class="journey-inner">
+            <div class="journey-label">Parcours OptiForm</div>
+        
+            <button class="journey-step" data-target="accueil">
+              <span class="journey-step-dot"></span>
+              <span>1. Découverte</span>
+            </button>
+        
+            <button class="journey-step" data-target="concept">
+              <span class="journey-step-dot"></span>
+              <span>2. La Méthode</span>
+            </button>
+        
+            <button class="journey-step" data-target="temoignages">
+              <span class="journey-step-dot"></span>
+              <span>3. Résultats</span>
+            </button>
+        
+            <button class="journey-step" data-target="offres">
+              <span class="journey-step-dot"></span>
+              <span>4. Offres</span>
+            </button>
+        
+            <button class="journey-step" data-target="bilan-gratuit">
+              <span class="journey-step-dot"></span>
+              <span>5. Bilan Offert</span>
+            </button>
+        
+            <button class="journey-step" data-target="ambassadeur-titan">
+              <span class="journey-step-dot"></span>
+              <span>6. Espace Titan</span>
+            </button>
+          </div>
+        </div>
 
     <a href="#bilan-gratuit" id="mobile-cta" class="btn btn-primary sticky-mobile-cta">Je fais mon Bilan (Gratuit)</a>
 
@@ -2757,6 +2794,120 @@
                 progressBar.style.background = "#e74c3c";
             }
         }
+
+        /* ========== NAV ACTIVE + JOURNEY BAR ========== */
+
+        // Sections à suivre
+        const sectionIds = [
+          'accueil',
+          'a-propos',
+          'concept',
+          'temoignages',
+          'offres',
+          'bilan-gratuit',
+          'ambassadeur-titan'
+        ];
+        
+        const sections = sectionIds
+          .map(id => document.getElementById(id))
+          .filter(Boolean);
+        
+        const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+        const journeySteps = Array.from(document.querySelectorAll('.journey-step'));
+        
+        function setActiveBySectionId(sectionId) {
+          // Nav
+          navLinks.forEach(link => {
+            const href = link.getAttribute('href') || '';
+            const hash = href.startsWith('#') ? href.slice(1) : null;
+            if (hash && hash === sectionId) {
+              link.classList.add('active-link');
+            } else {
+              link.classList.remove('active-link');
+            }
+          });
+        
+          // Journey bar
+          let found = false;
+          journeySteps.forEach(step => {
+            const target = step.getAttribute('data-target');
+            if (target === sectionId) {
+              found = true;
+              step.classList.add('active');
+              step.classList.add('passed');
+            } else {
+              step.classList.remove('active');
+            }
+          });
+        
+          // Marquer les steps précédentes comme "passées"
+          let past = true;
+          journeySteps.forEach(step => {
+            const target = step.getAttribute('data-target');
+            if (past && target === sectionId) {
+              step.classList.add('passed');
+              past = false;
+            } else if (past) {
+              step.classList.add('passed');
+            }
+          });
+        }
+        
+        // IntersectionObserver pour détecter la section visible
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  const id = entry.target.id;
+                  if (sectionIds.includes(id)) {
+                    setActiveBySectionId(id);
+                  }
+                }
+              });
+            },
+            {
+              threshold: 0.4
+            }
+          );
+        
+          sections.forEach(sec => observer.observe(sec));
+        }
+        
+        // Click sur les steps = scroll smooth vers la section
+        journeySteps.forEach(step => {
+          step.addEventListener('click', () => {
+            const targetId = step.getAttribute('data-target');
+            const target = document.getElementById(targetId);
+            if (target) {
+              const top = target.getBoundingClientRect().top + window.scrollY - 80; // margin sous header
+              window.scrollTo({ top, behavior: 'smooth' });
+            }
+          });
+        });
+        
+        /* ========== EFFET TILT SUR LES CARTES D'OFFRES ========== */
+        
+        const tiltCards = document.querySelectorAll('.pricing-card');
+        
+        tiltCards.forEach(card => {
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; // X dans la carte
+            const y = e.clientY - rect.top;  // Y dans la carte
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+        
+            const rotateX = ((y - centerY) / centerY) * -4; // max ±4°
+            const rotateY = ((x - centerX) / centerX) * 4;
+        
+            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+          });
+        
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+          });
+        });
     </script>
 </body>
 </html>
