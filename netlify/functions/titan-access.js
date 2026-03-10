@@ -29,151 +29,227 @@ exports.handler = async (event) => {
     <!DOCTYPE html>
     <html lang="fr">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Accès Titan Déverrouillé</title>
-        <style>
-            body, table, td, div, p, a { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-            body { margin: 0; padding: 0; background-color: #050505 !important; color: #ffffff; }
-            .glow-button:hover {
-                transform: scale(1.05);
-                background: linear-gradient(135deg, #fcf6ba 0%, #b38728 100%) !important;
-                color: #000000 !important;
-            }
-        </style>
+      <meta charset="UTF-8" />
+      <title>Protocole Optiform TITAN – Accès Ambassadeur</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <style>
+        body, table, td, p, a { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        body { margin:0; padding:0; background-color:#050505 !important; color:#ffffff; }
+      </style>
     </head>
-    <body style="background-color: #050505; margin: 0; padding: 20px 0;">
-
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #050505;">
-            <tr>
-                <td align="center">
-                    
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #0a0a0a; border: 1px solid #222; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(179, 135, 40, 0.15);">
-                        
-                        <tr>
-                            <td style="background: linear-gradient(90deg, #b38728 0%, #fcf6ba 50%, #aa771c 100%); height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
-                        </tr>
-
-                        <tr>
-                            <td align="center" style="padding: 40px 20px 20px;">
-                                <div style="font-size: 50px; margin-bottom: 15px; text-shadow: 0 0 20px rgba(252, 246, 186, 0.6);">💎</div>
-                                <h1 style="color: #ffffff; margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 3px; font-weight: 800;">
-                                    STATUT <span style="color: #b38728;">AMBASSADEUR</span>
-                                </h1>
-                                <p style="color: #666666; font-size: 11px; text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; font-family: 'Courier New', monospace;">
-                                    Protocole TITAN // Accès Autorisé
-                                </p>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align="center" style="padding: 10px 40px 20px;">
-                                <a href="${titanLink}" target="_blank" style="display: block; text-decoration: none;">
-                                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop" width="100%" alt="Cyril Mangeolle" style="display: block; border-radius: 12px 12px 0 0; border: 1px solid #b38728; border-bottom: none;">
-                                    <div style="background: linear-gradient(135deg, #b38728 0%, #aa771c 100%); color: #000000; padding: 15px; border-radius: 0 0 12px 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border: 1px solid #b38728; border-top: none;">
-                                        ▶️ CLIQUER POUR VOIR LE MESSAGE VIDÉO
-                                    </div>
-                                </a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align="center" style="padding: 10px 40px 10px; color: #cccccc; font-size: 15px; line-height: 1.6; text-align: left;">
-                                <p style="margin: 0 0 15px;">
-                                    Votre code a été validé. Vous venez de débloquer l'accès à notre programme le plus élitiste : <strong style="color: #fcf6ba;">Le Pack Transformation "Legacy"</strong>.
-                                </p>
-                                <p style="margin: 0;">
-                                    En tant qu'Ambassadeur, vous bénéficiez d'une prise en charge de 50%.
-                                </p>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align="center" style="padding: 20px 30px;">
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background: linear-gradient(145deg, #111111, #080808); border: 1px solid #b38728; border-radius: 12px;">
-                                    <tr>
-                                        <td align="center" style="padding: 25px;">
-                                            <span style="text-decoration: line-through; color: #555555; font-size: 20px; font-weight: bold;">450€</span>
-                                            <br>
-                                            <span style="color: #ffffff; font-size: 55px; font-weight: 900; line-height: 1; text-shadow: 0 0 20px rgba(179, 135, 40, 0.4);">
-                                                225€
-                                            </span>
-                                            <br>
-                                            <span style="color: #888888; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;">Règlement unique</span>
-                                            
-                                            <div style="margin-top: 25px; border-top: 1px solid #333; padding-top: 20px;">
-                                                <p style="color: #e74c3c; font-size: 11px; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; margin: 0 0 10px;">⚠️ L'offre expire dans :</p>
-                                                
-                                                <table width="100%" border='0' cellspacing="0" cellpadding="0" style="margin-top: 15px;">
-                                                    <tr>
-                                                        <td align="center">
-                                                            <img src="https://i.countdownmail.com/4usmq3.gif?id=$2y$10$@d1Z7X/${email}" style="display: block; width: 100%; max-width: 280px; margin: 0 auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);" border="0" alt="L'offre expire bientôt"/>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td style="padding: 0 40px 20px;">
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="color: #dddddd; font-size: 14px; line-height: 1.5;">
-                                    <tr>
-                                        <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
-                                        <td valign="top" style="padding-bottom: 12px;"><strong>12 Semaines</strong> de programme évolutif IA & Humain</td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
-                                        <td valign="top" style="padding-bottom: 12px;"><strong>Plan Nutritionnel</strong> complet et sur-mesure</td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
-                                        <td valign="top" style="padding-bottom: 12px;"><strong>6 Entretiens Visio</strong> individuels</td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top" style="padding-bottom: 12px; width: 25px; color: #b38728; font-size: 16px;">✓</td>
-                                        <td valign="top" style="padding-bottom: 12px;">Module <strong>"Atomic Habits"</strong> & Accès WhatsApp <strong>7j/7</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top" style="padding-bottom: 12px; width: 25px; color: #fcf6ba; font-size: 16px;">🎁</td>
-                                        <td valign="top" style="padding-bottom: 12px; color: #fcf6ba;"><strong>Bonus VIP :</strong> Accès illimité à la bibliothèque E-books (Valeur 90€)</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align="center" style="padding: 10px 40px 40px;">
-                                <a href="${titanLink}" target="_blank" class="glow-button" style="
-                                    background: linear-gradient(135deg, #b38728 0%, #aa771c 100%);
-                                    color: #000000;
-                                    font-size: 15px;
-                                    font-weight: 900;
-                                    text-decoration: none;
-                                    text-transform: uppercase;
-                                    letter-spacing: 2px;
-                                    padding: 20px 40px;
-                                    border-radius: 4px;
-                                    display: inline-block;
-                                    border: 1px solid #fcf6ba;
-                                    box-shadow: 0 0 20px rgba(179, 135, 40, 0.4);
-                                ">
-                                    ACTIVER MON PASS TITAN
-                                </a>
-                            </td>
-                        </tr>
-
-                    </table>
+    <body style="background-color:#050505; margin:0; padding:24px 0;">
+    
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#050505;">
+        <tr>
+          <td align="center">
+    
+            <!-- CONTAINER -->
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px; background-color:#080808; border-radius:20px; border:1px solid #2b2b2b; overflow:hidden; box-shadow:0 0 40px rgba(0,0,0,0.7);">
+    
+              <!-- FILET OR -->
+              <tr>
+                <td style="height:3px; background:linear-gradient(90deg,#b38728,#fcf6ba,#aa771c); font-size:0; line-height:0;">&nbsp;</td>
+              </tr>
+    
+              <!-- HEADER TITAN -->
+              <tr>
+                <td align="center" style="padding:34px 24px 16px;">
+                  <div style="font-size:44px; margin-bottom:10px; text-shadow:0 0 18px rgba(252,246,186,0.7);">💎</div>
+                  <p style="margin:0 0 4px; font-size:11px; letter-spacing:3px; color:#8c8c8c; text-transform:uppercase;">
+                    Protocole Optiform // Niveau Élite
+                  </p>
+                  <h1 style="margin:4px 0 0; font-size:24px; text-transform:uppercase; letter-spacing:3px; color:#ffffff;">
+                    Statut <span style="color:#fcf6ba;">Ambassadeur</span> Activé
+                  </h1>
+                  <p style="margin:10px 0 0; font-size:12px; color:#aaaaaa;">
+                    Votre code a été validé. L’accès au <strong>Pack Transformation “Legacy”</strong> est désormais réservé pour vous.
+                  </p>
                 </td>
-            </tr>
-        </table>
+              </tr>
+    
+              <!-- VISUEL + BOUTON VIDÉO -->
+              <tr>
+                <td align="center" style="padding:10px 34px 6px;">
+                  <a href="${titanLink}" target="_blank" style="display:block; text-decoration:none;">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop" width="100%" alt="Séance de coaching haut niveau" style="display:block; border-radius:16px 16px 0 0; border:1px solid #b38728; border-bottom:none;">
+                    <div style="background:linear-gradient(135deg,#b38728,#fcf6ba,#aa771c); color:#000; padding:13px 12px; border-radius:0 0 16px 16px; font-weight:900; text-transform:uppercase; letter-spacing:1px; border:1px solid #b38728; border-top:none; font-size:13px;">
+                      ▶️ Cliquer pour voir le message vidéo
+                    </div>
+                  </a>
+                </td>
+              </tr>
+    
+              <!-- BLOC PRIX + COMPTE À REBOURS -->
+              <tr>
+                <td align="center" style="padding:12px 30px 4px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(145deg,#111111,#050505); border-radius:18px; border:1px solid #b38728;">
+                    <tr>
+                      <td align="center" style="padding:22px 18px 18px;">
+                        <p style="margin:0 0 4px; font-size:11px; color:#d3ac55; letter-spacing:2px; text-transform:uppercase;">
+                          Contribution Ambassadeur
+                        </p>
+                        <span style="display:block; text-decoration:line-through; color:#777777; font-size:18px; font-weight:600; margin-bottom:4px;">
+                          450€
+                        </span>
+                        <span style="display:block; color:#ffffff; font-size:46px; font-weight:900; line-height:1; text-shadow:0 0 22px rgba(179,135,40,0.5);">
+                          225€
+                        </span>
+                        <span style="display:block; color:#bbbbbb; font-size:11px; letter-spacing:1px; text-transform:uppercase; margin-top:4px;">
+                          Règlement unique – 50% pris en charge
+                        </span>
+    
+                        <div style="margin-top:18px; border-top:1px solid #2c2c2c; padding-top:14px;">
+                          <p style="margin:0 0 8px; color:#e74c3c; font-size:11px; text-transform:uppercase; font-weight:bold; letter-spacing:2px;">
+                            ⚠️ Offre temporaire
+                          </p>
+                          <p style="margin:0 0 10px; color:#999999; font-size:11px;">
+                            Une fois le compteur à zéro, le tarif Ambassadeur repasse automatiquement au prix standard.
+                          </p>
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center">
+                                <img src="https://i.countdownmail.com/4usmq3.gif?id=$2y$10$@d1Z7X/${email}"
+                                     alt="Compte à rebours de l'offre"
+                                     width="100%"
+                                     style="max-width:280px; display:block; border-radius:10px; box-shadow:0 0 16px rgba(0,0,0,0.7); border:1px solid #3a3a3a;">
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+    
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+    
+              <!-- CONTENU : CE QUE VOUS DÉBLOQUEZ -->
+              <tr>
+                <td style="padding:8px 34px 4px; color:#dddddd; font-size:14px; line-height:1.6;">
+                  <p style="margin:0 0 12px;">
+                    En activant ce statut, vous accédez au programme le plus structuré d’OptiForm&nbsp;:
+                    <strong style="color:#fcf6ba;">12 semaines pour changer définitivement votre physique, vos habitudes et votre niveau d’énergie.</strong>
+                  </p>
+                  <p style="margin:0 0 4px; font-size:12px; color:#999999; text-transform:uppercase; letter-spacing:1px;">
+                    Inclus dans votre accès Ambassadeur&nbsp;:
+                  </p>
+                </td>
+              </tr>
+    
+              <!-- LISTE DES AVANTAGES -->
+              <tr>
+                <td style="padding:0 34px 12px;">
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="color:#f0f0f0; font-size:13px; line-height:1.5;">
+                    <tr>
+                      <td style="padding:3px 0 3px 0; width:26px; color:#b38728; font-size:16px;" valign="top">✓</td>
+                      <td style="padding:3px 0;" valign="top">
+                        <strong>12 semaines</strong> de programme évolutif (IA + ajustements humains) pour coller à votre réalité.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:3px 0; width:26px; color:#b38728; font-size:16px;" valign="top">✓</td>
+                      <td style="padding:3px 0;" valign="top">
+                        <strong>Plan nutritionnel</strong> complet, compatible avec vos contraintes (travail, famille, horaires).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:3px 0; width:26px; color:#b38728; font-size:16px;" valign="top">✓</td>
+                      <td style="padding:3px 0;" valign="top">
+                        <strong>6 entretiens visio individuels</strong> pour recadrer, ajuster et garder le cap.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:3px 0; width:26px; color:#b38728; font-size:16px;" valign="top">✓</td>
+                      <td style="padding:3px 0;" valign="top">
+                        Module <strong>“Atomic Habits”</strong> pour rendre vos nouvelles habitudes quasi automatiques + accès WhatsApp <strong>7j/7</strong>.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:3px 0; width:26px; color:#fcf6ba; font-size:16px;" valign="top">🎁</td>
+                      <td style="padding:3px 0; color:#fcf6ba;" valign="top">
+                        <strong>Bonus VIP :</strong> Accès illimité à la bibliothèque d’e-books (valeur 90€) pour renforcer vos résultats.
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+    
+              <!-- MINI “PLAN EN 3 ÉTAPES” + CTA -->
+              <tr>
+                <td style="padding:4px 30px 20px;">
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:radial-gradient(circle at top,#1c1c1c 0,#050505 70%); border-radius:18px; border:1px solid #2a2a2a;">
+                    <tr>
+                      <td style="padding:20px 18px 10px; text-align:center;">
+                        <p style="margin:0 0 6px; font-size:11px; color:#d3ac55; text-transform:uppercase; letter-spacing:2px;">
+                          Comment ça va se passer
+                        </p>
+                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="font-size:12px; color:#e0e0e0;">
+                          <tr>
+                            <td style="padding:4px 4px;" valign="top">
+                              <strong style="color:#fcf6ba;">1.</strong> Vous validez votre accès via le bouton ci‑dessous.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:4px 4px;" valign="top">
+                              <strong style="color:#fcf6ba;">2.</strong> Vous recevez immédiatement la confirmation + le lien pour planifier votre premier rendez‑vous.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:4px 4px;" valign="top">
+                              <strong style="color:#fcf6ba;">3.</strong> On définit ensemble la stratégie complète (entrainement, nutrition, habitudes, récupération) et on lance la phase de transformation.
+                            </td>
+                          </tr>
+                        </table>
+    
+                        <div style="margin-top:16px;">
+                          <a href="${titanLink}" target="_blank" style="
+                            display:inline-block;
+                            background:linear-gradient(135deg,#b38728,#fcf6ba,#aa771c);
+                            color:#000000;
+                            font-size:14px;
+                            font-weight:900;
+                            text-decoration:none;
+                            text-transform:uppercase;
+                            letter-spacing:2px;
+                            padding:16px 34px;
+                            border-radius:6px;
+                            border:1px solid #fcf6ba;
+                            box-shadow:0 0 24px rgba(179,135,40,0.6);
+                          ">
+                            Activer mon pass TITAN
+                          </a>
+                          <p style="margin:8px 0 0; font-size:10px; color:#a0a0a0;">
+                            Votre lien est personnel. Une fois expiré, le tarif repasse automatiquement à 450€.
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+    
+              <!-- FOOTER -->
+              <tr>
+                <td align="center" style="padding:14px 20px 18px; background-color:#050505;">
+                  <p style="margin:0 0 4px; font-size:10px; color:#777777;">
+                    &copy; 2025 OptiForm – Protocole TITAN par Cyril Mangeolle.
+                  </p>
+                  <p style="margin:0; font-size:10px; color:#555555;">
+                    Vous recevez cet email car un accès Ambassadeur a été demandé avec cette adresse.
+                  </p>
+                </td>
+              </tr>
+    
+            </table>
+    
+          </td>
+        </tr>
+      </table>
+    
     </body>
     </html>
     `;
+
                                   
     // --- ENVOI VIA RESEND ---
     const { data: resendData, error } = await resend.emails.send({
